@@ -1,10 +1,10 @@
 import {Button} from "../components/ui/button.tsx";
-import {useState} from "react";
+import {SetStateAction, useState} from "react";
 
 export default function RegisterPage() {
     const [inputValue, setInputValue] = useState("");
 
-    const handleChange = (event) => {
+    const handleChange = (event: { target: { value: SetStateAction<string>; }; }) => {
         setInputValue(event.target.value);
     };
     return (

@@ -1,5 +1,5 @@
-import {useState} from "react";
-import {NavLink, useNavigate} from "react-router";
+import {SetStateAction, useState} from "react";
+import {useNavigate} from "react-router";
 import {Input} from "@/components/ui/input"
 import logo from "/src/assets/GNUF.svg";
 
@@ -7,7 +7,7 @@ import logo from "/src/assets/GNUF.svg";
 export default function LoginPage() {
     const [inputValue, setInputValue] = useState("");
 
-    const handleChange = (event) => {
+    const handleChange = (event: { target: { value: SetStateAction<string>; }; }) => {
         setInputValue(event.target.value);
     };
 
