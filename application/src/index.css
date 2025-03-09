@@ -2,31 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-.input {
-    :where(input) {
-        @apply inline-flex h-full w-full appearance-none bg-transparent outline-0;
-        border: none;
-
-        &:focus,
-        &:focus-within {
-            @apply outline-none;
-        }
-    }
-
-    /* Set initial values for both properties */
-    outline: 1px solid white;
-    outline-offset: 0px;
-    transition: outline 150ms cubic-bezier(0.4, 0, 0.2, 1),
-    outline-offset 150ms cubic-bezier(0.4, 0, 0.2, 1);
-
-    &:focus,
-    &:focus-within {
-        outline: 2px solid white;
-        outline-offset: 2px;
-        isolation: isolate;
-    }
+input::-moz-focus-inner,
+input::-moz-focus-outer {
+    border: 0 !important;
+    outline: none !important;
 }
-
 
 /*:root {*/
 /*  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;*/
