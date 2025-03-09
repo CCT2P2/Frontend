@@ -2,6 +2,7 @@ import {useState} from "react";
 import {NavLink, useNavigate} from "react-router";
 import {Input} from "@/components/ui/input"
 import logo from "/src/assets/GNUF.svg";
+import {Label} from "@/components/ui/label.tsx";
 
 
 export default function LoginPage() {
@@ -22,7 +23,7 @@ export default function LoginPage() {
     };
     return (
 
-        <div className={"flex flex-col items-center justify-center h-[calc(100vh-5rem)]"}>
+        <div className={"font-inter flex flex-col items-center justify-center h-[calc(100vh-5rem)]"}>
             <div
                 className={"w-96 mx-auto align-middle border-2 border-purple-400 rounded-3xl p-10 pt-4 relative bg-black group focus-within:something"}>
                 <div
@@ -30,42 +31,51 @@ export default function LoginPage() {
                 <div className={"flex justify-center mb-4"}>
                     <img className={"p-2 w-[50%]"} src={logo} alt="Home"/>
                 </div>
-                <h1 className={"text-3xl"}>Login</h1>
-                <div className={"relative"}>
-                    <Input
-                        type="text"
-                        value={inputValue}
-                        onChange={handleChange}
-                        className="peer bg-black z-20 mt-2 p-2 rounded-2xl border-white w-full my-4 outline-none focus:border-purple-400"
-                        placeholder="Username"
-                    />
-                    <div
-                        className={"peer-[:focus]:bg-purple-300/50 bg-purple-400/10 absolute inset-[0%] z-10 blur-[8px] rounded-xl transition duration-500 ease-out"}></div>
+                <h1 className={"text-2xl font-bold"}>Log in</h1>
+                <div className={"my-6 grid gap-2"}>
+                    <Label htmlFor={"username"} className={"ml-2"}>Username</Label>
+                    <div className={"relative"}>
+                        <Input
+                            type="text"
+                            value={inputValue}
+                            onChange={handleChange}
+                            className="peer bg-black z-20 rounded-2xl w-full outline-none focus:border-purple-400"
+                            placeholder="Username"
+                            id={"username"}
+                        />
+                        <div
+                            className={"peer-[:focus]:bg-purple-300/50 bg-purple-400/10 absolute inset-[0%] z-10 blur-[8px] rounded-xl transition duration-500 ease-out"}></div>
+                    </div>
                 </div>
-                <div className={"relative"}>
-                    <Input
-                        type="password"
-                        value={inputValue}
-                        onChange={handleChange}
-                        className="peer bg-black z-20 mt-2 p-2 rounded-2xl border-white w-full outline-none focus:border-purple-400"
-                        placeholder="Password"
-                    />
-                    <div
-                        className={"peer-[:focus]:bg-purple-300/50 bg-purple-400/10 absolute inset-[0%] z-10 blur-[8px] rounded-xl transition duration-500 ease-out"}></div>
+                <div className={"mt-6 grid gap-2"}>
+                    <Label htmlFor={"password"} className={"ml-2"}>Password</Label>
+                    <div className={"relative"}>
+                        <Input
+                            type="password"
+                            value={inputValue}
+                            onChange={handleChange}
+                            className="peer bg-black z-20 rounded-2xl w-full outline-none focus:border-purple-400"
+                            placeholder="Password"
+                            id={"password"}
+                        />
+                        <div
+                            className={"peer-[:focus]:bg-purple-300/50 bg-purple-400/10 absolute inset-[0%] z-10 blur-[8px] rounded-xl transition duration-500 ease-out"}></div>
+                    </div>
                 </div>
-                <a className={"text-purple-300/60 text-xs"} href={"https://cornhub.website"}>Forgot your
+                <a className={"text-purple-300 text-xs ml-2"} href={"https://cornhub.website"}>Forgot your
                     password?</a>
-                <div className={"flex justify-center gap-8 mt-10"}>
+                <div className={"flex flex-col justify-center gap-8 mt-10"}>
                     <button
                         onClick={home_redirect}
-                        className="px-4 py-2 bg-green-500 text-white rounded hover:bg-purple-300 transition-all duration-500">
-                        Login
+                        className="px-4 py-2 bg-black border-2 text-blue-300 rounded-2xl border-blue-300 hover:text-black hover:bg-blue-300 transition-all duration-200">
+                        Log in
                     </button>
-                    <button
-                        onClick={login_redirect}
-                        className="px-4 py-2 bg-blue-500 text-white rounded">
-                        Sign Up!
-                    </button>
+                    <div className="text-center text-sm">
+                        Don&apos;t have an account?{" "}
+                        <a href="/register" className="underline underline-offset-4 text-purple-300">
+                            Sign up
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
