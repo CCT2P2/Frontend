@@ -9,11 +9,11 @@ export default function LoginPage() {
     const [errorMessage, dispatch] = useActionState(signIn, undefined)
 
     return (
-        <div className={"font-inter flex flex-col items-center justify-center h-[calc(100vh-5rem)]"}>
+        <div className={"font-inter flex flex-col items-center justify-center h-screen"}>
             <form action={dispatch}
                   className={"w-96 mx-auto align-middle border-2 border-purple-400 rounded-3xl p-10 pt-4 relative bg-black group focus-within:something"}>
                 <div
-                    className={"absolute bg-purple-300/30 w-[103%] h-[104%] -left-2 -top-2 -z-50 blur-md rounded-xl"}></div>
+                    className={"absolute bg-purple-300/30 w-[103%] h-[103%] -left-2 -top-2 -z-50 blur-md rounded-xl"}></div>
                 <div className={"flex justify-center mb-4"}>
                     <img className={"p-2 w-[50%]"} src={logo} alt="Home"/>
                 </div>
