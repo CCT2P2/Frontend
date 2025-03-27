@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import {defineConfig} from 'vite'
 import react from '@vitejs/plugin-react'
 import path from "path"
 
@@ -16,6 +16,7 @@ export default defineConfig({
                 target: "https://localhost:9012/api",
                 changeOrigin: true,
             }
-        }
+        },
+        allowedHosts: ["gnuf.online"],
     }
 })
