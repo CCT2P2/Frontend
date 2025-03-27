@@ -1,9 +1,9 @@
-import logo from "*.svg";
 import {Label} from "@radix-ui/react-label";
 import {Input} from "@/components/ui/input.tsx";
 import {Checkbox} from "@/components/ui/checkbox.tsx";
 import {useActionState} from "react";
-import {createAccount, signIn, SignupState} from "@/lib/actions.ts";
+import {createAccount} from "@/lib/actions.ts";
+import logo from "/src/assets/GNUF.svg";
 
 export default function RegisterForm() {
     const [errorMessage, dispatch] = useActionState(createAccount, {})
@@ -24,6 +24,7 @@ export default function RegisterForm() {
                             type="text"
                             className="peer bg-black z-20 rounded-2xl w-full outline-none focus:border-purple-400"
                             placeholder="Username"
+                            name={"username"}
                             id={"username"}
                             required
                         />
@@ -41,6 +42,7 @@ export default function RegisterForm() {
                             type="email"
                             className="peer bg-black z-20 rounded-2xl w-full outline-none focus:border-purple-400"
                             placeholder="Email"
+                            name={"email"}
                             id={"email"}
                             required
                         />
@@ -55,6 +57,7 @@ export default function RegisterForm() {
                             type="password"
                             className="peer bg-black z-20 rounded-2xl w-full outline-none focus:border-purple-400"
                             placeholder="Password"
+                            name={"password"}
                             id={"password"}
                             required
                         />
