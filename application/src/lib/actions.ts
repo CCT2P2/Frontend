@@ -42,7 +42,7 @@ export interface SignupState {
     userId?: null,
 }
 
-export async function createAccount(prevState: { error?: unknown } | undefined, formData: FormData) {
+export async function createAccount(_prevState: SignupState, formData: FormData): Promise<SignupState> {
     const validatedField = CreateAccountSchema.safeParse({
         username: formData.get('username'),
         email: formData.get('email'),

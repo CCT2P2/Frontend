@@ -3,11 +3,10 @@ import {Label} from "@radix-ui/react-label";
 import {Input} from "@/components/ui/input.tsx";
 import {Checkbox} from "@/components/ui/checkbox.tsx";
 import {useActionState} from "react";
-import {signIn, SignupState} from "@/lib/actions.ts";
+import {createAccount, signIn, SignupState} from "@/lib/actions.ts";
 
 export default function RegisterForm() {
-    const initialState: SignupState = {message: null, error: {}}
-    const [errorMessage, dispatch] = useActionState(signIn, initialState)
+    const [errorMessage, dispatch] = useActionState(createAccount, {})
     return (
         <form action={dispatch}
               className={"w-[28rem] mx-auto align-middle border-2 border-purple-400 rounded-3xl p-10 pt-4 relative bg-black group focus-within:something"}>
