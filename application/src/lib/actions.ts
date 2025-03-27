@@ -1,4 +1,7 @@
+'use server'
+
 import {z} from "zod";
+import {UserRegistrationRequest, UserRegistrationResponse} from "@/lib/apiTypes.ts";
 
 export async function signIn(prevState: string | undefined, formData: FormData) {
     const username = formData.get('username');
@@ -16,7 +19,7 @@ export async function signIn(prevState: string | undefined, formData: FormData) 
 const CreateAccountSchema = z.object({
     username: z
         .string()
-        .min(3, {message: 'Username must be at least 3 characters'})
+        .min(1, {message: 'Username must be at least 3 characters'})
         .max(20, {message: 'Username must not be more than 20 characters'})
         .regex(/^[a-zA-Z0-9_]+$/, {message: 'Username can only contain letters, numbers and underscores'}),
 
@@ -27,9 +30,19 @@ const CreateAccountSchema = z.object({
     password: z
         .string()
         .min(6, {message: 'Password must be at least 6 characters'})
-})
+});
 
-export async function createAccount(prevState: string | undefined, formData: FormData) {
+export interface SignupState {
+    error?: {
+        username?: string[],
+        email?: string[],
+        password?: string[],
+    },
+    message?: string | null,
+    userId?: null,
+}
+
+export async function createAccount(prevState: { error?: unknown } | undefined, formData: FormData) {
     const validatedField = CreateAccountSchema.safeParse({
         username: formData.get('username'),
         email: formData.get('email'),
@@ -43,7 +56,28 @@ export async function createAccount(prevState: string | undefined, formData: For
         }
     }
 
-    // TODO
+    const requestData: UserRegistrationRequest = {
+        username: validatedField.data.username,
+        email: validatedField.data.email,
+        password: validatedField.data.password,
+    }
+
+    const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData),
+    });
+
+    if (response.status !== 200) {
+        return {
+            message: `Error creating account: ${response.status}`
+        }
+    }
+
+    const responseData: UserRegistrationResponse = await response.json()
+    return {userId: responseData.user_id}
 }
 
 // Create Post -------------------------------------------------------------
