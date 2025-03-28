@@ -1,5 +1,4 @@
 import {Label} from "@radix-ui/react-label";
-import {Input} from "@/components/ui/input.tsx";
 import {Checkbox} from "@/components/ui/checkbox.tsx";
 import {useActionState} from "react";
 import {createAccount} from "@/lib/actions.ts";
@@ -25,7 +24,7 @@ export default function RegisterForm() {
             </div>
             <div className={"flex gap-2 mt-6 items-center"}>
                 <Checkbox id={"age"} required/>
-                <Label htmlFor={"age"}>I agree that I am above the age of 16</Label>
+                <Label htmlFor={"age"}>I confirm that I am above the age of 16</Label>
             </div>
             <div className={"flex gap-2 mt-4 items-center"}>
                 <Checkbox id={"tos"} required/>
@@ -33,7 +32,7 @@ export default function RegisterForm() {
             </div>
             <div className={"flex flex-col justify-center gap-8 mt-10"}>
                 <button
-                    className="px-4 py-2 bg-black border-2 text-blue-300 rounded-2xl border-blue-300 hover:text-black hover:bg-blue-300 transition-all duration-200">
+                    className="px-4 py-2 bg-black border-2 text-purple-300 rounded-2xl border-purple-300 hover:text-black hover:bg-purple-300 transition-all duration-200">
                     Register
                 </button>
                 <div className="text-center text-sm">

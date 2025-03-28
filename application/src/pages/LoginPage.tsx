@@ -65,7 +65,7 @@ export default function LoginPage() {
                     password?</a>
                 <div className={"flex flex-col justify-center gap-8 mt-10"}>
                     <button
-                        className="px-4 py-2 bg-black border-2 text-blue-300 rounded-2xl border-blue-300 hover:text-black hover:bg-blue-300 transition-all duration-200">
+                        className="px-4 py-2 bg-black border-2 text-purple-300 rounded-2xl border-purple-300 hover:text-black hover:bg-purple-300 transition-all duration-200">
                         Log in
                     </button>
                     <div className="text-center text-sm">
