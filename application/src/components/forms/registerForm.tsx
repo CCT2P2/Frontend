@@ -1,7 +1,7 @@
 import {Label} from "@radix-ui/react-label";
 import {Checkbox} from "@/components/ui/checkbox.tsx";
 import {useActionState} from "react";
-import {createAccount} from "@/lib/actions.ts";
+import {createAccount} from "@/lib/actions/createAccount.ts";
 import logo from "/src/assets/GNUF.svg";
 import {RegisterFormInput} from "@/components/forms/formComponents.tsx";
 

@@ -1,9 +1,9 @@
 import {Label} from "@radix-ui/react-label";
 import {Input} from "@/components/ui/input.tsx";
-import {SignupState} from "@/lib/actions.ts";
+import {CreateAccountState} from "@/lib/actions/createAccount.ts";
 
 interface RegisterFormInputProps {
-    formState: SignupState;
+    formState: CreateAccountState;
     fieldName: "username" | "email" | "password" | "confirmPassword";
     label: string;
 }
@@ -15,9 +15,17 @@ const inputTypeMap = {
     confirmPassword: "password"
 };
 
+const placeholderMap = {
+    username: "Username",
+    email: "name@example.com",
+    password: "password",
+    confirmPassword: "password"
+}
+
 
 export function RegisterFormInput({ formState, fieldName, label }: RegisterFormInputProps) {
     const inputType = inputTypeMap[fieldName];
+    const placeholder = placeholderMap[fieldName];
 
 
     return (
@@ -27,7 +35,7 @@ export function RegisterFormInput({ formState, fieldName, label }: RegisterFormI
                 <Input
                     type={inputType}
                     className="peer bg-black z-20 rounded-2xl w-full outline-none focus:border-purple-400"
-                    placeholder="Username"
+                    placeholder={placeholder}
                     name={fieldName}
                     id={fieldName}
                     defaultValue={formState.fieldsState?.[fieldName]}

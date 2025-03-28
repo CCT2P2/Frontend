@@ -4,7 +4,7 @@ import {Input} from "@/components/ui/input"
 import logo from "/src/assets/GNUF.svg";
 import {Label} from "@/components/ui/label.tsx";
 import {useActionState} from "react";
-import {signIn} from "@/lib/actions.ts";
+import {signIn} from "@/lib/actions/createAccount.ts";
 
 
 export default function LoginPage() {

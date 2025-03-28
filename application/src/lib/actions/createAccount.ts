@@ -2,19 +2,7 @@
 
 import {z} from "zod";
 import {UserRegistrationRequest, UserRegistrationResponse} from "@/lib/apiTypes.ts";
-
-export async function signIn(prevState: string | undefined, formData: FormData) {
-    const username = formData.get('username');
-    const password = formData.get('password');
-
-    try {
-        // TODO
-    } catch (error) {
-        return {error: error};
-    }
-}
-
-// Create account -------------------------------------------------------------
+import {getFieldStates} from "@/lib/actions/actionsHelperFunctions.ts";
 
 // Schema to validate fields based on. Message is the error message shown to the user if the requirement is not met
 const CreateAccountSchema = z.object({
@@ -46,7 +34,7 @@ const CreateAccountSchema = z.object({
 // - message is the general error message, not shown to the user (just at the moment, we should probably show this too)
 // - userId is the user id of the created user, which is returned if the registration succeeds. no idea if we
 // actually need this, but i just included it for now lol
-export interface SignupState {
+export interface CreateAccountState {
     errors?: {
         username?: string[],
         email?: string[],
@@ -63,9 +51,9 @@ export interface SignupState {
     userId?: number,
 }
 
-export async function createAccount(_prevState: SignupState, formData: FormData): Promise<SignupState> {
+export async function createAccount(_prevState: CreateAccountState, formData: FormData): Promise<CreateAccountState> {
     // uses the validationSchema to parse the data from the form.
-    const validatedField = CreateAccountSchema.safeParse({
+    const validatedFields = CreateAccountSchema.safeParse({
         username: formData.get('username'),
         email: formData.get('email'),
         password: formData.get('password'),
@@ -73,24 +61,15 @@ export async function createAccount(_prevState: SignupState, formData: FormData)
     });
 
     // if input isnt return error messages and keep field states
-    if (!validatedField.success) {
-        const fields: Record<string, string> = {}
-        for (const [key, value] of formData.entries()) {
-            fields[key] = value.toString()
-        }
-
-        return {
-            errors: validatedField.error.flatten().fieldErrors,
-            fieldsState: fields,
-            message: 'Missing or invalid fields, failed to create account'
-        }
+    if (!validatedFields.success) {
+        return getFieldStates(formData, validatedFields)
     }
 
     // gets the data required for the request ready
     const requestData: UserRegistrationRequest = {
-        username: validatedField.data.username,
-        email: validatedField.data.email,
-        password: validatedField.data.password,
+        username: validatedFields.data.username,
+        email: validatedFields.data.email,
+        password: validatedFields.data.password,
     }
 
     // post request to backend api to create new account
@@ -103,7 +82,7 @@ export async function createAccount(_prevState: SignupState, formData: FormData)
     });
 
     // any other status than 201 means there was an error, so it gets returned
-    if (response.status !== 201) {
+    if (!response.ok) {
         return {
             message: `Error creating account: ${response.status}`
         }
@@ -112,62 +91,4 @@ export async function createAccount(_prevState: SignupState, formData: FormData)
     // converts response to json and returns user id
     const responseData: UserRegistrationResponse = await response.json()
     return {userId: responseData.user_id}
-}
-
-// Create Post -------------------------------------------------------------
-
-const createPostSchema = z.object({
-    title: z
-        .string()
-        .min(3, {message: 'Post title must be at least 3 characters'})
-        .max(100, {message: 'Post title must not be more than 100 characters'}),
-
-    content: z
-        .string()
-        .max(10000, {message: 'Post content myst not be more than 10,000 characters'}),
-});
-
-export async function createPost(prevState: string | undefined, formData: FormData) {
-    const validatedField = createPostSchema.safeParse({
-        title: formData.get('title'),
-        content: formData.get('content'),
-    })
-
-    if (!validatedField.success) {
-        return {
-            errors: validatedField.error.flatten().fieldErrors,
-            message: 'Missing or invalid fields, failed to create account'
-        }
-    }
-
-    // TODO
-}
-
-// Create community -------------------------------------------------------------
-
-const createCommunitySchema = z.object({
-    name: z
-        .string()
-        .min(3, {message: 'Community name must be at least 3 characters'})
-        .max(100, {message: 'Community name must not be more than 100 characters'}),
-
-    description: z
-        .string()
-        .max(500, {message: 'Community description must not be more than 500 characters'}),
-});
-
-export async function createCommunity(prevState: string | undefined, formData: FormData) {
-    const validatedField = createCommunitySchema.safeParse({
-        name: formData.get('name'),
-        description: formData.get('description'),
-    });
-
-    if (!validatedField.success) {
-        return {
-            errors: validatedField.error.flatten().fieldErrors,
-            message: 'Missing or invalid fields, failed to create account'
-        }
-    }
-
-    // TODO
 }
