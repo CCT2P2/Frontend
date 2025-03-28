@@ -102,8 +102,8 @@ export async function createAccount(_prevState: SignupState, formData: FormData)
         body: JSON.stringify(requestData),
     });
 
-    // any other status than 200 means there was an error, so it gets returned
-    if (response.status !== 200) {
+    // any other status than 201 means there was an error, so it gets returned
+    if (response.status !== 201) {
         return {
             message: `Error creating account: ${response.status}`
         }
