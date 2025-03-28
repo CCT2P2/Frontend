@@ -18,7 +18,6 @@ export default function RegisterForm() {
             </div>
             <h1 className={"text-2xl font-bold"}>Register</h1>
             <div className={"flex flex-col gap-4 mt-4"}>
-
                 <RegisterFormInput formState={formState} fieldName={"username"} label={"Username"}/>
                 <RegisterFormInput formState={formState} fieldName={"email"} label={"Email"}/>
                 <RegisterFormInput formState={formState} fieldName={"password"} label={"Password"}/>
