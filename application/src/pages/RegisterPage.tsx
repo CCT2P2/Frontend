@@ -1,4 +1,4 @@
-import RegisterForm from "@/components/auth/registerForm.tsx";
+import RegisterForm from "@/components/forms/registerForm.tsx";
 
 export default function RegisterPage() {
     return (
