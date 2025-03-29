@@ -1,5 +1,3 @@
-'use server'
-
 import {z} from "zod";
 import {UserRegistrationRequest, UserRegistrationResponse} from "@/lib/apiTypes.ts";
 import {getFieldStates} from "@/lib/actions/actionsHelperFunctions.ts";

@@ -3,9 +3,13 @@ import {Checkbox} from "@/components/ui/checkbox.tsx";
 import {useActionState} from "react";
 import {createAccount} from "@/lib/actions/createAccount.ts";
 import logo from "/src/assets/GNUF.svg";
-import {RegisterFormInput} from "@/components/forms/formComponents.tsx";
+import {AccountFormInput} from "@/components/forms/formComponents.tsx";
 
 export default function RegisterForm() {
+    // uses the useActionState hook to initialize form state and a dispatch function
+    // formState is the current state of the form, stuff like validation errors and whats in the different input fields
+    // dispatch is a function that allows triggering the createAccount action with the form data when its submitted
+    // the data given to createAccount is based on the `name` of the inputs
     const [formState, dispatch] = useActionState(createAccount, {})
     return (
         <form action={dispatch}
@@ -17,10 +21,10 @@ export default function RegisterForm() {
             </div>
             <h1 className={"text-2xl font-bold"}>Register</h1>
             <div className={"flex flex-col gap-4 mt-4"}>
-                <RegisterFormInput formState={formState} fieldName={"username"} label={"Username"}/>
-                <RegisterFormInput formState={formState} fieldName={"email"} label={"Email"}/>
-                <RegisterFormInput formState={formState} fieldName={"password"} label={"Password"}/>
-                <RegisterFormInput formState={formState} fieldName={"confirmPassword"} label={"Confirm Password"}/>
+                <AccountFormInput formState={formState} fieldName={"username"} label={"Username"}/>
+                <AccountFormInput formState={formState} fieldName={"email"} label={"Email"}/>
+                <AccountFormInput formState={formState} fieldName={"password"} label={"Password"}/>
+                <AccountFormInput formState={formState} fieldName={"confirmPassword"} label={"Confirm Password"}/>
             </div>
             <div className={"flex gap-2 mt-6 items-center"}>
                 <Checkbox id={"age"} required/>

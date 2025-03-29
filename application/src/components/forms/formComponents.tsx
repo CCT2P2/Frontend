@@ -23,7 +23,7 @@ const placeholderMap = {
 }
 
 
-export function RegisterFormInput({ formState, fieldName, label }: RegisterFormInputProps) {
+export function AccountFormInput({ formState, fieldName, label }: RegisterFormInputProps) {
     const inputType = inputTypeMap[fieldName];
     const placeholder = placeholderMap[fieldName];
 
