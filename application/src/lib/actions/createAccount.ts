@@ -1,6 +1,6 @@
 import {z} from "zod";
 import {UserRegistrationRequest, UserRegistrationResponse} from "@/lib/apiTypes.ts";
-import {getFieldStates} from "@/lib/actions/actionsHelperFunctions.ts";
+import {generateFormErrorResponse} from "@/lib/actions/actionsHelperFunctions.ts";
 
 // Schema to validate fields based on. Message is the error message shown to the user if the requirement is not met
 const CreateAccountSchema = z.object({
@@ -34,19 +34,19 @@ const CreateAccountSchema = z.object({
 // actually need this, but i just included it for now lol
 export interface CreateAccountState {
     errors?: {
-        username?: string[],
-        email?: string[],
-        password?: string[],
-        confirmPassword?: string[],
-    },
+        username?: string[];
+        email?: string[];
+        password?: string[];
+        confirmPassword?: string[];
+    };
     fieldsState?: {
-        username?: string,
-        email?: string,
-        password?: string,
-        confirmPassword?: string,
-    }
-    message?: string | null,
-    userId?: number,
+        username?: string;
+        email?: string;
+        password?: string;
+        confirmPassword?: string;
+    };
+    message?: string | null;
+    userId?: number;
 }
 
 export async function createAccount(_prevState: CreateAccountState, formData: FormData): Promise<CreateAccountState> {
@@ -60,7 +60,7 @@ export async function createAccount(_prevState: CreateAccountState, formData: Fo
 
     // if input isnt return error messages and keep field states
     if (!validatedFields.success) {
-        return getFieldStates(formData, validatedFields)
+        return generateFormErrorResponse(formData, validatedFields)
     }
 
     // gets the data required for the request ready
@@ -83,7 +83,7 @@ export async function createAccount(_prevState: CreateAccountState, formData: Fo
     if (!response.ok) {
         return {
             message: `Error creating account: ${response.status}`
-        }
+        };
     }
 
     // converts response to json and returns user id

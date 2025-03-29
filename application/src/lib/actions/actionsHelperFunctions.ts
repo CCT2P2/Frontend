@@ -1,6 +1,6 @@
 import {z} from "zod";
 
-export function getFieldStates(formData: FormData, validatedFields: z.SafeParseError<any>) {
+export function generateFormErrorResponse(formData: FormData, validatedFields: z.SafeParseError<any>) {
     const fields: Record<string, string> = {}
     for (const [key, value] of formData.entries()) {
         fields[key] = value.toString()

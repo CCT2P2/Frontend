@@ -1,5 +1,5 @@
 import {z} from "zod";
-import {getFieldStates} from "@/lib/actions/actionsHelperFunctions.ts";
+import {generateFormErrorResponse} from "@/lib/actions/actionsHelperFunctions.ts";
 import {UserLoginRequest, UserLoginResponse} from "@/lib/apiTypes.ts";
 
 // for comments on how this works go to createAccount.ts, basically same logic
@@ -13,15 +13,15 @@ const LoginSchema = z.object({
 
 export interface LoginState {
     errors?: {
-        username?: string[],
-        password?: string[],
-    },
+        username?: string[];
+        password?: string[];
+    };
     fieldsState?: {
-        username?: string,
-        password?: string,
-    }
-    message?: string | null,
-    userId?: number,
+        username?: string;
+        password?: string;
+    };
+    message?: string | null;
+    userId?: number;
 }
 
 export async function login(_prevState: LoginState, formData: FormData): Promise<LoginState> {
@@ -31,7 +31,7 @@ export async function login(_prevState: LoginState, formData: FormData): Promise
     });
 
     if (!validatedFields.success) {
-        return getFieldStates(formData, validatedFields)
+        return generateFormErrorResponse(formData, validatedFields)
     }
 
     const requestData: UserLoginRequest = {
