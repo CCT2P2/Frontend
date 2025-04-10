@@ -1,4 +1,4 @@
-import {GetUserProfileResponse} from "@/lib/apiTypes.ts";
+import {GetUserProfileResponse} from "@/lib/apiTypes";
 
 export async function getUserProfile(userId: string): Promise<{
     responseCode: number,

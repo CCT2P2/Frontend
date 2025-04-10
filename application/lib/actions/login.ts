@@ -1,6 +1,6 @@
 import {z} from "zod";
-import {generateFormErrorResponse} from "@/lib/actions/actionsHelperFunctions.ts";
-import {UserLoginRequest, UserLoginResponse} from "@/lib/apiTypes.ts";
+import {generateFormErrorResponse} from "@/lib/actions/actionsHelperFunctions";
+import {UserLoginRequest, UserLoginResponse} from "@/lib/apiTypes";
 
 // for comments on how this works go to createAccount.ts, basically same logic
 const LoginSchema = z.object({

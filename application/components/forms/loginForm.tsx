@@ -6,11 +6,12 @@ import {AccountFormInput} from "@/components/forms/formComponents";
 import Image from "next/image";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {Button} from "@/components/ui/button";
+import Link from "next/dist/client/app-dir/link";
 
 export default function LoginForm() {
     const [formState, dispatch] = useActionState(login, {})
     return (
-        <Card className={"w-96 relative"}>
+        <Card className={"w-96 relative py-8"}>
             <div
                 className={"absolute bg-secondary/20 w-[103%] h-[101.7%] -left-2 -top-2 -z-50 blur-md rounded-3xl"}></div>
             <CardHeader>
@@ -69,9 +70,9 @@ export function OldLoginForm() {
                 </button>
                 <div className="text-center text-sm">
                     Don&apos;t have an account?{" "}
-                    <a href="/register" className="underline underline-offset-4 text-purple-300">
+                    <Link href="/register" className="underline underline-offset-4 text-purple-300">
                         Sign up
-                    </a>
+                    </Link>
                 </div>
             </div>
         </form>

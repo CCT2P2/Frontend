@@ -8,6 +8,7 @@ import {AccountFormInput} from "@/components/forms/formComponents";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import Image from "next/image";
 import {Button} from "@/components/ui/button";
+import Link from "next/dist/client/app-dir/link";
 
 export default function RegisterForm() {
     // uses the useActionState hook to initialize form state and a dispatch function
@@ -16,7 +17,7 @@ export default function RegisterForm() {
     // the data given to createAccount is based on the `name` of the inputs
     const [formState, dispatch] = useActionState(createAccount, {})
     return (
-        <Card className={"w-[28rem] relative"}>
+        <Card className={"w-[28rem] relative py-8"}>
             <div
                 className={"absolute bg-secondary/20 w-[103%] h-[101.7%] -left-2 -top-2 -z-50 blur-md rounded-3xl"}></div>
             <CardHeader>
@@ -52,9 +53,9 @@ export default function RegisterForm() {
                         </Button>
                         <div className="text-center text-sm">
                             Already have an account?{" "}
-                            <a href="/login" className="underline underline-offset-4 text-purple-300">
+                            <Link href="/login" className="underline underline-offset-4 text-purple-300">
                                 Sign in
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </form>

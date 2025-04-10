@@ -1,6 +1,6 @@
 import {z} from "zod";
-import {generateFormErrorResponse} from "@/lib/actions/actionsHelperFunctions.ts";
-import {CreatePostRequest, CreatePostResponse} from "@/lib/apiTypes.ts";
+import {generateFormErrorResponse} from "@/lib/actions/actionsHelperFunctions";
+import {CreatePostRequest, CreatePostResponse} from "@/lib/apiTypes";
 
 // for comments on how this works go to createAccount, basically same logic
 const createPostSchema = z.object({
