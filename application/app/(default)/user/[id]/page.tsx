@@ -31,7 +31,7 @@ async function UserPageLayout({params}: Props) {
         id: params.id,
         email: "snoy@moder.waow",
         username: "literally_a_cat_" + params.id,
-        img_path: "images/alice.jpg",
+        img_path: "/example_pfp.jpg",
         community_ids: [1, 2], // this one wont matter anyway
         tags: [1, 2], // or this
         post_ids: [1, 2], // not this either
@@ -40,7 +40,7 @@ async function UserPageLayout({params}: Props) {
     }
 
     return (
-        <div className={"flex justify-center gap-10 container mx-auto px-6 mt-10"}>
+        <div className={"flex justify-center gap-10 container mx-auto px-6 my-10"}>
             <div className={"flex flex-col gap-6 w-[24rem]"}>
                 <UserInfo username={userData.username} email={userData.email}
                           img_path={userData.img_path} description={userData.description}/>
