@@ -12,7 +12,7 @@ export default function FeedbackForm() {
   const [formState, dispatch] = useActionState(feedback, {});
   const [rating, setRating] = useState([0]);
   return (
-    <Card className={"w-200 relative py-20"}>
+    <Card className={"w-150 relative py-10"}>
       <div
         className={
           "absolute bg-secondary/20 w-[103%] h-[101.7%] -left-2 -top-2 -z-50 blur-md rounded-3xl"

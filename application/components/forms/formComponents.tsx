@@ -1,5 +1,6 @@
 import { Label } from "@radix-ui/react-label";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { CreateAccountState } from "@/lib/actions/createAccount";
 
 interface RegisterFormInputProps {
@@ -89,9 +90,9 @@ export function FeedbackFormInput({
         {label}
       </Label>
       <div className={"relative"}>
-        <Input
+        <Textarea
           placeholder={placeholder}
-          className="peer bg-black z-20 rounded-2xl w-full min-w-[300px] outline-none focus:border-primary"
+          className="relative peer bg-black z-20 rounded-2xl w-full min-w-[300px] outline-none focus:border-primary"
           name={fieldName}
           id={fieldName}
           defaultValue={formState?.fieldsState?.[fieldName]}
