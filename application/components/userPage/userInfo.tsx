@@ -13,7 +13,7 @@ export default function UserInfo({email, username, img_path, description}: UserD
         <Card className={"py-8"}>
             <CardHeader className={"flex flex-col gap-2"}>
                 <Avatar className={"w-18 h-18"}>
-                    <AvatarImage src={'/example_pfp.jpg'} alt={"pfp"}/>
+                    <AvatarImage src={img_path} alt={"pfp"}/>
                     <AvatarFallback>What</AvatarFallback>
                 </Avatar>
                 <div className={"w-full"}>
