@@ -2,6 +2,7 @@ import { Label } from "@radix-ui/react-label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { CreateAccountState } from "@/lib/actions/createAccount";
+import { Card } from "@/components/ui/card";
 
 interface RegisterFormInputProps {
   formState: CreateAccountState;
@@ -113,6 +114,16 @@ export function FeedbackFormInput({
             </p>
           ))}
       </div>
+    </div>
+  );
+}
+
+export function PostSortButton({ label }: { label: string }) {
+  return (
+    <div className="w-40 py-3">
+      <Card className="py-3 border-[#2c0d61] hover:bg-[#2c0d61]/40 transition-colors duration-200">
+        <button>{label}</button>
+      </Card>
     </div>
   );
 }
