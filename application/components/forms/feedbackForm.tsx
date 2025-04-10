@@ -1,10 +1,15 @@
+"use client";
+
 import { FeedbackFormInput } from "./formComponents";
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Slider } from "@/components/ui/slider";
+import { useState } from "react";
 
 export default function FeedbackForm() {
   //const [formState, dispatch] = useActionState(login, {});
+  const [rating, setRating] = useState([0]);
   return (
     <Card className={"w-200 relative py-20"}>
       <div
@@ -17,8 +22,8 @@ export default function FeedbackForm() {
           <Image
             src={"/GNUF.svg"}
             alt="Home"
-            width={300}
-            height={300}
+            width={250}
+            height={250}
             className={"p-2"}
           />
         </div>
@@ -37,7 +42,9 @@ export default function FeedbackForm() {
               label="What else would you like to share?"
             />
           </div>
-          <div className={"flex flex-col justify-center gap-8 mt-10"}>
+          <div className="pt-4">Rating: {rating[0]}</div>
+          <Slider value={rating} onValueChange={setRating} max={5} step={1} />
+          <div className={"flex flex-col justify-center gap-10 mt-10"}>
             <Button variant={"outline"} size={"lg"}>
               Submit
             </Button>
