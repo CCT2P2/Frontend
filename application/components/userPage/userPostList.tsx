@@ -3,7 +3,7 @@ import {Card} from "@/components/ui/card";
 export default function UserPostList() {
     return (
         <Card className={"grow"}>
-            what the FUCK
+            waoww there are no posts yet
         </Card>
     )
 }
