@@ -79,7 +79,8 @@ export function FeedbackFormInput({
   formState,
   fieldName,
   label,
-}: FeedbackFormInputProps) {
+  required = false,
+}: FeedbackFormInputProps & { required?: boolean }) {
   const placeholder = feedbackPlaceholderMap[fieldName];
 
   return (
@@ -94,7 +95,7 @@ export function FeedbackFormInput({
           name={fieldName}
           id={fieldName}
           defaultValue={formState?.fieldsState?.[fieldName]}
-          required
+          required={required}
         />
         <div
           className={

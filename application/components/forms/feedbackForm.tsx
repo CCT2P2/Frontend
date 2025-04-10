@@ -1,14 +1,15 @@
 "use client";
 
 import { FeedbackFormInput } from "./formComponents";
+import { feedback } from "@/lib/actions/feedback";
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import { useState } from "react";
+import { useState, useActionState } from "react";
 
 export default function FeedbackForm() {
-  //const [formState, dispatch] = useActionState(login, {});
+  const [formState, dispatch] = useActionState(feedback, {});
   const [rating, setRating] = useState([0]);
   return (
     <Card className={"w-200 relative py-20"}>
@@ -30,12 +31,17 @@ export default function FeedbackForm() {
         <CardTitle>Feedback</CardTitle>
       </CardHeader>
       <CardContent>
-        <form action="dick">
+        <form action={dispatch}>
           <div className={"flex flex-col gap-4 mt-4"}>
-            <FeedbackFormInput fieldName="worked" label="What worked well?" />
+            <FeedbackFormInput
+              fieldName="worked"
+              label="What worked well?"
+              required
+            />
             <FeedbackFormInput
               fieldName="didnt"
               label="What didn't work well?"
+              required
             />
             <FeedbackFormInput
               fieldName="other"
