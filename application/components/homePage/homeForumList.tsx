@@ -18,8 +18,7 @@ export default function HomeForumList({
   return (
     <div className="h-screen flex flex-col gap-1">
       <Card
-        className="border-secondary gap-3 overflow-y-auto max-h-[80%] backdrop-blur-md"
-        style={{ backgroundColor }}
+        className={`border-secondary gap-3 overflow-y-auto max-h-[80%] backdrop-blur-md ${backgroundColor}`}
       >
         <CardTitle>Forums</CardTitle>
         <Card
@@ -29,8 +28,7 @@ export default function HomeForumList({
           onMouseLeave={(e) =>
             (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
           }
-          style={{ borderColor: orange, backgroundColor }}
-          className="py-3 transition-colors duration-200"
+          className={`py-3 transition-colors duration-200 ${backgroundColor}`}
         >
           Whyy
         </Card>
@@ -42,7 +40,7 @@ export default function HomeForumList({
             (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
           }
           style={{ borderColor: blue, backgroundColor }}
-          className="py-3 transition-colors duration-200"
+          className={`py-3 transition-colors duration-200 ${backgroundColor}`}
         >
           BigQuestions
         </Card>
@@ -54,7 +52,7 @@ export default function HomeForumList({
             (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
           }
           style={{ borderColor: yellow, backgroundColor }}
-          className="py-3 transition-colors duration-200"
+          className={`py-3 transition-colors duration-200 ${backgroundColor}`}
         >
           wowsers
         </Card>{" "}
@@ -66,7 +64,7 @@ export default function HomeForumList({
             (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
           }
           style={{ borderColor: orange, backgroundColor }}
-          className="py-3 transition-colors duration-200"
+          className={`py-3 transition-colors duration-200 ${backgroundColor}`}
         >
           Whyy
         </Card>
@@ -78,7 +76,7 @@ export default function HomeForumList({
             (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
           }
           style={{ borderColor: blue, backgroundColor }}
-          className="py-3 transition-colors duration-200"
+          className={`py-3 transition-colors duration-200 ${backgroundColor}`}
         >
           BigQuestions
         </Card>
@@ -90,7 +88,7 @@ export default function HomeForumList({
             (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
           }
           style={{ borderColor: yellow, backgroundColor }}
-          className="py-3 transition-colors duration-200"
+          className={`py-3 transition-colors duration-200 ${backgroundColor}`}
         >
           wowsers
         </Card>{" "}
@@ -102,7 +100,7 @@ export default function HomeForumList({
             (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
           }
           style={{ borderColor: orange, backgroundColor }}
-          className="py-3 transition-colors duration-200"
+          className={`py-3 transition-colors duration-200 ${backgroundColor}`}
         >
           Whyy
         </Card>
@@ -114,7 +112,7 @@ export default function HomeForumList({
             (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
           }
           style={{ borderColor: blue, backgroundColor }}
-          className="py-3 transition-colors duration-200"
+          className={`py-3 transition-colors duration-200 ${backgroundColor}`}
         >
           BigQuestions
         </Card>
@@ -126,7 +124,7 @@ export default function HomeForumList({
             (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
           }
           style={{ borderColor: yellow, backgroundColor }}
-          className="py-3 transition-colors duration-200"
+          className={`py-3 transition-colors duration-200 ${backgroundColor}`}
         >
           wowsers
         </Card>{" "}
@@ -138,7 +136,7 @@ export default function HomeForumList({
             (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
           }
           style={{ borderColor: orange, backgroundColor }}
-          className="py-3 transition-colors duration-200"
+          className={`py-3 transition-colors duration-200 ${backgroundColor}`}
         >
           Whyy
         </Card>
@@ -150,7 +148,7 @@ export default function HomeForumList({
             (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
           }
           style={{ borderColor: blue, backgroundColor }}
-          className="py-3 transition-colors duration-200"
+          className={`py-3 transition-colors duration-200 ${backgroundColor}`}
         >
           BigQuestions
         </Card>
@@ -162,7 +160,7 @@ export default function HomeForumList({
             (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
           }
           style={{ borderColor: yellow, backgroundColor }}
-          className="py-3 transition-colors duration-200"
+          className={`py-3 transition-colors duration-200 ${backgroundColor}`}
         >
           wowsers
         </Card>{" "}
@@ -174,7 +172,7 @@ export default function HomeForumList({
             (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
           }
           style={{ borderColor: orange, backgroundColor }}
-          className="py-3 transition-colors duration-200"
+          className={`py-3 transition-colors duration-200 ${backgroundColor}`}
         >
           Whyy
         </Card>
@@ -186,7 +184,7 @@ export default function HomeForumList({
             (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
           }
           style={{ borderColor: blue, backgroundColor }}
-          className="py-3 transition-colors duration-200"
+          className={`py-3 transition-colors duration-200 ${backgroundColor}`}
         >
           BigQuestions
         </Card>
@@ -198,7 +196,7 @@ export default function HomeForumList({
             (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
           }
           style={{ borderColor: yellow, backgroundColor }}
-          className="py-3 transition-colors duration-200"
+          className={`py-3 transition-colors duration-200 ${backgroundColor}`}
         >
           wowsers
         </Card>{" "}
@@ -210,7 +208,7 @@ export default function HomeForumList({
             (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
           }
           style={{ borderColor: orange, backgroundColor }}
-          className="py-3 transition-colors duration-200"
+          className={`py-3 transition-colors duration-200 ${backgroundColor}`}
         >
           Whyy
         </Card>
@@ -222,7 +220,7 @@ export default function HomeForumList({
             (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
           }
           style={{ borderColor: blue, backgroundColor }}
-          className="py-3 transition-colors duration-200"
+          className={`py-3 transition-colors duration-200 ${backgroundColor}`}
         >
           BigQuestions
         </Card>
@@ -234,7 +232,7 @@ export default function HomeForumList({
             (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
           }
           style={{ borderColor: yellow, backgroundColor }}
-          className="py-3 transition-colors duration-200"
+          className={`py-3 transition-colors duration-200 ${backgroundColor}`}
         >
           wowsers
         </Card>

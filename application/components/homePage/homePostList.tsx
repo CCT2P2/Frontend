@@ -20,19 +20,13 @@ export default function HomePostList({
       className={`border-primary w-full py-6 ${backgroundColor} backdrop-blur-md`}
     >
       <div className="flex gap-6 mx-10">
-        <PostSortButton label="Personal" />
-        <PostSortButton label="Popular" />
-        <PostSortButton label="New" />
-        <PostSortButton label="Rising" />
+        <PostSortButton label="Personal" backgroundColor={backgroundColor} />
+        <PostSortButton label="Popular" backgroundColor={backgroundColor} />
+        <PostSortButton label="New" backgroundColor={backgroundColor} />
+        <PostSortButton label="Rising" backgroundColor={backgroundColor} />
         <div className="py-3 ml-auto">
           <Card
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = hexToAlpha(green, 0.2);
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = "transparent";
-            }}
-            className="py-3 border-green-500 transition-colors duration-200 bg-gray-500/20"
+            className={`py-3 border-green-500 transition-colors duration-200 ${backgroundColor}`}
           >
             <button>+ New Post</button>
           </Card>
@@ -48,6 +42,7 @@ export default function HomePostList({
           author={"literally_a_cat"}
           votes={20}
           comments={3}
+          backgroundColor={backgroundColor}
         />
         <PostThumbnail
           postTitle={"Another post"}
@@ -56,6 +51,7 @@ export default function HomePostList({
           author={"literally_a_cat"}
           votes={16}
           comments={12}
+          backgroundColor={backgroundColor}
         />
         <PostThumbnail
           postTitle={"Another post???"}
@@ -65,6 +61,7 @@ export default function HomePostList({
           author={"literally_a_cat"}
           votes={78}
           comments={15}
+          backgroundColor={backgroundColor}
         />
       </div>
     </Card>

@@ -8,8 +8,13 @@ import {
 } from "@/components/homePage/homeForum3rdPanel";
 
 export default function Home() {
-  const bg_col = "bg-gray-800/10";
-  //const bg_col = "bg-black";
+  let bg_col;
+  if (blur == 1) {
+    bg_col = "bg-gray-800/10";
+  } else if (blur == 0) {
+    bg_col = "bg-black";
+  }
+
   return (
     <div className="ml-auto px-4 py-5 w-full">
       <div className="flex justify-center gap-6">

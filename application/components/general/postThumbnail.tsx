@@ -27,9 +27,12 @@ export default function PostThumbnail({
   author,
   votes,
   comments,
-}: Props) {
+  backgroundColor,
+}: Props & {
+  backgroundColor: string;
+}) {
   return (
-    <Card className={"border-secondary/50 flex flex-col bg-gray-300/10"}>
+    <Card className={`border-secondary/50 flex flex-col ${backgroundColor}`}>
       <div className={"flex flex-row gap-6 justify-between"}>
         <div className={"flex flex-col gap-6"}>
           <CardHeader>

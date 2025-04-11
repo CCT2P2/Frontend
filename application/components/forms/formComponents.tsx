@@ -114,15 +114,20 @@ export function FeedbackFormInput({
     </div>
   );
 }
-
-export function PostSortButton({ label }: { label: string }) {
+export function PostSortButton({
+  label,
+  backgroundColor,
+}: {
+  label: string;
+  backgroundColor: string;
+}) {
   const [active, setActive] = useState(false);
   return (
     <div className="w-40 py-3">
       <Card
         onClick={() => setActive(!active)}
         className={`py-3 px-4 border-[#2c0d61] transition-all duration-200 cursor-pointer hover:scale-105
-              ${active ? "bg-[#2c0d61]/50" : "bg-gray-300/10"}`}
+              ${active ? "bg-[#2c0d61]/50" : backgroundColor}`}
       >
         <button>{label}</button>
       </Card>
