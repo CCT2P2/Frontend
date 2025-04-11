@@ -10,6 +10,7 @@ export const metadata: Metadata = {
 };
 
 let bg_image: string;
+const bg: number = 0;
 if (bg == 1) {
   bg_image = "url('/bg1.svg')";
 } else if (bg == 0) {

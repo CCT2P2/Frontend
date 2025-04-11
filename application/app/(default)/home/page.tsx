@@ -8,9 +8,10 @@ import {
 } from "@/components/homePage/homeForum3rdPanel";
 
 export default function Home() {
+  const blur: number = 0;
   let bg_col;
   if (blur == 1) {
-    bg_col = "bg-gray-800/10";
+    bg_col = "bg-stone-800/10";
   } else if (blur == 0) {
     bg_col = "bg-black";
   }
