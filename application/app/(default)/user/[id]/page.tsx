@@ -40,8 +40,8 @@ async function UserPageLayout({params}: Props) {
     }
 
     return (
-        <div className={"flex justify-center gap-10 container mx-auto px-6 my-10"}>
-            <div className={"flex flex-col gap-6 w-[24rem]"}>
+        <div className={"grid grid-cols-4 gap-12 container mx-auto px-6 my-10"}>
+            <div className={"col-span-1 flex flex-col gap-12"}>
                 <UserInfo username={userData.username} email={userData.email}
                           img_path={userData.img_path} description={userData.description}/>
                 <UserForumList/>

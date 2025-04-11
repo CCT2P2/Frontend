@@ -1,6 +1,20 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@utility glow-* {
+    box-shadow: 0 0 8px 2px --value(--color-*);
+    -webkit-box-shadow: 0 0 8px 2px --value(--color-*);
+    -moz-box-shadow: 0 0 8px 2px --value(--color-*);
+}
+
+/*compilers cries that theres an error despite it being correct, literally stfu*/
+/*noinspection ALL*/
+@utility light-glow-* {
+    -webkit-box-shadow: 0 0 10px 2px --alpha(--value(--color-*) / 60%);
+    -moz-box-shadow: 0 0 10px 2px --alpha(--value(--color-*) / 60%);
+    box-shadow: 0 0 10px 2px --alpha(--value(--color-*) / 60%);
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -124,3 +138,28 @@
         @apply bg-background text-foreground;
     }
 }
+
+body::before {
+    content: "";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(20, 20, 20, 0) 66%, rgba(218, 99, 156, 0.08) 33%);
+    background-size: 100% 8px;
+    z-index: -10;
+    pointer-events: none;
+    animation: scanlines-anim 5.0s cubic-bezier(0.67, 0.33, 0.45, 0.67) infinite;
+}
+
+@keyframes scanlines-anim {
+    0% {
+        background-position: 0px 0px;
+    }
+    100% {
+        background-position: 0px 120px;
+    }
+}
+

@@ -16,7 +16,7 @@ export default function PostThumbnail(
     {postContent, postImagePath, postTitle, community, author, votes, comments}: Props
 ) {
     return (
-        <Card className={"border-secondary/50 flex flex-col"}>
+        <Card className={"border-secondary/50 flex flex-col bg-stone-950"}>
             <div className={"flex flex-row gap-6 justify-between"}>
                 <div className={"flex flex-col gap-6"}>
                     <CardHeader>
