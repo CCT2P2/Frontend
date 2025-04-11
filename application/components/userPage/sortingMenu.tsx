@@ -9,7 +9,7 @@ import { Button } from "../ui/button";
 import {useState} from "react";
 
 export default function SortingMenu() {
-    const [position, setPosition] = useState("bottom")
+    const [position, setPosition] = useState("new")
 
     return (
         <DropdownMenu>
@@ -21,13 +21,13 @@ export default function SortingMenu() {
                     Sort
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56">
-                <DropdownMenuLabel>Panel Position</DropdownMenuLabel>
+            <DropdownMenuContent className="w-16">
+                <DropdownMenuLabel>Sort by</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
+                    <DropdownMenuRadioItem value="new">New</DropdownMenuRadioItem>
                     <DropdownMenuRadioItem value="top">Top</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value="bottom">Bottom</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value="right">Right</DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value="right">Idk</DropdownMenuRadioItem>
                 </DropdownMenuRadioGroup>
             </DropdownMenuContent>
         </DropdownMenu>
