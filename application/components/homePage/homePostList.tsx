@@ -2,19 +2,23 @@
 import { Card } from "@/components/ui/card";
 import PostThumbnail from "@/components/general/postThumbnail";
 import { PostSortButton } from "@/components/forms/formComponents";
-import { Postpone } from "next/dist/server/app-render/dynamic-rendering";
-import { Poly } from "next/font/google";
 
 function hexToAlpha(hex: string, alpha: number): string {
   const [r, g, b] = hex.match(/\w\w/g)!.map((x) => parseInt(x, 16));
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
-const green = "#00ff00";
+export default function HomePostList({
+  backgroundColor,
+}: {
+  backgroundColor: string;
+}) {
+  const green = "#00ff88"; // Make sure `green` is defined
 
-export default function HomePostList() {
   return (
-    <Card className={"w-10/14 py-3"}>
+    <Card
+      className={`border-primary w-full py-6 ${backgroundColor} backdrop-blur-md`}
+    >
       <div className="flex gap-6 mx-10">
         <PostSortButton label="Personal" />
         <PostSortButton label="Popular" />
@@ -22,27 +26,23 @@ export default function HomePostList() {
         <PostSortButton label="Rising" />
         <div className="py-3 ml-auto">
           <Card
-            style={{
-              borderColor: green,
-              backgroundColor: "transparent",
-            }}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = hexToAlpha(green, 0.2);
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.backgroundColor = "transparent";
             }}
-            className="py-3 border-[${green}] transition-colors duration-200"
+            className="py-3 border-green-500 transition-colors duration-200 bg-gray-500/20"
           >
             <button>+ New Post</button>
           </Card>
         </div>
       </div>
-      <div className={"w-full flex flex-col gap-8 px-10"}>
+      <div className="w-full flex flex-col gap-8 px-10">
         <PostThumbnail
           postTitle={"Epic"}
           postContent={
-            "Why am i making this post you might ask. I didnt, its just a figment of your imagination"
+            "Why am I making this post you might ask. I didn't, it's just a figment of your imagination"
           }
           community={"Whyy"}
           author={"literally_a_cat"}

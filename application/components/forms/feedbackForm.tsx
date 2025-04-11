@@ -12,12 +12,7 @@ export default function FeedbackForm() {
   const [formState, dispatch] = useActionState(feedback, {});
   const [rating, setRating] = useState([0]);
   return (
-    <Card className={"w-150 relative py-10"}>
-      <div
-        className={
-          "absolute bg-secondary/20 w-[103%] h-[101.7%] -left-2 -top-2 -z-50 blur-md rounded-3xl"
-        }
-      ></div>
+    <Card className={"w-150 relative py-10 bg-black/30 backdrop-blur-md"}>
       <CardHeader>
         <div className={"flex justify-center mb-4"}>
           <Image
@@ -50,8 +45,12 @@ export default function FeedbackForm() {
           </div>
           <div className="pt-4">Rating: {rating[0]}</div>
           <Slider value={rating} onValueChange={setRating} max={5} step={1} />
-          <div className={"flex flex-col justify-center gap-10 mt-10"}>
-            <Button variant={"outline"} size={"lg"}>
+          <div
+            className={
+              "flex flex-col bg-black/30 backdrop-blur-md justify-center gap-10 mt-10"
+            }
+          >
+            <Button variant={"outline"} size={"lg"} className="bg-transparent">
               Submit
             </Button>
           </div>
