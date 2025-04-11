@@ -10,14 +10,14 @@ interface UserData {
 
 export default function UserInfo({email, username, img_path, description}: UserData) {
     return (
-        <Card className={"py-8"}>
+        <Card className={"py-8 light-glow-primary bg-black/60"}>
             <CardHeader className={"flex flex-col gap-2"}>
                 <Avatar className={"w-18 h-18"}>
                     <AvatarImage src={img_path} alt={"pfp"}/>
                     <AvatarFallback>What</AvatarFallback>
                 </Avatar>
                 <div className={"w-full"}>
-                    <p className={"font-bold text-xl"}>Zazaa</p>
+                    <p className={"font-bold text-xl"}>Wawaaa</p>
                     <p className={"text-sm text-muted-foreground"}>{username}</p>
                 </div>
             </CardHeader>

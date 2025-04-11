@@ -11,12 +11,7 @@ import Link from "next/dist/client/app-dir/link";
 export default function LoginForm() {
   const [formState, dispatch] = useActionState(login, {});
   return (
-    <Card className={"w-96 relative py-8 bg-black/20 backdrop-blur-md"}>
-      {/*<div
-        className={
-          "absolute bg-secondary/20 w-[103%] h-[101.7%] -left-2 -top-2 -z-50 blur-md rounded-3xl"
-        }
-      ></div>*/}
+    <Card className={"w-96 relative py-8 bg-black/20 backdrop-blur-md light-glow-primary"}>
       <CardHeader>
         <div className={"flex justify-center mb-4"}>
           <Image
