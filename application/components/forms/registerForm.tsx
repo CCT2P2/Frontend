@@ -17,7 +17,7 @@ export default function RegisterForm() {
     // the data given to createAccount is based on the `name` of the inputs
     const [formState, dispatch] = useActionState(createAccount, {})
     return (
-        <Card className={"w-[28rem] relative py-8 light-glow-primary"}>
+        <Card className={"w-[28rem] relative py-8 light-glow-primary backdrop-blur-md bg-black/20"}>
             <CardHeader>
                 <div className={"flex justify-center mb-4"}>
                     <Image src={"/GNUF.svg"} alt="Home" width={170} height={170} className={"p-2"}/>

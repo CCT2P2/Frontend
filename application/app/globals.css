@@ -139,27 +139,29 @@
     }
 }
 
-body::before {
-    content: "";
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: linear-gradient(rgba(20, 20, 20, 0) 66%, rgba(218, 99, 156, 0.08) 33%);
-    background-size: 100% 8px;
-    z-index: -10;
-    pointer-events: none;
-    animation: scanlines-anim 5.0s cubic-bezier(0.67, 0.33, 0.45, 0.67) infinite;
-}
+/* Uncomment for scanlines effect */
 
-@keyframes scanlines-anim {
-    0% {
-        background-position: 0px 0px;
-    }
-    100% {
-        background-position: 0px 120px;
-    }
-}
+/*body::before {*/
+/*    content: "";*/
+/*    display: block;*/
+/*    position: fixed;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    bottom: 0;*/
+/*    right: 0;*/
+/*    background: linear-gradient(rgba(20, 20, 20, 0) 66%, rgba(218, 99, 156, 0.08) 33%);*/
+/*    background-size: 100% 8px;*/
+/*    z-index: -10;*/
+/*    pointer-events: none;*/
+/*    animation: scanlines-anim 5.0s cubic-bezier(0.67, 0.33, 0.45, 0.67) infinite;*/
+/*}*/
+
+/*@keyframes scanlines-anim {*/
+/*    0% {*/
+/*        background-position: 0px 0px;*/
+/*    }*/
+/*    100% {*/
+/*        background-position: 0px 120px;*/
+/*    }*/
+/*}*/
 

@@ -1,8 +1,11 @@
+"use client";
+
 import { Label } from "@radix-ui/react-label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { CreateAccountState } from "@/lib/actions/createAccount";
 import { Card } from "@/components/ui/card";
+import { useState } from "react";
 
 interface RegisterFormInputProps {
   formState: CreateAccountState;
@@ -51,19 +54,19 @@ export function AccountFormInput({
       <div className={"relative"}>
         <Input
           type={inputType}
-          className="peer bg-black z-20 rounded-2xl w-full outline-none focus:border-primary"
+          className="peer bg-gray-300/10 z-20 rounded-2xl w-full outline-none focus:border-primary"
           placeholder={placeholder}
           name={fieldName}
           id={fieldName}
           defaultValue={formState.fieldsState?.[fieldName]}
           required
         />
-        <div
+        {/*<div
           className={
             "peer-[:focus]:bg-primary/50 bg-primary/10 absolute inset-[0%] z-10 blur-[8px]" +
             " rounded-xl transition duration-500 ease-out"
           }
-        ></div>
+        ></div>*/}
       </div>
       <div id={`${fieldName}-error`}>
         {formState.errors?.[fieldName] &&
@@ -93,18 +96,12 @@ export function FeedbackFormInput({
       <div className={"relative"}>
         <Textarea
           placeholder={placeholder}
-          className="relative peer bg-black z-20 rounded-2xl w-full min-w-[300px] outline-none focus:border-primary"
+          className="relative peer bg-gray-300/10 backdrop-blur-md z-20 rounded-2xl w-full min-w-[300px] outline-none focus:border-primary"
           name={fieldName}
           id={fieldName}
           defaultValue={formState?.fieldsState?.[fieldName]}
           required={required}
         />
-        <div
-          className={
-            "peer-[:focus]:bg-primary/50 bg-primary/10 absolute inset-[0%] z-10 blur-[8px]" +
-            " rounded-xl transition duration-500 ease-out"
-          }
-        ></div>
       </div>
       <div id={`${fieldName}-error`}>
         {formState?.errors?.[fieldName] &&
@@ -119,9 +116,14 @@ export function FeedbackFormInput({
 }
 
 export function PostSortButton({ label }: { label: string }) {
+  const [active, setActive] = useState(false);
   return (
     <div className="w-40 py-3">
-      <Card className="py-3 border-[#2c0d61] hover:bg-[#2c0d61]/40 transition-colors duration-200">
+      <Card
+        onClick={() => setActive(!active)}
+        className={`py-3 px-4 border-[#2c0d61] transition-all duration-200 cursor-pointer hover:scale-105
+              ${active ? "bg-[#2c0d61]/50" : "bg-gray-300/10"}`}
+      >
         <button>{label}</button>
       </Card>
     </div>

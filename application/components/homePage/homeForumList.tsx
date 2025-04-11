@@ -1,80 +1,242 @@
 "use client";
-import { Card } from "@/components/ui/card";
+import { Card, CardTitle } from "@/components/ui/card";
 
 const orange = "#fc6e22";
 const blue = "#5382a1";
 const yellow = "#ffff66";
-const purple = "#c24cf6";
-const green = "#78fe8b";
 
 function hexToAlpha(hex: string, alpha: number): string {
   const [r, g, b] = hex.match(/\w\w/g)!.map((x) => parseInt(x, 16));
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
-export default function HomeForumList() {
+export default function HomeForumList({
+  backgroundColor,
+}: {
+  backgroundColor: string;
+}) {
   return (
-    <div className="h-screen flex flex-col gap-3">
-      <Card className="border-secondary gap-3 overflow-y-auto max-h-[80%]">
+    <div className="h-screen flex flex-col gap-1">
+      <Card
+        className="border-secondary gap-3 overflow-y-auto max-h-[80%] backdrop-blur-md"
+        style={{ backgroundColor }}
+      >
+        <CardTitle>Forums</CardTitle>
         <Card
           onMouseEnter={(e) =>
             (e.currentTarget.style.backgroundColor = hexToAlpha(orange, 0.2))
           }
           onMouseLeave={(e) =>
-            (e.currentTarget.style.backgroundColor = "transparent")
+            (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
           }
-          style={{ borderColor: orange }}
-          className={`border-[${orange}] py-3 transition-colors duration-200`}
+          style={{ borderColor: orange, backgroundColor }}
+          className="py-3 transition-colors duration-200"
         >
-          Rust
+          Whyy
         </Card>
         <Card
           onMouseEnter={(e) =>
             (e.currentTarget.style.backgroundColor = hexToAlpha(blue, 0.2))
           }
           onMouseLeave={(e) =>
-            (e.currentTarget.style.backgroundColor = "transparent")
+            (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
           }
-          style={{ borderColor: blue }}
-          className={`border-[${blue}] py-3 transition-colors duration-200`}
+          style={{ borderColor: blue, backgroundColor }}
+          className="py-3 transition-colors duration-200"
         >
-          Python
+          BigQuestions
         </Card>
         <Card
           onMouseEnter={(e) =>
             (e.currentTarget.style.backgroundColor = hexToAlpha(yellow, 0.2))
           }
           onMouseLeave={(e) =>
-            (e.currentTarget.style.backgroundColor = "transparent")
+            (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
           }
-          style={{ borderColor: yellow }}
-          className={`border-[${yellow}] py-3 transition-colors duration-200`}
+          style={{ borderColor: yellow, backgroundColor }}
+          className="py-3 transition-colors duration-200"
         >
-          JavaScript
+          wowsers
+        </Card>{" "}
+        <Card
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.backgroundColor = hexToAlpha(orange, 0.2))
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
+          }
+          style={{ borderColor: orange, backgroundColor }}
+          className="py-3 transition-colors duration-200"
+        >
+          Whyy
         </Card>
         <Card
           onMouseEnter={(e) =>
-            (e.currentTarget.style.backgroundColor = hexToAlpha(purple, 0.2))
+            (e.currentTarget.style.backgroundColor = hexToAlpha(blue, 0.2))
           }
           onMouseLeave={(e) =>
-            (e.currentTarget.style.backgroundColor = "transparent")
+            (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
           }
-          style={{ borderColor: purple }}
-          className={`border-[${purple}] py-3 transition-colors duration-200`}
+          style={{ borderColor: blue, backgroundColor }}
+          className="py-3 transition-colors duration-200"
         >
-          C#
+          BigQuestions
         </Card>
         <Card
           onMouseEnter={(e) =>
-            (e.currentTarget.style.backgroundColor = hexToAlpha(green, 0.2))
+            (e.currentTarget.style.backgroundColor = hexToAlpha(yellow, 0.2))
           }
           onMouseLeave={(e) =>
-            (e.currentTarget.style.backgroundColor = "transparent")
+            (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
           }
-          style={{ borderColor: green }}
-          className={`border-[${green}] py-3 transition-colors duration-200`}
+          style={{ borderColor: yellow, backgroundColor }}
+          className="py-3 transition-colors duration-200"
         >
-          Nim
+          wowsers
+        </Card>{" "}
+        <Card
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.backgroundColor = hexToAlpha(orange, 0.2))
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
+          }
+          style={{ borderColor: orange, backgroundColor }}
+          className="py-3 transition-colors duration-200"
+        >
+          Whyy
+        </Card>
+        <Card
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.backgroundColor = hexToAlpha(blue, 0.2))
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
+          }
+          style={{ borderColor: blue, backgroundColor }}
+          className="py-3 transition-colors duration-200"
+        >
+          BigQuestions
+        </Card>
+        <Card
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.backgroundColor = hexToAlpha(yellow, 0.2))
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
+          }
+          style={{ borderColor: yellow, backgroundColor }}
+          className="py-3 transition-colors duration-200"
+        >
+          wowsers
+        </Card>{" "}
+        <Card
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.backgroundColor = hexToAlpha(orange, 0.2))
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
+          }
+          style={{ borderColor: orange, backgroundColor }}
+          className="py-3 transition-colors duration-200"
+        >
+          Whyy
+        </Card>
+        <Card
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.backgroundColor = hexToAlpha(blue, 0.2))
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
+          }
+          style={{ borderColor: blue, backgroundColor }}
+          className="py-3 transition-colors duration-200"
+        >
+          BigQuestions
+        </Card>
+        <Card
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.backgroundColor = hexToAlpha(yellow, 0.2))
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
+          }
+          style={{ borderColor: yellow, backgroundColor }}
+          className="py-3 transition-colors duration-200"
+        >
+          wowsers
+        </Card>{" "}
+        <Card
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.backgroundColor = hexToAlpha(orange, 0.2))
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
+          }
+          style={{ borderColor: orange, backgroundColor }}
+          className="py-3 transition-colors duration-200"
+        >
+          Whyy
+        </Card>
+        <Card
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.backgroundColor = hexToAlpha(blue, 0.2))
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
+          }
+          style={{ borderColor: blue, backgroundColor }}
+          className="py-3 transition-colors duration-200"
+        >
+          BigQuestions
+        </Card>
+        <Card
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.backgroundColor = hexToAlpha(yellow, 0.2))
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
+          }
+          style={{ borderColor: yellow, backgroundColor }}
+          className="py-3 transition-colors duration-200"
+        >
+          wowsers
+        </Card>{" "}
+        <Card
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.backgroundColor = hexToAlpha(orange, 0.2))
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
+          }
+          style={{ borderColor: orange, backgroundColor }}
+          className="py-3 transition-colors duration-200"
+        >
+          Whyy
+        </Card>
+        <Card
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.backgroundColor = hexToAlpha(blue, 0.2))
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
+          }
+          style={{ borderColor: blue, backgroundColor }}
+          className="py-3 transition-colors duration-200"
+        >
+          BigQuestions
+        </Card>
+        <Card
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.backgroundColor = hexToAlpha(yellow, 0.2))
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = hexToAlpha("#d1d5db", 0.1))
+          }
+          style={{ borderColor: yellow, backgroundColor }}
+          className="py-3 transition-colors duration-200"
+        >
+          wowsers
         </Card>
       </Card>
     </div>

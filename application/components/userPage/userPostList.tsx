@@ -7,8 +7,8 @@ import SortingMenu from "@/components/userPage/sortingMenu";
 
 export default function UserPostList() {
     return (
-        <Card className={"grow relative light-glow-primary col-span-3"}>
-            <Tabs defaultValue="account" className={"px-10 py-6 gap-4"}>
+        <Card className={"grow relative light-glow-primary col-span-3 bg-black/60 backdrop-blur-md"}>
+            <Tabs defaultValue="posts" className={"px-10 py-6 gap-4"}>
                 <TabsList className="w-full">
                     <TabsTrigger value="posts">Posts</TabsTrigger>
                     <TabsTrigger value="comments">Comments</TabsTrigger>
