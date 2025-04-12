@@ -21,11 +21,13 @@ export interface GetUserProfileResponse {
     id: number;
     email: string;
     username: string;
-    img_path: string;
-    post_ids: number[];
-    community_ids: number[];
-    tags: number[];
-    admin: boolean;
+    img_path?: string;
+    post_ids?: number[];
+    community_ids?: number[];
+    tags?: number[];
+    admin: number;
+    display_name?: string;
+    description?: string;
 }
 
 export interface UpdateUserProfileRequest {
