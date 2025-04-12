@@ -25,7 +25,7 @@ export default function Home() {
         </div>
 
         {/* Main Content */}
-        <div className="shrink-1 max-w-350 w-[60%]">
+        <div className="shrink-1 max-w-350 w-[60%] mt-5">
           <UserPostList backgroundColor={bg_col} />
         </div>
 

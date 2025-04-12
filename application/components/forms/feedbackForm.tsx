@@ -48,15 +48,22 @@ export default function FeedbackForm() {
             />
           </div>
           <div className="pt-4">Rating: {rating[0]}</div>
-          <Slider value={rating} onValueChange={setRating} max={5} step={1} className={`${blur ? "bg-stone-800/20" : "bg-black"} backdrop-blur-md `}/>
-            <div
-              className={`flex flex-col ${blur ? "bg-stone-800/20" : "bg-black"} backdrop-blur-md justify-center gap-10 mt-10`}
-            >
-              <Button variant={"outline"} size={"lg"} className="bg-transparent">
-                Submit
-              </Button>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
-    );
+          <Slider
+            value={rating}
+            onValueChange={setRating}
+            max={5}
+            step={1}
+            className={`${blur ? "bg-stone-800/20" : "bg-black"} backdrop-blur-md `}
+          />
+          <div
+            className={`flex flex-col ${blur ? "bg-stone-800/20" : "bg-black"} backdrop-blur-md justify-center gap-10 mt-10`}
+          >
+            <Button variant={"outline"} size={"lg"} className="bg-transparent">
+              Submit
+            </Button>
+          </div>
+        </form>
+      </CardContent>
+    </Card>
+  );
+}
