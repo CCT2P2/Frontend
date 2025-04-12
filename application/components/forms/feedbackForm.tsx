@@ -7,12 +7,16 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { useState, useActionState } from "react";
+import { useUISettings } from "@/app/store/useUISettings";
 
 export default function FeedbackForm() {
   const [formState, dispatch] = useActionState(feedback, {});
   const [rating, setRating] = useState([0]);
+  const { blur } = useUISettings();
   return (
-    <Card className={"w-150 relative py-10 bg-black/30 backdrop-blur-md"}>
+    <Card
+      className={`w-150 relative py-10 ${blur ? "bg-stone-800/20" : "bg-black"} backdrop-blur-md`}
+    >
       <CardHeader>
         <div className={"flex justify-center mb-4"}>
           <Image
@@ -44,18 +48,15 @@ export default function FeedbackForm() {
             />
           </div>
           <div className="pt-4">Rating: {rating[0]}</div>
-          <Slider value={rating} onValueChange={setRating} max={5} step={1} />
-          <div
-            className={
-              "flex flex-col bg-black/30 backdrop-blur-md justify-center gap-10 mt-10"
-            }
-          >
-            <Button variant={"outline"} size={"lg"} className="bg-transparent">
-              Submit
-            </Button>
-          </div>
-        </form>
-      </CardContent>
-    </Card>
-  );
-}
+          <Slider value={rating} onValueChange={setRating} max={5} step={1} className={`${blur ? "bg-stone-800/20" : "bg-black"} backdrop-blur-md `}/>
+            <div
+              className={`flex flex-col ${blur ? "bg-stone-800/20" : "bg-black"} backdrop-blur-md justify-center gap-10 mt-10`}
+            >
+              <Button variant={"outline"} size={"lg"} className="bg-transparent">
+                Submit
+              </Button>
+            </div>
+          </form>
+        </CardContent>
+      </Card>
+    );

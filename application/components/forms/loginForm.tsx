@@ -7,11 +7,15 @@ import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/dist/client/app-dir/link";
+import { useUISettings } from "@/app/store/useUISettings";
 
 export default function LoginForm() {
   const [formState, dispatch] = useActionState(login, {});
+  const { blur } = useUISettings();
   return (
-    <Card className={"w-96 relative py-8 bg-black/20 backdrop-blur-md light-glow-primary"}>
+    <Card
+      className={`w-96 relative py-8 ${blur === true ? "bg-stone-800/20" : "bg-black"} backdrop-blur-md light-glow-primary`}
+    >
       <CardHeader>
         <div className={"flex justify-center mb-4"}>
           <Image
@@ -45,7 +49,11 @@ export default function LoginForm() {
             Forgot your password?
           </a>
           <div className={"flex flex-col justify-center gap-8 mt-10"}>
-            <Button variant={"outline"} size={"lg"}>
+            <Button
+              variant={"outline"}
+              size={"lg"}
+              className={`${blur == true ? "bg-stone-800/20" : "bg-black"}`}
+            >
               Log in
             </Button>
             <div className="text-center text-sm">

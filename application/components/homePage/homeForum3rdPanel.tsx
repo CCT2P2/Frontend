@@ -1,4 +1,5 @@
 import { Card, CardTitle } from "@/components/ui/card";
+import { useUISettings } from "@/app/store/useUISettings";
 
 const orange = "#fc6e22";
 const blue = "#5382a1";
@@ -11,14 +12,15 @@ export function HomeForumName({
 }: {
   backgroundColor: string;
 }) {
+  const { padding, paddingButton } = useUISettings();
   return (
     <div>
-      <Card className={`${backgroundColor} backdrop-blur-md`}>
-        <CardTitle>Home</CardTitle>
-        <h1>
+      <Card className={`${backgroundColor} backdrop-blur-md p-${padding}`}>
+        <CardTitle className={``}>Home</CardTitle>
+        <div className={`p-${paddingButton}`}>
           Your personal place to chill with familiar posts, or discover brand
           new content
-        </h1>
+        </div>
       </Card>
     </div>
   );
@@ -28,34 +30,37 @@ export function HomeForumTagsPanel({
 }: {
   backgroundColor: string;
 }) {
+  const { padding, paddingButton } = useUISettings();
   return (
     <div>
-      <Card className={`my-6 ${backgroundColor} backdrop-blur-md`}>
-        <CardTitle>Tags</CardTitle>
-        Only wanna see content from a specific tag?
-        <div className="flex flex-wrap gap-3">
+      <Card className={`my-5 ${backgroundColor} backdrop-blur-md p-${padding}`}>
+        <CardTitle className={``}>Tags</CardTitle>
+        <div className={`p-${paddingButton}`}>
+          Only wanna see content from a specific tag?
+        </div>
+        <div className={`flex flex-wrap gap-3 `}>
           <Card
-            className={`border-[${orange}] w-[40%] py-3 hover:bg-primary/20 transition-colors duration-200 ${backgroundColor}`}
+            className={`border-[${orange}] w-[40%] p-${paddingButton} hover:bg-primary/20 transition-colors duration-200 ${backgroundColor}`}
           >
             Rust
           </Card>
           <Card
-            className={`border-[${blue}] py-3 w-[70%] hover:bg-primary/20 transition-colors duration-200 ${backgroundColor}`}
+            className={`border-[${blue}] p-${paddingButton} w-[70%] hover:bg-primary/20 transition-colors duration-200 ${backgroundColor}`}
           >
             Python
           </Card>
           <Card
-            className={`border-[${yellow}] py-3 w-[60%] hover:bg-primary/20 transition-colors duration-200 ${backgroundColor}`}
+            className={`border-[${yellow}] p-${paddingButton} w-[60%] hover:bg-primary/20 transition-colors duration-200 ${backgroundColor}`}
           >
             JavaScript
           </Card>
           <Card
-            className={`border-[${purple}] py-3 w-[30%] hover:bg-primary/20 transition-colors duration-200 ${backgroundColor}`}
+            className={`border-[${purple}] p-${paddingButton} w-[30%] hover:bg-primary/20 transition-colors duration-200 ${backgroundColor}`}
           >
             C#
           </Card>
           <Card
-            className={`border-[${green}] py-3 w-[40%] hover:bg-primary/20 transition-colors duration-200 ${backgroundColor}`}
+            className={`border-[${green}] p-${paddingButton} w-[40%] hover:bg-primary/20 transition-colors duration-200 ${backgroundColor}`}
           >
             Nim
           </Card>

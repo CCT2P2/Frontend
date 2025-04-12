@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { CreateAccountState } from "@/lib/actions/createAccount";
 import { Card } from "@/components/ui/card";
 import { useState } from "react";
+import { useUISettings } from "@/app/store/useUISettings";
 
 interface RegisterFormInputProps {
   formState: CreateAccountState;
@@ -121,12 +122,13 @@ export function PostSortButton({
   label: string;
   backgroundColor: string;
 }) {
+  const { padding, paddingButton } = useUISettings();
   const [active, setActive] = useState(false);
   return (
-    <div className="w-40 py-3">
+    <div className={`w-40 p-${paddingButton}`}>
       <Card
         onClick={() => setActive(!active)}
-        className={`py-3 px-4 border-[#2c0d61] transition-all duration-200 cursor-pointer hover:scale-105
+        className={`p-${paddingButton} border-[#2c0d61] transition-all duration-200 cursor-pointer hover:scale-105
               ${active ? "bg-[#2c0d61]/50" : backgroundColor}`}
       >
         <button>{label}</button>

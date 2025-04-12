@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { useUISettings } from "@/app/store/useUISettings";
 
 interface Props {
   postTitle: string;
@@ -31,8 +32,12 @@ export default function PostThumbnail({
 }: Props & {
   backgroundColor: string;
 }) {
+  const { padding, paddingButton } = useUISettings();
+
   return (
-    <Card className={`border-secondary/50 flex flex-col ${backgroundColor}`}>
+    <Card
+      className={`border-secondary/50 flex flex-col ${backgroundColor} ${padding}`}
+    >
       <div className={"flex flex-row gap-6 justify-between"}>
         <div className={"flex flex-col gap-6"}>
           <CardHeader>
@@ -60,7 +65,7 @@ export default function PostThumbnail({
           </CardContent>
         </div>
         <div className={"flex flex-col gap-2 mr-6 content-center"}>
-          <Button variant={"ghost"}>
+          <Button variant={"ghost"} className={paddingButton}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -77,7 +82,7 @@ export default function PostThumbnail({
             </svg>
           </Button>
           <span className={"text-center"}>{votes}</span>
-          <Button variant={"ghost"}>
+          <Button variant={"ghost"} className={paddingButton}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -96,7 +101,7 @@ export default function PostThumbnail({
         </div>
       </div>
       <CardFooter className={"justify-between"}>
-        <Button variant={"ghost"} className={""}>
+        <Button variant={"ghost"} className={paddingButton}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -114,7 +119,7 @@ export default function PostThumbnail({
           <span className={"text-center text-white"}>{comments}</span>
         </Button>
         <div className={"flex gap-6"}>
-          <Button variant={"ghost"}>
+          <Button variant={"ghost"} className={paddingButton}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -130,7 +135,7 @@ export default function PostThumbnail({
               />
             </svg>
           </Button>
-          <Button variant={"ghost"}>
+          <Button variant={"ghost"} className={paddingButton}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

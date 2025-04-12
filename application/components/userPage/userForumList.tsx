@@ -1,9 +1,13 @@
-import {Card} from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 
-export default function UserForumList() {
-    return (
-        <Card className={"light-glow-primary bg-black/60"}>
-            holy forum
-        </Card>
-    )
+export default function UserForumList({
+  backgroundColor,
+}: {
+  backgroundColor?: string;
+}) {
+  return (
+    <Card className={`light-glow-primary ${backgroundColor} backdrop-blur-md`}>
+      holy forum
+    </Card>
+  );
 }
