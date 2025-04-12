@@ -5,7 +5,7 @@ export async function getUserProfile(userId: string): Promise<{
     data?: GetUserProfileResponse;
 }> {
     console.log("userId: ", userId);
-    const response = await fetch(`http://localhost:5000/api/user/profile/${userId}`);
+    const response = await fetch(`/api/user/profile/${userId}`);
 
     if (!response.ok) {
         return {
