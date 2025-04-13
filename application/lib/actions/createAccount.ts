@@ -1,6 +1,7 @@
 import {z} from "zod";
 import {UserRegistrationRequest, UserRegistrationResponse} from "@/lib/apiTypes";
 import {generateFormErrorResponse} from "@/lib/actions/actionsHelperFunctions";
+import {redirect} from "next/navigation";
 
 // Schema to validate fields based on. Message is the error message shown to the user if the requirement is not met
 const CreateAccountSchema = z.object({
@@ -86,7 +87,8 @@ export async function createAccount(_prevState: CreateAccountState, formData: Fo
         };
     }
 
-    // converts response to json and returns user id
-    const responseData: UserRegistrationResponse = await response.json()
-    return {userId: responseData.user_id}
+    // // converts response to json and returns user id
+    // const responseData: UserRegistrationResponse = await response.json()
+
+    redirect('/home');
 }

@@ -15,6 +15,13 @@
     box-shadow: 0 0 10px 2px --alpha(--value(--color-*) / 60%);
 }
 
+/*noinspection ALL*/
+@utility faint-glow-* {
+    -webkit-box-shadow: 0 0 6px 2px --alpha(--value(--color-*) / 30%);
+    -moz-box-shadow: 0 0 6px 2px --alpha(--value(--color-*) / 30%);
+    box-shadow: 0 0 6px 2px --alpha(--value(--color-*) / 30%);
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

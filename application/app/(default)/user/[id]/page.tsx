@@ -8,6 +8,7 @@ import UserPostList from "@/components/userPage/userPostList";
 import {useUISettings} from "@/app/store/useUISettings";
 import {getUserProfile} from "@/lib/data/getUserProfile";
 import {GetUserProfileResponse} from "@/lib/apiTypes";
+import {notFound} from "next/navigation";
 
 interface Props {
     params: Promise<{ id: string }>
@@ -15,21 +16,26 @@ interface Props {
 
 export default function UserPage({params}: Props) {
     const userId = use(params).id
-    const [userData, setUserData] = useState<GetUserProfileResponse | undefined>(undefined)
+    const [userData, setUserData] = useState<{
+        responseCode: number,
+        data?: GetUserProfileResponse
+    } | undefined>(undefined)
 
     useEffect(() => {
         async function fetchUserData() {
             const data = await getUserProfile(userId);
-            setUserData(data.data)
+            setUserData(data)
         }
 
         fetchUserData()
     }, [userId])
 
-    if (!userData) return <span className={"absolute inset-[50%] loading loading-spinner loading-lg"}></span>;
+    if (userData?.responseCode === 404) return notFound()
+
+    if (!userData?.data) return <span className={"absolute inset-[50%] loading loading-spinner loading-lg"}></span>;
 
     return (
-        <UserPageLayout userData={userData}/>
+        <UserPageLayout userData={userData.data}/>
     );
 }
 
@@ -39,21 +45,6 @@ function UserPageLayout({userData}: { userData: GetUserProfileResponse }) {
     if (!userData) {
         return <>Evil error happend :c</> // TODO: Make actual error page
     }
-
-    // test data cus the database does not work atm
-
-    // const userData = {
-    //   id: userId,
-    //   email: "snoy@moder.waow",
-    //   username: "literally_a_cat_" + userId,
-    //   img_path: "/example_pfp.jpg",
-    //   community_ids: [1, 2], // this one wont matter anyway
-    //   tags: [1, 2], // or this
-    //   post_ids: [1, 2], // not this either
-    //   admin: false,
-    //   description: "Omg description uhmmm, idk what to write here wtf",
-    // };
-
 
     return (
         <div className={`grid grid-cols-4 gap-12 container mx-auto px-6 my-10`}>
