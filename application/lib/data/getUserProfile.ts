@@ -4,6 +4,7 @@ export async function getUserProfile(userId: string): Promise<{
     responseCode: number,
     data?: GetUserProfileResponse;
 }> {
+    console.log("userId: ", userId);
     const response = await fetch(`/api/user/profile/${userId}`);
 
     if (!response.ok) {
