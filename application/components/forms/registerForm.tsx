@@ -43,6 +43,7 @@ export default function RegisterForm() {
                             label={"Username"}
                             placeholder={"Username"}
                             inputType={"text"}
+                            required
                         />
                         <FormInput
                             formState={formState}
@@ -50,6 +51,7 @@ export default function RegisterForm() {
                             label={"Email"}
                             placeholder={"name@example.com"}
                             inputType={"email"}
+                            required
                         />
                         <FormInput
                             formState={formState}
@@ -57,6 +59,7 @@ export default function RegisterForm() {
                             label={"Password"}
                             placeholder={"password"}
                             inputType={"password"}
+                            required
                         />
                         <FormInput
                             formState={formState}
@@ -64,6 +67,7 @@ export default function RegisterForm() {
                             label={"Confirm Password"}
                             placeholder={"password"}
                             inputType={"password"}
+                            required
                         />
                     </div>
                     <div className={"flex gap-2 mt-6 items-center"}>

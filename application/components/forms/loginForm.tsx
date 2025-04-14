@@ -37,6 +37,7 @@ export default function LoginForm() {
                             label={"Username"}
                             placeholder={"Username"}
                             inputType={"text"}
+                            required
                         />
                         <FormInput
                             formState={formState}
@@ -44,6 +45,7 @@ export default function LoginForm() {
                             label={"Password"}
                             placeholder={"Password"}
                             inputType={"password"}
+                            required
                         />
                     </div>
                     <a

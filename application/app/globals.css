@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@plugin 'tailwind-scrollbar';
+
 @utility glow-* {
     box-shadow: 0 0 8px 2px --value(--color-*);
     -webkit-box-shadow: 0 0 8px 2px --value(--color-*);
@@ -20,6 +22,11 @@
     -webkit-box-shadow: 0 0 6px 2px --alpha(--value(--color-*) / 30%);
     -moz-box-shadow: 0 0 6px 2px --alpha(--value(--color-*) / 30%);
     box-shadow: 0 0 6px 2px --alpha(--value(--color-*) / 30%);
+}
+
+@utility small-scrollbar {
+    scrollbar-color: hsl(var(--border)) transparent;
+    scrollbar-width: thin;
 }
 
 @custom-variant dark (&:is(.dark *));

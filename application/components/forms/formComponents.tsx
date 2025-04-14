@@ -6,6 +6,7 @@ import {Textarea} from "@/components/ui/textarea";
 import {Card} from "@/components/ui/card";
 import {HTMLInputTypeAttribute, useState} from "react";
 import {useUISettings} from "@/app/store/useUISettings";
+import {cn} from "@/lib/utils";
 
 interface GenericFormState {
     errors?: Record<string, string[]>;
@@ -19,6 +20,17 @@ interface RegisterFormInputProps {
     placeholder: string;
     label: string;
     inputType: HTMLInputTypeAttribute;
+    className?: string;
+    required?: boolean;
+}
+
+interface RegisterFormTextareaProps {
+    formState: GenericFormState;
+    fieldName: string;
+    placeholder: string;
+    label: string;
+    className?: string;
+    required?: boolean;
 }
 
 interface FeedbackFormInputProps {
@@ -38,6 +50,8 @@ export function FormInput({
                               label,
                               placeholder,
                               inputType,
+                              className,
+                              required = false,
                           }: RegisterFormInputProps) {
 
     return (
@@ -48,12 +62,56 @@ export function FormInput({
             <div className={"relative"}>
                 <Input
                     type={inputType}
-                    className="bg-black/10 z-20 rounded-2xl w-full outline-none focus:border-primary focus:faint-glow-secondary"
+                    className={cn(
+                        "bg-black/10 z-20 rounded-2xl w-full outline-none focus:border-primary" +
+                        " focus:faint-glow-secondary",
+                        className
+                    )}
                     placeholder={placeholder}
                     name={fieldName}
                     id={fieldName}
                     defaultValue={formState.fieldsState?.[fieldName]}
-                    required
+                    required={required}
+                />
+            </div>
+            <div id={`${fieldName}-error`}>
+                {formState.errors?.[fieldName] &&
+                    formState.errors[fieldName].map((error: string) => (
+                        <p key={error} className={"ml-2 text-sm text-red-500"}>
+                            {error}
+                        </p>
+                    ))}
+            </div>
+        </div>
+    );
+}
+
+export function FormTextArea({
+                                 formState,
+                                 fieldName,
+                                 label,
+                                 placeholder,
+                                 className,
+                                 required = false,
+                             }: RegisterFormTextareaProps) {
+
+    return (
+        <div className={"grid gap-2"}>
+            <Label htmlFor={fieldName} className={"ml-2"}>
+                {label}
+            </Label>
+            <div className={"relative"}>
+                <Textarea
+                    className={cn(
+                        "bg-black/10 z-20 w-full outline-none focus:border-primary" +
+                        " focus:faint-glow-secondary",
+                        className
+                    )}
+                    placeholder={placeholder}
+                    name={fieldName}
+                    id={fieldName}
+                    defaultValue={formState.fieldsState?.[fieldName]}
+                    required={required}
                 />
             </div>
             <div id={`${fieldName}-error`}>

@@ -3,7 +3,7 @@
 import {Card} from "@/components/ui/card";
 import PostThumbnail from "@/components/general/postThumbnail";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
-import SortingMenu from "@/components/userPage/sortingMenu";
+import SortingMenu from "@/components/general/sortingMenu";
 
 export default function UserPostList({
                                          backgroundColor,
