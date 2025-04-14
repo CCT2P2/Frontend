@@ -6,9 +6,8 @@ import {useUISettings} from "@/app/store/useUISettings";
 import {useState} from "react";
 import {motion} from "motion/react"
 import {cn} from "@/lib/utils";
-import {Cog8ToothIcon} from "@heroicons/react/24/outline"
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
-import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
+import {SearchIcon, Settings} from "lucide-react"
 import {Input} from "@/components/ui/input";
 
 export default function Header() {
@@ -42,7 +41,7 @@ export default function Header() {
                                 " focus:faint-glow-secondary"}
                             placeholder={"search"}
                         />
-                        <MagnifyingGlassIcon
+                        <SearchIcon
                             className="absolute left-6 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-secondary transition-all duration-200"/>
                     </div>
                 </div>
@@ -50,7 +49,7 @@ export default function Header() {
                 {/* Profile */}
                 <div className="flex gap-6 items-center ml-auto">
                     <Link href={"/settings"}>
-                        <Cog8ToothIcon className={"size-6 hover:text-secondary transition-all duration-200"}/>
+                        <Settings className={"size-6 hover:text-secondary transition-all duration-200"}/>
                     </Link>
                     <Link href="/user/1">
                         <Avatar className={"w-10 h-10"}>

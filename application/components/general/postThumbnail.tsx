@@ -9,13 +9,7 @@ import {
 import Image from "next/image";
 import {Button} from "@/components/ui/button";
 import {useUISettings} from "@/app/store/useUISettings";
-import {
-    ChevronUpIcon,
-    ChevronDownIcon,
-    ShareIcon,
-    ChatBubbleBottomCenterTextIcon,
-    EllipsisHorizontalIcon
-} from "@heroicons/react/24/outline"
+import {ChevronUp, ChevronDown, Ellipsis, Share, MessageSquareText} from "lucide-react";
 
 interface Props {
     postTitle: string;
@@ -68,25 +62,25 @@ export default function PostThumbnail({
                 </div>
                 <div className={"flex flex-col gap-2 mr-6 content-center"}>
                     <Button variant={"ghost"}>
-                        <ChevronUpIcon className={"size-6"}/>
+                        <ChevronUp className={"size-6"}/>
                     </Button>
                     <span className={"text-center"}>{votes}</span>
                     <Button variant={"ghost"}>
-                        <ChevronDownIcon className={"size-6"}/>
+                        <ChevronDown className={"size-6"}/>
                     </Button>
                 </div>
             </div>
             <CardFooter className={"justify-between"}>
                 <Button variant={"ghost"}>
-                    <ChatBubbleBottomCenterTextIcon className={"size-6"}/>
+                    <MessageSquareText className={"size-6"}/>
                     <span className={"text-center text-white"}>{comments}</span>
                 </Button>
                 <div className={"flex gap-6"}>
                     <Button variant={"ghost"}>
-                        <ShareIcon className={"size-5"}/>
+                        <Share className={"size-5"}/>
                     </Button>
                     <Button variant={"ghost"}>
-                        <EllipsisHorizontalIcon className={"size-6"}/>
+                        <Ellipsis className={"size-6"}/>
                     </Button>
                 </div>
             </CardFooter>

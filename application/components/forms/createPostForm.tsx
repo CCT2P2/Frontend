@@ -15,16 +15,9 @@ import {
 } from "@/components/ui/command";
 import {cn} from "@/lib/utils";
 import {Label} from "@radix-ui/react-label";
-import {
-    Dialog, DialogClose,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger
-} from "@/components/ui/dialog";
+import {DialogClose} from "@/components/ui/dialog";
 import {PopoverClose} from "@radix-ui/react-popover";
-import ReactImageUploading, {ImageListType, ImageType} from "react-images-uploading";
+import ReactImageUploading, {ImageListType} from "react-images-uploading";
 import Image from "next/image";
 
 const communities = [
