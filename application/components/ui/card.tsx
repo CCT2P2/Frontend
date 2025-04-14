@@ -1,14 +1,17 @@
 import * as React from "react"
 
 import {cn} from "@/lib/utils"
+import {useUISettings} from "@/app/store/useUISettings";
 
 function Card({className, ...props}: React.ComponentProps<"div">) {
+    const {blur} = useUISettings();
     return (
         <div
             data-slot="card"
             className={cn(
                 "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border-2 shadow-sm border-primary" +
                 " rounded-3xl p-4 py-8",
+                blur ? "bg-stone-800/20 backdrop-blur-md" : "bg-black",
                 className
             )}
             {...props}

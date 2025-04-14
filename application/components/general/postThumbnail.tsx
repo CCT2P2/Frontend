@@ -35,16 +35,11 @@ export default function PostThumbnail({
                                           author,
                                           votes,
                                           comments,
-                                          backgroundColor,
-                                      }: Props & {
-    backgroundColor: string;
-}) {
-    const {padding, paddingButton} = useUISettings();
+                                      }: Props) {
+    const {padding} = useUISettings();
 
     return (
-        <Card
-            className={`border-secondary/50 flex flex-col ${backgroundColor} ${padding}`}
-        >
+        <Card className={`border-secondary/50 flex flex-col ${padding}`}>
             <div className={"flex flex-row gap-6 justify-between"}>
                 <div className={"flex flex-col gap-6"}>
                     <CardHeader>
@@ -72,25 +67,25 @@ export default function PostThumbnail({
                     </CardContent>
                 </div>
                 <div className={"flex flex-col gap-2 mr-6 content-center"}>
-                    <Button variant={"ghost"} className={paddingButton}>
+                    <Button variant={"ghost"}>
                         <ChevronUpIcon className={"size-6"}/>
                     </Button>
                     <span className={"text-center"}>{votes}</span>
-                    <Button variant={"ghost"} className={paddingButton}>
+                    <Button variant={"ghost"}>
                         <ChevronDownIcon className={"size-6"}/>
                     </Button>
                 </div>
             </div>
             <CardFooter className={"justify-between"}>
-                <Button variant={"ghost"} className={paddingButton}>
+                <Button variant={"ghost"}>
                     <ChatBubbleBottomCenterTextIcon className={"size-6"}/>
                     <span className={"text-center text-white"}>{comments}</span>
                 </Button>
                 <div className={"flex gap-6"}>
-                    <Button variant={"ghost"} className={paddingButton}>
+                    <Button variant={"ghost"}>
                         <ShareIcon className={"size-5"}/>
                     </Button>
-                    <Button variant={"ghost"} className={paddingButton}>
+                    <Button variant={"ghost"}>
                         <EllipsisHorizontalIcon className={"size-6"}/>
                     </Button>
                 </div>
