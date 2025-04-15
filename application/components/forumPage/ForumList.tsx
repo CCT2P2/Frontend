@@ -2,7 +2,7 @@
 import { Card, CardTitle } from "@/components/ui/card";
 import { useUISettings } from "@/app/store/useUISettings";
 
-export default function HomeForumList() {
+export default function ForumList() {
   const { paddingButton, padding } = useUISettings();
   return (
     <div className="h-screen flex flex-col gap-3">
