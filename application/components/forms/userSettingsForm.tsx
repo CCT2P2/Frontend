@@ -25,7 +25,9 @@ export default function RegisterForm() {
 
     const { blur } = useUISettings();
 
-    const [images, setImages] = useState<ImageListType>([]);
+    const userImage = require('@/public/example_pfp.jpg');
+
+    const [images, setImages] = useState<ImageListType>([userImage]);
 
     const onImageChange = (imageList: ImageListType) => {
         setImages(imageList);
@@ -35,6 +37,53 @@ export default function RegisterForm() {
     return (
         <form /*action={dispatch}*/>
             <div className={"flex flex-col gap-4 mt-4"}>
+
+                <ReactImageUploading
+                    multiple
+                    value={images}
+                    onChange={onImageChange}
+                    dataURLKey="data_url"
+                >
+                    {({
+                        imageList,
+                        onImageUpload,
+                        onImageRemoveAll,
+                        onImageUpdate,
+                        onImageRemove,
+                        isDragging,
+                        dragProps,
+                    }) => (
+                        // write your building UI
+
+                        <div className="upload__image-wrapper">
+                            {imageList.map((image, index) => (
+                                <div key={index} className="image-item">
+                                    <Avatar className={"w-20 h-20 mt-4 mb-4 mx-3"}>
+                                        <AvatarImage src={image['data_url']} alt={"User"} />
+                                        <AvatarFallback><img src="example_pfp.jpg" alt="" /></AvatarFallback>
+                                    </Avatar>
+                                    <div className="image-item__btn-wrapper">
+                                        <Button
+                                            variant={"ghost"}
+                                            onClick={() => onImageUpdate(index)}
+                                            type={"button"}
+                                            {...dragProps}
+                                        >
+                                            <ImagePlus /> Change profile picture
+                                        </Button>
+                                        <Button
+                                            variant={"delete"}
+                                            type={"button"}
+                                            onClick={onImageRemoveAll}
+                                        >
+                                            <SquareX /> Delete profile picture
+                                        </Button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </ReactImageUploading>
                 <FormInput
                     formState={formState}
                     fieldName={"nickname"}
@@ -69,62 +118,6 @@ export default function RegisterForm() {
                     required
                 />
 
-                <ReactImageUploading value={images} onChange={onImageChange}>
-                    {({ onImageRemoveAll }) => (
-                        <div className={"upload__image-wrapper"}>
-                            {images[0]?.dataURL && (
-                                <div className={"relative w-[150px] group"}>
-                                    <Image
-                                        src={images[0]?.dataURL}
-                                        alt={"Attached Image"}
-                                        width={150}
-                                        height={150}
-                                        className={"rounded-xl relative"}
-                                    />
-                                    <Button
-                                        variant={"ghost"}
-                                        size={"sm"}
-                                        className={
-                                            "absolute right-1 group-hover:bg-accent/50 rounded-full" +
-                                            " text-transparent group-hover:text-white px-0"
-                                        }
-                                        onClick={onImageRemoveAll}
-                                    >
-                                        <XIcon size={12} />
-                                    </Button>
-                                </div>
-                            )}
-                        </div>
-                    )}
-                </ReactImageUploading>
-                <div>
-                    <div className="text-lg font-bold text-white">Change image</div>
-
-                    <Avatar className={"w-20 h-20 mt-4 mb-4 mx-3"}>
-                        <AvatarImage src={"/example_pfp.jpg"} alt={"User"} />
-                        <AvatarFallback>User</AvatarFallback>
-                    </Avatar>
-                    <ReactImageUploading value={images} onChange={onImageChange}>
-                        {({ onImageUpload, dragProps }) => (
-                            <div className={"upload__image-wrapper"}>
-                                <Button
-                                    variant={"ghost"}
-                                    onClick={onImageUpload}
-                                    type={"button"}
-                                    {...dragProps}
-                                >
-                                    <ImagePlus /> Change profile picture
-                                </Button>
-                            </div>
-                        )}
-                    </ReactImageUploading>
-                    <Button
-                        variant={"delete"}
-                        type={"button"}
-                    >
-                        <SquareX /> Delete profile picture
-                    </Button>
-                </div>
                 <div className={"flex flex-col justify-center gap-8 mt-2"}>
                     {/*<button*/}
                     {/*    className="px-4 py-2 bg-black border-2 text-purple-300 rounded-2xl border-primary hover:text-black hover:bg-purple-300 transition-all duration-300">*/}
@@ -139,6 +132,7 @@ export default function RegisterForm() {
                     </Button>
                 </div>
             </div>
-        </form>
+        </form >
+
     );
 }
