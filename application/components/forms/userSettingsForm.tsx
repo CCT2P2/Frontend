@@ -91,18 +91,18 @@ export default function RegisterForm() {
           inputType={"password"}
         />
 
-        <div className={"flex flex-row justify-center gap-8 mt-2"}>
+        <div className={"justify-center gap-8 mt-2"}>
           <Button
             variant={"outline"}
             size={"lg"}
-            className={`${blur ? "bg-stone-800/20" : "bg-black"} backdrop-blur-md`}
+            className={`w-full ${blur ? "bg-stone-800/20" : "bg-black"} backdrop-blur-md`}
           >
             Save
           </Button>
           <Button
             variant={"outline"}
             size={"lg"}
-            className={`${blur ? "bg-red-600/20" : "bg-red-600"} text-red-600 border-red-600 hover:bg-red-600 hover:text-white backdrop-blur-md`}
+            className={`w-1/2 my-6 ${blur ? "bg-red-600/20" : "bg-red-600"} text-red-600 border-red-600/20 hover:bg-red-600 hover:text-white backdrop-blur-md`}
           >
             Delete Account
           </Button>
