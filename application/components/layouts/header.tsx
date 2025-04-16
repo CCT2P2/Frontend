@@ -24,7 +24,7 @@ export default function Header() {
 
         {/* Login + Feedback */}
         <ul className="flex gap-2 items-center">
-          <NavItem linkText={"Home"} linkHref={"/home"} />
+          <NavItem linkText={"Home"} linkHref={"/forum/0"} />
           <NavItem linkText={"Feedback"} linkHref={"/feedback"} />
         </ul>
 
