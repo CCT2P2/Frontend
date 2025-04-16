@@ -60,7 +60,8 @@ export async function login(
   console.log(response);
   if (!response.ok) {
     return {
-      message: `Error with login: ${response.status} ${response.statusText}`,
+      ..._prevState,
+      message: `Login failed: Invalid Username or Password`,
     };
   }
 
