@@ -27,7 +27,7 @@ const buttonVariants = cva(
                 ghost:
                     "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 rounded-xl",
                 link: "text-primary underline-offset-4 hover:underline",
-                delete: "text-red-500 font-semibold hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 rounded-xl ",
+                delete: "font-semibold text-red-500 hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 rounded-xl ",
             },
             size: {
                 default: "h-9 px-4 py-2 has-[>svg]:px-3",

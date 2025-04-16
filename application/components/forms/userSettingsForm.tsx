@@ -7,7 +7,6 @@ import { createAccount } from "@/lib/actions/createAccount";
 import { FormInput } from "@/components/forms/formComponents";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useUISettings } from "@/app/store/useUISettings";
 import { ImagePlus, SquareX, XIcon } from "lucide-react";
@@ -25,9 +24,7 @@ export default function RegisterForm() {
 
     const { blur } = useUISettings();
 
-    const userImage = require('@/public/example_pfp.jpg');
-
-    const [images, setImages] = useState<ImageListType>([userImage]);
+    const [images, setImages] = useState<ImageListType>([AvatarFallback]);
 
     const onImageChange = (imageList: ImageListType) => {
         setImages(imageList);
