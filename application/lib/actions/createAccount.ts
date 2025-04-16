@@ -96,5 +96,5 @@ export async function createAccount(
   // // converts response to json and returns user id
   // const responseData: UserRegistrationResponse = await response.json()
 
-  redirect("/home");
+  redirect("/forum/0");
 }
