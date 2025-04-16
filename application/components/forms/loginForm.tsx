@@ -28,6 +28,9 @@ export default function LoginForm() {
       <CardContent>
         <form action={dispatch}>
           <div className={"flex flex-col gap-4 mt-4"}>
+            {formState.message && (
+              <div className="text-red-500">{formState.message}</div>
+            )}
             <FormInput
               formState={formState}
               fieldName={"username"}
