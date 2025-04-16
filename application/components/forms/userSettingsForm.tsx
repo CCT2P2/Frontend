@@ -26,14 +26,32 @@ export default function RegisterForm() {
     const { blur } = useUISettings();
 
     const [images, setImages] = useState<ImageListType>([]);
+    const [uploadedUrls, setUploadedUrls] = useState<string[]>([]);
 
-    const onImageChange = (imageList: ImageListType) => {
+    const onImageChange = async (imageList: ImageListType) => {
         setImages(imageList);
-        console.log(images);
+
+        const formData = new FormData();
+        imageList.forEach((img, index) => {
+            if (img.file) formData.append(`file_${index}`, img.file);
+        });
+
+        const res = await fetch("/api/misc/upload/image", {
+            method: "POST",
+            body: formData,
+        });
+
+        const result = await res.json();
+        setUploadedUrls(result.urls); // or result.imageUrls, etc.
     };
 
+
     return (
-        <form /*action={dispatch}*/>
+        <form action={dispatch}>
+            {uploadedUrls.map((url, i) => (
+                <input key={i} type="hidden" name={`imageUrls[]`} value={url} />
+            ))}
+
             <div className={"flex flex-col gap-4 mt-4"}>
                 <FormInput
                     formState={formState}
@@ -119,7 +137,7 @@ export default function RegisterForm() {
                         )}
                     </ReactImageUploading>
                     <Button
-                        variant={"delete"}
+                        //variant={"delete"}
                         type={"button"}
                     >
                         <SquareX /> Delete profile picture
