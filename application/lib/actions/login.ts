@@ -1,6 +1,9 @@
+"use server"
+
 import {z} from "zod";
 import {generateFormErrorResponse} from "@/lib/actions/actionsHelperFunctions";
-import {UserLoginRequest, UserLoginResponse} from "@/lib/apiTypes";
+import {signIn} from "@/auth";
+import {redirect} from "next/navigation";
 
 // for comments on how this works go to createAccount.ts, basically same logic
 const LoginSchema = z.object({
@@ -34,25 +37,14 @@ export async function login(_prevState: LoginState, formData: FormData): Promise
         return generateFormErrorResponse(formData, validatedFields)
     }
 
-    const requestData: UserLoginRequest = {
-        username: validatedFields.data.username,
-        password: validatedFields.data.password,
-    }
-
-    const response = await fetch('api/auth/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type:': 'application/json',
-        },
-        body: JSON.stringify(requestData),
-    });
-
-    if (!response.ok) {
-        return {
-            message: `Error with login: ${response.status}`
+    try {
+        await signIn("credentials", validatedFields)
+    } catch (error) {
+        if (error === "Not Found") {
+            return {message: "Username or password is incorrect"};
         }
+        return {message: `Failed to login: ${error}`}
     }
 
-    const responseData: UserLoginResponse = await response.json();
-    return {userId: responseData.user_id}
+    redirect("/home");
 }
