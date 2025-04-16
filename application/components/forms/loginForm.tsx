@@ -50,7 +50,7 @@ export default function LoginForm() {
           </div>
           <a
             className={"text-purple-300 text-xs ml-2"}
-            href={"https://cornhub.website"}
+            href={"https://cornhub.website"} //change dis
           >
             Forgot your password?
           </a>
