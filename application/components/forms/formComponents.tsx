@@ -73,7 +73,7 @@ export function FormInput({
           type={inputType}
           className={cn(
             "bg-black/10 z-20 rounded-2xl w-full outline-none focus:border-primary" +
-              " focus:faint-glow-secondary",
+            " focus:faint-glow-secondary",
             className,
           )}
           placeholder={placeholder}
@@ -112,7 +112,7 @@ export function FormTextArea({
         <Textarea
           className={cn(
             "bg-black/10 z-20 w-full outline-none focus:border-primary" +
-              " focus:faint-glow-secondary",
+            " focus:faint-glow-secondary",
             className,
           )}
           placeholder={placeholder}
