@@ -29,11 +29,11 @@ export default function Header() {
         </ul>
 
         {/* Centered Search Bar */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 w-full max-w-xl">
-          <div className={"w-full z-10 px-2"}>
+        <div className="flex left-1/2 flex-1 ">
+          <div className={"w-full max-w-xl z-10 px-2"}>
             <Input
               className={
-                "w-full pl-10 peer z-20 rounded-2xl outline-none focus:border-primary" +
+                " pl-10 peer z-20 rounded-2xl outline-none focus:border-primary flex" +
                 " focus:faint-glow-secondary"
               }
               placeholder={"search"}
@@ -51,7 +51,7 @@ export default function Header() {
               }
             />
           </Link>
-          <Link href="/user/1">
+          <Link href={`/user/2`}>
             <Avatar className={"w-10 h-10"}>
               <AvatarImage src={"/example_pfp.jpg"} alt={"User"} />
               <AvatarFallback>User</AvatarFallback>

@@ -66,7 +66,7 @@ export async function login(
   }
 
   // Redirect to home page on successful login
-  window.location.href = "/home";
+  window.location.href = "/forum/0";
 
   const responseData: UserLoginResponse = await response.json();
   return { userId: responseData.user_id };
