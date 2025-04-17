@@ -78,11 +78,16 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
         },
 
         authorized({auth, request: {nextUrl}}) {
+            const protectedPages = ["/settings", "/user", "/forum"];
+
+            const isOnProtectedPage = protectedPages.some((page) => {
+                return nextUrl.pathname.startsWith(page)
+            })
+
             const isLoggedIn = !!auth?.user;
-            const isOnSettingsPage = nextUrl.pathname.startsWith('/settings')
             const isOnAuthPage = nextUrl.pathname.startsWith('/login') || nextUrl.pathname.startsWith('/register');
 
-            if (isOnSettingsPage) {
+            if (isOnProtectedPage) {
                 // Redirect to login page if user is not logged in
                 return isLoggedIn;
             }
