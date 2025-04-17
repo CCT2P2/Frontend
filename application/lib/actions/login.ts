@@ -4,6 +4,7 @@ import {z} from "zod";
 import {generateFormErrorResponse} from "@/lib/actions/actionsHelperFunctions";
 import {signIn} from "@/auth";
 import {redirect} from "next/navigation";
+import {AuthError} from "next-auth";
 
 // for comments on how this works go to createAccount.ts, basically same logic
 const LoginSchema = z.object({
@@ -38,12 +39,21 @@ export async function login(_prevState: LoginState, formData: FormData): Promise
     }
 
     try {
-        await signIn("credentials", validatedFields)
+        await signIn("credentials", {
+            username: validatedFields.data.username,
+            password: validatedFields.data.password,
+            redirect: false,
+        });
     } catch (error) {
-        if (error === "Not Found") {
-            return {message: "Username or password is incorrect"};
+        if (error instanceof AuthError) {
+            switch (error.type) {
+                case 'CredentialsSignin':
+                    return {message: 'Invalid Email/username or password'}
+                default:
+                    return {message: 'Failed to sign in'}
+            }
         }
-        return {message: `Failed to login: ${error}`}
+        return { message: 'An unexpected error occurred' };
     }
 
     redirect("/home");

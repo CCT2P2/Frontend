@@ -7,10 +7,12 @@ import Image from "next/image";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {Button} from "@/components/ui/button";
 import {useUISettings} from "@/app/store/useUISettings";
+import Link from "next/link";
 
 export default function LoginForm() {
     const [formState, dispatch] = useActionState(login, {});
     const {blur} = useUISettings();
+
     return (
         <Card className={`w-96 relative py-8 light-glow-primary`}>
             <CardHeader>
@@ -46,12 +48,12 @@ export default function LoginForm() {
                             required
                         />
                     </div>
-                    <a
+                    <Link
                         className={"text-purple-300 text-xs ml-2"}
-                        href={"https://cornhub.website"}
+                        href={"/home"}
                     >
                         Forgot your password?
-                    </a>
+                    </Link>
                     <div className={"flex flex-col justify-center gap-8 mt-10"}>
                         <Button
                             variant={"outline"}
@@ -62,12 +64,12 @@ export default function LoginForm() {
                         </Button>
                         <div className="text-center text-sm">
                             {"Don't have an account? "}
-                            <a
+                            <Link
                                 href="/register"
                                 className="underline underline-offset-4 text-purple-300"
                             >
                                 Sign up
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </form>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./extra.css";
 import LayoutClient from "./components/LayoutClient";
+import {SessionProvider} from "next-auth/react";
 
 export const metadata: Metadata = {
   title: "Gnuf",
@@ -15,7 +16,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={"dark"}>
-      <LayoutClient>{children}</LayoutClient>
+    <LayoutClient>
+      <SessionProvider>{children}</SessionProvider>
+    </LayoutClient>
     </html>
   );
 }

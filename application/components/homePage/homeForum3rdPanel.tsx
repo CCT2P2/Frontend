@@ -1,5 +1,6 @@
 import {Card, CardTitle} from "@/components/ui/card";
 import {useUISettings} from "@/app/store/useUISettings";
+import {useCurrentSession} from "@/lib/hooks/useCurrentSession";
 
 const orange = "#fc6e22";
 const blue = "#5382a1";
@@ -9,13 +10,31 @@ const green = "#78fe8b";
 
 export function HomeForumName() {
     const {padding, paddingButton} = useUISettings();
+    const { session, status } = useCurrentSession();
+
+    console.log(session)
+    console.log(status)
+
+    // Show loading state while session is being fetched
+    // if (status === "loading") {
+    //     return <div>Loading session...</div>;
+    // }
+
     return (
         <div>
             <Card className={`p-${padding}`}>
                 <CardTitle className={``}>Home</CardTitle>
                 <div className={`p-${paddingButton}`}>
-                    Your personal place to chill with familiar posts, or discover brand
-                    new content
+                    <p>Your personal place to chill with familiar posts, or discover brand new content</p>
+                </div>
+                <div>
+                    <p className={"text-xl"}>Auth testing:</p>
+                    <p>You are logged in as:</p>
+                    {status === "loading"
+                        ? <div>Loading session...</div>
+                        : <p className={"text-primary"}>{session?.user.username ?? "...nobody"}</p>
+                    }
+
                 </div>
             </Card>
         </div>
