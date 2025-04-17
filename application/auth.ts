@@ -8,6 +8,8 @@ interface CustomUser {
     username: string;
     token: string;
     isAdmin: boolean;
+    email: string;
+    imagePath: string | undefined;
 }
 
 export const {handlers, signIn, signOut, auth} = NextAuth({
@@ -37,7 +39,9 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
                     return null;
                 }
 
-                return await response.json();
+                const user = await response.json();
+                console.log(user);
+                return user;
             }
         })
     ],
@@ -54,6 +58,8 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
                 token.username = customUser.username;
                 token.accessToken = customUser.token;
                 token.role = customUser.isAdmin ? "Admin" : "User";
+                token.email = customUser.email;
+                token.picture = customUser.imagePath || undefined;
             }
 
             return token;
@@ -64,6 +70,8 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
                 session.user.id = token.id as string;
                 session.user.role = token.role as string;
                 session.user.username = token.username as string;
+                session.user.email = token.email as string;
+                session.user.picture = token.picture as string || undefined;
                 session.accessToken = token.accessToken as string;
             }
             return session;
@@ -98,6 +106,8 @@ declare module "next-auth" {
             id: string;
             username: string;
             role: string;
+            email: string;
+            picture: string | undefined;
         };
         accessToken: string;
     }
