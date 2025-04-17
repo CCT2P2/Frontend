@@ -7,9 +7,10 @@ export const formSchema = z.record(z.string(), z.string());
 export type FormSchema = z.infer<typeof formSchema>;
 
 // your function, uses the schema type properly
-export function generateFormErrorResponse(
+export function generateFormResponse(
     formData: FormData,
-    validatedFields: z.SafeParseError<FormSchema>,
+    validatedFields: z.SafeParseError<FormSchema> | z.SafeParseSuccess<FormSchema>,
+    message: string = "Missing or invalid fields, failed to create account",
 ) {
     const fields: Record<string, string> = {};
 
@@ -18,8 +19,8 @@ export function generateFormErrorResponse(
     }
 
     return {
-        errors: validatedFields.error.flatten().fieldErrors,
+        errors: validatedFields.error ? validatedFields.error.flatten().fieldErrors : undefined,
         fieldsState: fields,
-        message: "Missing or invalid fields, failed to create account",
+        message: message,
     };
 }

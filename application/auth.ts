@@ -25,7 +25,7 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
 
                 console.log(requestData);
 
-                const response = await fetch('http://localhost:5000/api/auth/login', {
+                const response = await fetch(`${process.env.API_URL}/api/auth/login`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
     },
     callbacks: {
         async jwt(params) {
-            const { token, user } = params;
+            const {token, user} = params;
 
             if (user) {
                 const customUser = user as CustomUser;
@@ -59,7 +59,7 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
             return token;
         },
 
-        async session({ session, token }) {
+        async session({session, token}) {
             if (token && session.user) {
                 session.user.id = token.id as string;
                 session.user.role = token.role as string;
@@ -68,6 +68,7 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
             }
             return session;
         },
+
         authorized({auth, request: {nextUrl}}) {
             const isLoggedIn = !!auth?.user;
             const isOnSettingsPage = nextUrl.pathname.startsWith('/settings')
@@ -79,7 +80,7 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
             }
 
             if (isOnAuthPage && isLoggedIn) {
-                return Response.redirect(new URL('/home', nextUrl));
+                return Response.redirect(new URL('/forum/0', nextUrl));
             }
 
             return true

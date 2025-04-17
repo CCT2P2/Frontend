@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
             {
                 // Exclude auth routes from being rewritten
                 source: "/api/:path*",
-                destination: "http://localhost:5000/api/:path*",
+                destination: `${process.env.API_URL}/api/:path*`,
                 has: [
                     {
                         type: "header",
@@ -23,7 +23,7 @@ const nextConfig: NextConfig = {
             {
                 // Handle all other API routes
                 source: "/api/:path*",
-                destination: "http://localhost:5000/api/:path*",
+                destination: `${process.env.API_URL}/api/:path*`,
                 has: [
                     {
                         type: "header",

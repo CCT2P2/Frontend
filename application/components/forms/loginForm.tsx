@@ -26,7 +26,9 @@ export default function LoginForm() {
                     />
                 </div>
                 <CardTitle>Log in</CardTitle>
-                {formState.message && <p>{formState.message}</p>}
+                {formState.message && (
+                    <div className="text-red-500">{formState.message}</div>
+                )}
             </CardHeader>
             <CardContent>
                 <form action={dispatch}>
@@ -50,7 +52,7 @@ export default function LoginForm() {
                     </div>
                     <Link
                         className={"text-purple-300 text-xs ml-2"}
-                        href={"/home"}
+                        href={"/"} // TODO: make an actual forgot password page
                     >
                         Forgot your password?
                     </Link>
