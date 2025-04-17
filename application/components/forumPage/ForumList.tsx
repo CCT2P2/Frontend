@@ -13,37 +13,12 @@ export default function ForumList() {
         <Card
           className={`p-${paddingButton} transition-colors duration-200 hover:bg-secondary/15`}
         >
-          <a href="/forum/1">C#</a>
+          <a href="/forum/-1">The realm of the bannished</a>
         </Card>
         <Card
           className={`p-${paddingButton} transition-colors duration-200 hover:bg-secondary/15`}
         >
-          BigQuestions
-        </Card>
-        <Card
-          className={`p-${paddingButton} transition-colors duration-200 hover:bg-secondary/15`}
-        >
-          wowsers
-        </Card>{" "}
-        <Card
-          className={`p-${paddingButton} transition-colors duration-200 hover:bg-secondary/15`}
-        >
-          Whyy
-        </Card>
-        <Card
-          className={`p-${paddingButton} transition-colors duration-200 hover:bg-secondary/15`}
-        >
-          BigQuestions
-        </Card>
-        <Card
-          className={`p-${paddingButton} transition-colors duration-200 hover:bg-secondary/15`}
-        >
-          wowsers
-        </Card>{" "}
-        <Card
-          className={`p-${paddingButton} transition-colors duration-200 hover:bg-secondary/15`}
-        >
-          Whyy
+          <a href="/forum/3">C#</a>
         </Card>
       </Card>
     </div>

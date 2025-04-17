@@ -1,6 +1,7 @@
 "use client";
 import { useUISettings } from "@/app/store/useUISettings";
 import { Card } from "@/components/ui/card";
+import UserSettingsForm from "@/components/forms/userSettingsForm"
 
 export default function SettingsPage() {
   const { bg, blur, setBg, setBlur } = useUISettings();
@@ -10,12 +11,14 @@ export default function SettingsPage() {
       <Card
         className={`${blur ? "bg-stone-800/20" : "bg-black"} ${blur ? "backdrop-blur-md" : ""} w-96 p-5 mx-5 `}
       >
-        User section
+        <div className="text-3xl font-bold text-white">User section</div>
+        <UserSettingsForm />
       </Card>
       <Card
         className={`w-full max-w-xl p-8 ${blur ? "bg-stone-800/20" : "bg-black"} ${blur ? "backdrop-blur-md" : ""} space-y-6`}
       >
-        <h1 className="text-3xl font-bold text-white">GnuF Settings</h1>
+        <div className="text-3xl font-bold text-white">GnuF Settings</div>
+
 
         <div className="space-y-4 text-white">
           <div className="flex items-center justify-between">
@@ -48,7 +51,8 @@ export default function SettingsPage() {
       <Card
         className={`mx-5 w-96 ${blur ? "bg-stone-800/20" : "bg-black"} ${blur ? "backdrop-blur-md" : ""} `}
       >
-        Community section
+        <div className="text-3xl font-bold text-white">Community section</div>
+
       </Card>
     </div>
   );

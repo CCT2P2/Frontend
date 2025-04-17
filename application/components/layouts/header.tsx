@@ -24,21 +24,21 @@ export default function Header() {
 
         {/* Login + Feedback */}
         <ul className="flex gap-2 items-center">
-          <NavItem linkText={"Home"} linkHref={"/home"} />
+          <NavItem linkText={"Home"} linkHref={"/forum/0"} />
           <NavItem linkText={"Feedback"} linkHref={"/feedback"} />
         </ul>
 
         {/* Centered Search Bar */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 w-full max-w-xl">
-          <div className={"w-full z-10 px-2"}>
+        <div className="flex justify-center flex-1">
+          <div className={" w-full max-w-xl z-10 px-2"}>
             <Input
               className={
-                "w-full pl-10 peer z-20 rounded-2xl outline-none focus:border-primary" +
+                " pl-10 peer z-20 rounded-2xl outline-none focus:border-primary flex" +
                 " focus:faint-glow-secondary"
               }
               placeholder={"search"}
             />
-            <SearchIcon className="absolute left-6 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-secondary transition-all duration-200" />
+            <SearchIcon className="absolute ml-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-secondary transition-all duration-200" />
           </div>
         </div>
 
@@ -51,7 +51,7 @@ export default function Header() {
               }
             />
           </Link>
-          <Link href="/user/1">
+          <Link href={`/user/2`}>
             <Avatar className={"w-10 h-10"}>
               <AvatarImage src={"/example_pfp.jpg"} alt={"User"} />
               <AvatarFallback>User</AvatarFallback>

@@ -1,3 +1,4 @@
+"use client";
 import { Card, CardTitle } from "@/components/ui/card";
 import { useUISettings } from "@/app/store/useUISettings";
 
@@ -7,16 +8,18 @@ const yellow = "#ffff66";
 const purple = "#c24cf6";
 const green = "#78fe8b";
 
-export function ForumName() {
+interface ForumNameProps {
+  name: string;
+  description: string;
+}
+
+export function ForumName({ name, description }: ForumNameProps) {
   const { padding, paddingButton } = useUISettings();
   return (
     <div>
       <Card className={`p-${padding}`}>
-        <CardTitle className={``}>Home</CardTitle>
-        <div className={`p-${paddingButton}`}>
-          Your personal place to chill with familiar posts, or discover brand
-          new content
-        </div>
+        <CardTitle className={``}>{name}</CardTitle>
+        <div className={`p-${paddingButton}`}>{description}</div>
       </Card>
     </div>
   );
