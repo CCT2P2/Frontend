@@ -8,7 +8,7 @@ import UserPostList from "@/components/userPage/userPostList";
 import {useUISettings} from "@/app/store/useUISettings";
 import {getUserProfile} from "@/lib/data/getUserProfile";
 import {GetUserProfileResponse} from "@/lib/apiTypes";
-import {notFound} from "next/navigation";
+import {notFound, unauthorized} from "next/navigation";
 import {useCurrentSession} from "@/lib/hooks/useCurrentSession";
 
 interface Props {
@@ -24,17 +24,23 @@ export default function UserPage({params}: Props) {
     }
         | undefined
     >(undefined);
+    const {status, session} = useCurrentSession()
 
     useEffect(() => {
         async function fetchUserData() {
-            const data = await getUserProfile(userId);
+            if (!session) {
+                return;
+            }
+
+            const data = await getUserProfile(userId, session?.accessToken);
             setUserData(data);
         }
 
         fetchUserData();
-    }, [userId]);
+    }, [userId, status, session]);
 
     if (userData?.responseCode === 404) return notFound();
+    if (status === "unauthorized" || userData?.responseCode === 401) return unauthorized();
 
     if (!userData?.data)
         return (

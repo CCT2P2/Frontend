@@ -1,10 +1,14 @@
 import {GetUserProfileResponse} from "@/lib/apiTypes";
 
-export async function getUserProfile(userId: string): Promise<{
+export async function getUserProfile(userId: string, accessToken: string): Promise<{
     responseCode: number,
     data?: GetUserProfileResponse;
 }> {
-    const response = await fetch(`/api/user/profile/${userId}`);
+    const response = await fetch(`/api/user/profile/${userId}`, {
+        headers: {
+            "Authorization": `Bearer ${accessToken}`
+        }
+    });
 
     if (!response.ok) {
         return {
