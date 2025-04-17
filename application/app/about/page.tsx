@@ -32,12 +32,12 @@ export default function AboutPage() {
       </header>
 
       <main className="flex flex-1 justify-center px-6 my-10">
-        <div className="flex flex-col items-center justify-center min-h-screen w-full">
-          <Card className="w-[50%] max-w-500">
+        <div className="flex flex-col items-center justify-center w-full">
+          <Card className="w-[50%] max-w-500 border-transparent bg-transparent h-[50%] -mt-50">
             <CardTitle>About</CardTitle>
             <h1>Welcome to Gnu Forum</h1>
             Gnu Forum is a lightweight, scalable discussion platform built
-            entirely from scratch as part of our second-term Bachelor’s project
+            entirely from scratch as part of our second-term Bachelor's project
             in Cyber- and Computer Engineering at Aalborg University. Our goal
             was simple: create a modern forum system that is fast, efficient,
             and easy to scale — without relying on bloated frameworks or

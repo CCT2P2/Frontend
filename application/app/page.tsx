@@ -75,12 +75,12 @@ export default function LandingPage() {
             transition={{ duration: 0.5, delay: 0.8 }}
           >
             <div className="flex flex-row justify-between w-full">
-              <Card className="w-[48%] mb-4">
+              <Card className="w-[48%] mb-4 border-transparent bg-transparent">
                 Gnuf contains [insert amount here] of exiting communities,
                 filled to the brim with passionate individuals eager to connect
                 and share their knowledge.
               </Card>
-              <Card className="w-[48%] mb-4">
+              <Card className="w-[48%] mb-4 border-transparent bg-transparent">
                 "They say great software is built on the shoulders of giants.
                 Not here! At Gnuf we make all our software from scratch. No
                 handholding"
@@ -94,10 +94,10 @@ export default function LandingPage() {
             transition={{ duration: 0.5, delay: 1 }}
             className="space-x-4"
           >
-            <Button asChild variant="outline">
+            <Button asChild variant="outline" className="text-2xl h-12 w-[75%]">
               <a href="/register">Get Started</a>
             </Button>
-            <Button asChild variant="secondary">
+            <Button asChild variant="secondary" className="text-sm my-6">
               <a
                 href="https://github.com/CCT2P2"
                 target="_blank"
