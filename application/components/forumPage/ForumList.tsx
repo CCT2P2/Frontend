@@ -1,6 +1,7 @@
 "use client";
 import { Card, CardTitle } from "@/components/ui/card";
 import { useUISettings } from "@/app/store/useUISettings";
+import { Link } from "lucide-react";
 
 export default function ForumList() {
   const { paddingButton, padding } = useUISettings();
