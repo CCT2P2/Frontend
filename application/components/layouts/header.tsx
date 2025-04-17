@@ -9,14 +9,13 @@ import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { SearchIcon, Settings } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import {useCurrentSession} from "@/lib/hooks/useCurrentSession";
-
+import { useCurrentSession } from "@/lib/hooks/useCurrentSession";
 
 export default function Header() {
   const { blur } = useUISettings();
 
   const { session } = useCurrentSession();
-  const pfp_path  = session?.user.picture ?? "/example_pfp.jpg";
+  const pfp_path = session?.user.picture ?? "/example_pfp.jpg";
 
   return (
     <header
@@ -24,7 +23,7 @@ export default function Header() {
     >
       <div className=" p-5 h-16 flex items-center gap-4 relative ml-auto mr-auto max-w-580">
         {/* Logo */}
-        <Link href="/login" className="px-4 py-2">
+        <Link href="/" className="px-4 py-2">
           <Image src="/GNUF.svg" alt="Home" width={80} height={80} />
         </Link>
 
