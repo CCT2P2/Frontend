@@ -33,6 +33,9 @@ export default function RegisterForm() {
                     />
                 </div>
                 <CardTitle>Register</CardTitle>
+                {formState.message && (
+                    <div className="text-red-500">{formState.message}</div>
+                )}
             </CardHeader>
             <CardContent>
                 <form action={dispatch}>
