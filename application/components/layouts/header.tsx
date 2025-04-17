@@ -29,8 +29,8 @@ export default function Header() {
         </ul>
 
         {/* Centered Search Bar */}
-        <div className="flex left-1/2 flex-1 ">
-          <div className={"w-full max-w-xl z-10 px-2"}>
+        <div className="flex justify-center flex-1">
+          <div className={" w-full max-w-xl z-10 px-2"}>
             <Input
               className={
                 " pl-10 peer z-20 rounded-2xl outline-none focus:border-primary flex" +
@@ -38,7 +38,7 @@ export default function Header() {
               }
               placeholder={"search"}
             />
-            <SearchIcon className="absolute left-6 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-secondary transition-all duration-200" />
+            <SearchIcon className="absolute ml-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-secondary transition-all duration-200" />
           </div>
         </div>
 
