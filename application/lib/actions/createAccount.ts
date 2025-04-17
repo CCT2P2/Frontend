@@ -1,9 +1,12 @@
+"use server"
+
 import {z} from "zod";
 import {
     UserRegistrationRequest /*UserRegistrationResponse*/,
 } from "@/lib/apiTypes";
 import {generateFormResponse} from "@/lib/actions/actionsHelperFunctions";
 import {redirect} from "next/navigation";
+import {signIn} from "@/auth";
 
 // Schema to validate fields based on. Message is the error message shown to the user if the requirement is not met
 const CreateAccountSchema = z
@@ -77,8 +80,9 @@ export async function createAccount(
         password: validatedFields.data.password,
     };
 
-    // post request to backend api to create new account
-    const response = await fetch("/api/auth/register", {
+    // post request to backend api to create new account. using the environmental variable cus the internal api also
+    // uses /auth
+    const response = await fetch(`${process.env.API_URL}/api/auth/register`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -88,9 +92,17 @@ export async function createAccount(
 
     // any other status than 201 means there was an error, so it gets returned
     if (!response.ok) {
-        return {
-            message: `Error creating account: ${response.status}`,
-        };
+        return generateFormResponse(formData, validatedFields, `Error creating account: ${response.statusText}`)
+    }
+
+    const signInResult = await signIn("credentials", {
+        username: validatedFields.data.username,
+        password: validatedFields.data.password,
+        redirect: false,
+    });
+
+    if (signInResult.error) {
+        return generateFormResponse(formData, validatedFields, "Sign-in failed after account creation")
     }
 
     // // converts response to json and returns user id
