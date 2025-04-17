@@ -9,9 +9,17 @@ import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { SearchIcon, Settings } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import {useCurrentSession} from "@/lib/hooks/useCurrentSession";
+
+
 
 export default function Header() {
   const { blur } = useUISettings();
+  const {session} = useCurrentSession()
+  let pfp_path = "/example_pfp.jpg";
+
+  if (session?.user.picture !== undefined) pfp_path = session?.user.picture;
+
   return (
     <header
       className={`sticky top-0 z-50 ${blur ? "bg-stone-800/20" : "bg-black"} ${blur ? "backdrop-blur-xl" : ""}`}
@@ -53,7 +61,7 @@ export default function Header() {
           </Link>
           <Link href={`/user/2`}>
             <Avatar className={"w-10 h-10"}>
-              <AvatarImage src={"/example_pfp.jpg"} alt={"User"} />
+              <AvatarImage src={pfp_path} alt={"User"} />
               <AvatarFallback>User</AvatarFallback>
             </Avatar>
           </Link>
