@@ -1,5 +1,5 @@
 import {z} from "zod";
-import {generateFormErrorResponse} from "@/lib/actions/actionsHelperFunctions";
+import {generateFormResponse} from "@/lib/actions/actionsHelperFunctions";
 import {CreatePostRequest, CreatePostResponse} from "@/lib/apiTypes";
 
 // for comments on how this works go to createAccount, basically same logic
@@ -34,7 +34,7 @@ export async function createPost(_prevState: string | undefined, formData: FormD
     });
 
     if (!validatedField.success) {
-        return generateFormErrorResponse(formData, validatedField);
+        return generateFormResponse(formData, validatedField);
     }
 
     const requestData: CreatePostRequest = {

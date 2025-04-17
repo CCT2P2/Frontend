@@ -9,7 +9,7 @@ export default function NotFound() {
             <h2 className={"text-xl font-semibold"}>404 Not Found</h2>
             <p>A user with this ID doesn&apos;t exist</p>
             <Link
-                href={'/home'}
+                href={'/forum/0'}
             >
                 <Button variant={"outline"} size={"lg"}>Return home</Button>
             </Link>
