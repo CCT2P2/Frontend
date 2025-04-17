@@ -24,13 +24,6 @@ const nextConfig: NextConfig = {
                 // Handle all other API routes
                 source: "/api/:path*",
                 destination: `${process.env.API_URL}/api/:path*`,
-                has: [
-                    {
-                        type: "header",
-                        key: "exclude-rewrite",
-                        value: "false",
-                    },
-                ],
             },
         ];
     },
