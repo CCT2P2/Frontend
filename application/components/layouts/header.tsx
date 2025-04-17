@@ -12,13 +12,11 @@ import { Input } from "@/components/ui/input";
 import {useCurrentSession} from "@/lib/hooks/useCurrentSession";
 
 
-
 export default function Header() {
   const { blur } = useUISettings();
-  const {session} = useCurrentSession()
-  let pfp_path = "/example_pfp.jpg";
 
-  if (session?.user.picture !== undefined) pfp_path = session?.user.picture;
+  const { session } = useCurrentSession();
+  const pfp_path  = session?.user.picture ?? "/example_pfp.jpg";
 
   return (
     <header
