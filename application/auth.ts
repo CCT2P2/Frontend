@@ -1,4 +1,4 @@
-import NextAuth from "next-auth"
+import NextAuth from "next-auth";
 import Credentials from "@auth/core/providers/credentials";
 import {UserLoginRequest} from "@/lib/apiTypes";
 import {JWT} from "@auth/core/jwt";
@@ -77,7 +77,6 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
                     password: credentials.password as string,
                 }
 
-                console.log(requestData);
 
                 const response = await fetch(`${process.env.API_URL}/api/auth/login`, {
                     method: 'POST',
@@ -118,7 +117,6 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
     callbacks: {
         async jwt(params) {
             const {token, user} = params;
-
             if (user) {
                 // this part runs on initial sign in
                 const customUser = user as CustomUser;

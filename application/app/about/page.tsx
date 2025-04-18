@@ -36,25 +36,26 @@ export default function AboutPage() {
           <Card className="w-[50%] max-w-500 border-transparent bg-transparent h-[50%] -mt-50">
             <CardTitle>About</CardTitle>
             <h1>Welcome to Gnu Forum</h1>
-            Gnu Forum is a lightweight, scalable discussion platform built
-            entirely from scratch as part of our second-term Bachelor's project
-            in Cyber- and Computer Engineering at Aalborg University. Our goal
-            was simple: create a modern forum system that is fast, efficient,
-            and easy to scale — without relying on bloated frameworks or
-            pre-made solutions. Every line of code in Gnu Forum has been written
-            by us. From the database architecture and backend API to the
-            frontend interface, we designed, built, and optimized the platform
-            ourselves. Our backend is powered by C# with direct SQL access and
-            Entity Framework Core integration. On the frontend, we use
-            TypeScript to deliver a fast and responsive user experience. All
-            data is stored in a lightweight SQLite database, fine-tuned for
-            performance and stability. Although Gnu Forum was initially
-            developed to support a modest user base, we engineered it with
-            scalability in mind. Our system is fully containerized and can be
-            deployed on Kubernetes clusters, ensuring it can grow alongside user
-            demand. This project represents not just a forum — but the result of
-            months of collaboration, learning, and dedication. We hope you enjoy
-            using Gnu Forum as much as we enjoyed building it.
+            Gnu Forum is a lightweight, scalable discussion platform developed
+            as part of our second-term Bachelor’s project in Cyber- and Computer
+            Engineering at Aalborg University. Our goal was to design and build
+            a modern forum system from the ground up — focusing on efficiency,
+            simplicity, and flexibility. While we utilize established frameworks
+            such as React, Next.js, TailwindCSS, and .NET, all core application
+            logic, database design, and system architecture have been developed
+            by us. Gnu Forum features a custom-built backend written in C#,
+            combining direct SQL access with Entity Framework Core to interact
+            with a lightweight SQLite database. The frontend is implemented with
+            TypeScript and React, providing a responsive and user-friendly
+            interface. Currently, the system runs directly on bare metal servers
+            for maximum performance and simplicity. However, it has been
+            designed with scalability in mind and can be containerized for
+            future deployment on Kubernetes clusters. This project reflects our
+            team's dedication to practical engineering principles — balancing
+            academic rigor with real-world considerations like performance,
+            maintainability, and scalability. We are proud to share Gnu Forum as
+            a result of our collaboration, problem-solving, and commitment to
+            building complete systems from first principles.
             <p>— Proudly built by students at Aalborg University. </p>
           </Card>
         </div>

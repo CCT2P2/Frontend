@@ -19,13 +19,10 @@ interface Props {
 
 export default function UserPage({params}: Props) {
     const userId = use(params).id;
-    const [userData, setUserData] = useState<
-        | {
+    const [userData, setUserData] = useState<{
         status: number;
         data?: GetUserProfileResponse;
-    }
-        | undefined
-    >(undefined);
+    } | undefined>(undefined);
     const {status, session} = useCurrentSession()
     const {fetchWithAuth} = useAuthFetch();
 
@@ -40,7 +37,6 @@ export default function UserPage({params}: Props) {
             setUserData(response);
         }
 
-        console.log(session)
         fetchUserData();
     }, [userId, status, session, fetchWithAuth]);
 
