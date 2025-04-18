@@ -10,6 +10,8 @@ import {getUserProfile} from "@/lib/data/getUserProfile";
 import {GetUserProfileResponse} from "@/lib/apiTypes";
 import {notFound, unauthorized} from "next/navigation";
 import {useCurrentSession} from "@/lib/hooks/useCurrentSession";
+import {signOut} from "@/auth";
+import {useAuthFetch} from "@/lib/hooks/useAuthFetch";
 
 interface Props {
     params: Promise<{ id: string }>;
@@ -17,14 +19,12 @@ interface Props {
 
 export default function UserPage({params}: Props) {
     const userId = use(params).id;
-    const [userData, setUserData] = useState<
-        | {
-        responseCode: number;
+    const [userData, setUserData] = useState<{
+        status: number;
         data?: GetUserProfileResponse;
-    }
-        | undefined
-    >(undefined);
+    } | undefined>(undefined);
     const {status, session} = useCurrentSession()
+    const {fetchWithAuth} = useAuthFetch();
 
     useEffect(() => {
         async function fetchUserData() {
@@ -32,15 +32,15 @@ export default function UserPage({params}: Props) {
                 return;
             }
 
-            const data = await getUserProfile(userId, session?.accessToken);
-            setUserData(data);
+            const response = await fetchWithAuth(session, `/api/user/profile/${userId}`)
+
+            setUserData(response);
         }
 
         fetchUserData();
-    }, [userId, status, session]);
+    }, [userId, status, session, fetchWithAuth]);
 
-    if (userData?.responseCode === 404) return notFound();
-    if (status === "unauthorized" || userData?.responseCode === 401) return unauthorized();
+    if (userData?.status === 404) return notFound();
 
     if (!userData?.data)
         return (
