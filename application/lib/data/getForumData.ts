@@ -1,35 +1,37 @@
-import { useState, useEffect } from "react";
-import { GetCommunityResponse } from "../apiTypes";
-import { useCurrentSession } from "../hooks/useCurrentSession";
-import { useAuthFetch } from "../hooks/useAuthFetch";
+//TODO: Not in use anymore, remove later
+
+import {useState, useEffect} from "react";
+import {GetCommunityResponse} from "../apiTypes";
+import {useCurrentSession} from "../hooks/useCurrentSession";
+import {useAuthFetch} from "../hooks/useAuthFetch";
 
 export function useForumData(forumId: string) {
-  const [forumData, setForumData] = useState<
-    | {
+    const [forumData, setForumData] = useState<
+        | {
         status: number;
         data?: GetCommunityResponse;
-      }
-    | undefined
-  >(undefined);
-
-  const { status: sessionStatus, session } = useCurrentSession();
-  const { fetchWithAuth } = useAuthFetch();
-
-  useEffect(() => {
-    async function fetchForumData() {
-      if (!session) {
-        return;
-      }
-
-      const response = await fetchWithAuth(
-        session,
-        `/api/community/details/${forumId}`,
-      );
-      setForumData(response);
     }
+        | undefined
+    >(undefined);
 
-    fetchForumData();
-  }, [forumId, sessionStatus, session, fetchWithAuth]);
+    const {status: sessionStatus, session} = useCurrentSession();
+    const {fetchWithAuth} = useAuthFetch();
 
-  return forumData;
+    useEffect(() => {
+        async function fetchForumData() {
+            if (!session) {
+                return;
+            }
+
+            const response = await fetchWithAuth(
+                session,
+                `/api/community/details/${forumId}`,
+            );
+            setForumData(response);
+        }
+
+        fetchForumData();
+    }, [forumId, sessionStatus, session, fetchWithAuth]);
+
+    return forumData;
 }

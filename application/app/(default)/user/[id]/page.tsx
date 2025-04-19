@@ -4,14 +4,11 @@ import {use, useEffect, useState} from "react";
 import UserInfo from "@/components/userPage/userInfo";
 import UserForumList from "@/components/userPage/userForumList";
 import UserPostList from "@/components/userPage/userPostList";
-// import {GetUserProfileResponse} from "@/lib/apiTypes";
 import {useUISettings} from "@/app/store/useUISettings";
-import {getUserProfile} from "@/lib/data/getUserProfile";
 import {GetUserProfileResponse} from "@/lib/apiTypes";
 import {notFound, unauthorized} from "next/navigation";
-import {useCurrentSession} from "@/lib/hooks/useCurrentSession";
-import {signOut} from "@/auth";
 import {useAuthFetch} from "@/lib/hooks/useAuthFetch";
+import LoadingSpinner from "@/components/general/loadingSpinner";
 
 interface Props {
     params: Promise<{ id: string }>;
@@ -19,37 +16,28 @@ interface Props {
 
 export default function UserPage({params}: Props) {
     const userId = use(params).id;
-    const [userData, setUserData] = useState<{
-        status: number;
-        data?: GetUserProfileResponse;
-    } | undefined>(undefined);
-    const {status, session} = useCurrentSession()
-    const {fetchWithAuth} = useAuthFetch();
 
-    useEffect(() => {
-        async function fetchUserData() {
-            if (!session) {
-                return;
-            }
+    const {
+        data: userData,
+        isLoading,
+        status,
+        error
+    } = useAuthFetch<GetUserProfileResponse>(`/api/user/profile/${userId}`);
 
-            const response = await fetchWithAuth(session, `/api/user/profile/${userId}`)
+    if (status === 404) return notFound();
 
-            setUserData(response);
-        }
+    if (isLoading) return <LoadingSpinner/>;
 
-        fetchUserData();
-    }, [userId, status, session, fetchWithAuth]);
-
-    if (userData?.status === 404) return notFound();
-
-    if (!userData?.data)
+    if (error || !userData) {
         return (
-            <span
-                className={"absolute inset-[50%] loading loading-spinner loading-lg"}
-            ></span>
+            <div className="p-4 text-center">
+                <p className="text-red-500">Failed to load user profile</p>
+                <p className="text-sm text-gray-500">{error}</p>
+            </div>
         );
+    }
 
-    return <UserPageLayout userData={userData.data}/>;
+    return <UserPageLayout userData={userData}/>;
 }
 
 function UserPageLayout({userData}: { userData: GetUserProfileResponse }) {

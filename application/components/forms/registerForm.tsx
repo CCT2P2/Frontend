@@ -20,7 +20,7 @@ export default function RegisterForm() {
     const {blur} = useUISettings();
     return (
         <Card
-            className={`w-[28rem] relative py-8 light-glow-primary backdrop-blur-md ${blur ? "bg-stone-800/20" : "bg-black"}`}
+            className={`w-[28rem] relative py-8 light-glow-primary`}
         >
             <CardHeader>
                 <div className={"flex justify-center mb-4"}>

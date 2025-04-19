@@ -138,3 +138,9 @@ export interface SearchUserResponse {
         IMG_PATH: string;
     }[];
 }
+
+export type GetAllCommunitiesResponse = {
+    names: string;
+    description: string;
+    communityID: number;
+}[]

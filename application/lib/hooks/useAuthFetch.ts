@@ -1,37 +1,48 @@
 'use client';
 
-import {useCallback, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {Session} from "next-auth";
+import {useCurrentSession} from "@/lib/hooks/useCurrentSession";
+import fetchWithAuth from "@/lib/data/authFetch";
 
-export function useAuthFetch() {
-    const fetchWithAuth = useCallback(async (session: Session, url: string, options: RequestInit = {}) => {
-        if (!session?.accessToken) {
-            throw new Error('No access token available');
-        }
+export function useAuthFetch<T>(endpoint: string, dependencies: unknown[] = []) {
+    const [result, setResult] = useState<{
+        status: number;
+        data?: T;
+        isLoading: boolean;
+        error?: string;
+    }>({
+        status: 0,
+        isLoading: true
+    });
 
-        const authOptions: RequestInit = {
-            ...options,
-            headers: {
-                ...options.headers,
-                'Authorization': `Bearer ${session.accessToken}`,
-            },
-        };
+    const {session, status} = useCurrentSession();
 
-        const response = await fetch(url, authOptions);
+    useEffect(() => {
+        async function fetchData() {
+            if (!session) {
+                return;
+            }
 
-        if (!response.ok) {
-            return {
-                status: response.status,
+            try {
+                const response = await fetchWithAuth(session, endpoint);
+                console.log(response);
+                setResult({
+                    status: response.status,
+                    data: response.data,
+                    isLoading: false
+                });
+            } catch (error) {
+                setResult({
+                    status: 0,
+                    isLoading: false,
+                    error: (error as Error).message
+                });
             }
         }
 
-        const responseData = await response.json();
-        console.log("responseData", responseData);
-        return {
-            status: response.status,
-            data: responseData,
-        };
-    }, []);
+        fetchData();
+    }, [endpoint, session, ...dependencies]);
 
-    return {fetchWithAuth};
+    return result;
 }

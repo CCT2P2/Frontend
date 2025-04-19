@@ -1,3 +1,5 @@
+//TODO: Not in use anymore, remove later
+
 import {GetUserProfileResponse} from "@/lib/apiTypes";
 
 export async function getUserProfile(userId: string, accessToken: string): Promise<{
