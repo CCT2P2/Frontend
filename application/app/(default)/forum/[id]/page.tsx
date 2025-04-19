@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { use } from "react";
 import ForumList from "@/components/forumPage/ForumList";
 import {
   ForumName,
@@ -8,8 +8,7 @@ import {
 } from "@/components/forumPage/Forum3rdPanel";
 import { useUISettings } from "@/app/store/useUISettings";
 import PostList from "@/components/forumPage/PostList";
-import { getForumData } from "@/lib/data/getForumData";
-import { GetCommunityResponse } from "@/lib/apiTypes"; // make sure this is correct
+import { useForumData } from "@/lib/data/getForumData";
 
 interface Props {
   params: { id: string };
@@ -18,19 +17,10 @@ interface Props {
 export default function Home({ params }: Props) {
   const forumId = params.id;
 
-  const [forumData, setForumData] = useState<GetCommunityResponse | null>(null);
-
   const { padding } = useUISettings();
+  const forumData = useForumData(forumId); // <-- call it like a normal hook
 
-  useEffect(() => {
-    async function fetchData() {
-      const data = await getForumData(forumId);
-      setForumData(data);
-    }
-    fetchData();
-  }, [forumId]);
-
-  if (!forumData) {
+  if (!forumData || !forumData.data) {
     return <p className="text-white p-10">Loading...</p>;
   }
 
@@ -50,8 +40,8 @@ export default function Home({ params }: Props) {
         {/* Extra panel or content */}
         <div className="shrink-0 max-w-80 sticky top-20 h-full w-[15%]">
           <ForumName
-            name={forumData.name}
-            description={forumData.description}
+            name={forumData.data.name}
+            description={forumData.data.description}
           />
           <ForumTagsPanel />
         </div>
