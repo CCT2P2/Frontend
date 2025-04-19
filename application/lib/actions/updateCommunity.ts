@@ -1,5 +1,6 @@
-"use server";
 import { z } from "zod";
+import { getSession } from "next-auth/react";
+import { generateFormResponse } from "@/lib/actions/actionsHelperFunctions";
 
 // for comments on how this works go to createAccount, basically same logic
 
@@ -39,14 +40,25 @@ export async function updateCommunity(
     Name: validatedField.data.name,
   };
 
+  const session = await getSession();
+
+  if (!session?.user) {
+    return generateFormResponse(
+      formData,
+      validatedField,
+      "Not logged in, failed to create community",
+    );
+  }
+
   console.log(requestData);
 
   const response = await fetch(
-    `${process.env.API_URL}/api/community/update/details/${validatedField.data.id}`,
+    `/api/community/update/details/${validatedField.data.id}`,
     {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${session.accessToken}`,
       },
       body: JSON.stringify(requestData),
     },
