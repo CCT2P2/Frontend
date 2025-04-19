@@ -39,7 +39,7 @@ export async function updateCommunity(
   };
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/community/update/${validatedField.data.id}`,
+    `${process.env.API_URL}/api/community/update/${validatedField.data.id}`,
     {
       method: "PUT",
       headers: {
