@@ -1,3 +1,5 @@
+"use client"
+
 import {z} from "zod";
 import {generateFormResponse} from "@/lib/actions/actionsHelperFunctions";
 import {CreatePostRequest, CreatePostResponse} from "@/lib/apiTypes";
@@ -12,6 +14,13 @@ const createPostSchema = z.object({
     mainText: z
         .string()
         .max(10000, {message: 'Post content must not be more than 10,000 characters'}),
+
+    communityId: z
+        .number(),
+
+    image: z
+        .string()
+        .optional(),
 });
 
 export interface CreatePostState {
@@ -31,6 +40,8 @@ export async function createPost(_prevState: string | undefined, formData: FormD
     const validatedField = createPostSchema.safeParse({
         title: formData.get('title'),
         mainText: formData.get('mainText'),
+        communityId: formData.get('communityId'),
+        image: formData.get('image'),
     });
 
     if (!validatedField.success) {
@@ -40,11 +51,9 @@ export async function createPost(_prevState: string | undefined, formData: FormD
     const requestData: CreatePostRequest = {
         title: validatedField.data.title,
         main_text: validatedField.data.mainText,
-        // TODO: rest comes from user data which is not included in the form, add that once we actually have the data
         auth_id: 0,
-        com_id: 0,
+        com_id: validatedField.data.communityId,
         comment_flag: false,
-        post_id_ref: 0,
     }
 
     const response = await fetch('/api/post/create', {

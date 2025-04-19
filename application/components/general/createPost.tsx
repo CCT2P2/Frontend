@@ -16,6 +16,7 @@ export default function CreatePost() {
                 includeClose={false}
                 onEscapeKeyDown={(event) => event.preventDefault()}
                 onInteractOutside={(event) => event.preventDefault()}
+                className={"faint-glow-secondary border-secondary/50"}
             >
                 <DialogHeader>
                     <DialogTitle className={"text-2xl"}>New Post</DialogTitle>
