@@ -23,7 +23,6 @@ export default async function fetchWithAuth(session: Session, url: string, optio
     }
 
     const responseData = await response.json();
-    console.log("responseData", responseData);
     return {
         status: response.status,
         data: responseData,

@@ -1,7 +1,7 @@
 import {z} from "zod";
 
 // define schema normally, NO `as const`
-export const formSchema = z.record(z.string(), z.string());
+export const formSchema = z.record(z.string(), z.string().or(z.number()));
 
 // You can define the inferred type separately if you reuse it
 export type FormSchema = z.infer<typeof formSchema>;

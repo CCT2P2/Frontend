@@ -3,6 +3,9 @@
 import {z} from "zod";
 import {generateFormResponse} from "@/lib/actions/actionsHelperFunctions";
 import {CreatePostRequest, CreatePostResponse} from "@/lib/apiTypes";
+import {useSession} from "next-auth/react";
+import {auth} from "@/auth";
+import {redirect} from "next/navigation";
 
 // for comments on how this works go to createAccount, basically same logic
 const createPostSchema = z.object({
@@ -27,16 +30,20 @@ export interface CreatePostState {
     errors?: {
         title?: string[];
         mainText?: string[];
+        communityId?: string[];
+        image?: string[];
     };
-    fieldState?: {
+    fieldsState?: {
         title?: string;
         mainText?: string;
+        communityId?: string;
+        image?: string;
     };
     message?: string | null;
     postId?: number;
 }
 
-export async function createPost(_prevState: string | undefined, formData: FormData): Promise<CreatePostState> {
+export async function createPost(_prevState: CreatePostState, formData: FormData): Promise<CreatePostState> {
     const validatedField = createPostSchema.safeParse({
         title: formData.get('title'),
         mainText: formData.get('mainText'),
@@ -48,10 +55,16 @@ export async function createPost(_prevState: string | undefined, formData: FormD
         return generateFormResponse(formData, validatedField);
     }
 
+    const session = await auth()
+
+    if (!session?.user) {
+        return generateFormResponse(formData, validatedField, "Not logged in, failed to create post")
+    }
+
     const requestData: CreatePostRequest = {
         title: validatedField.data.title,
         main_text: validatedField.data.mainText,
-        auth_id: 0,
+        auth_id: Number(session?.user.id),
         com_id: validatedField.data.communityId,
         comment_flag: false,
     }
@@ -60,16 +73,15 @@ export async function createPost(_prevState: string | undefined, formData: FormD
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${session.accessToken}`,
         },
         body: JSON.stringify(requestData),
     });
 
     if (!response.ok) {
-        return {
-            message: `Error while creating post: ${response.status}`,
-        };
+        return generateFormResponse(formData, validatedField, `Error while creating post: ${response.status}`)
     }
 
     const responseData: CreatePostResponse = await response.json()
-    return {postId: responseData.post_id}
+    redirect(`/post/${responseData.post_id}`)
 }
