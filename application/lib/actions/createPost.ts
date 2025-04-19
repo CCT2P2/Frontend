@@ -3,7 +3,7 @@
 import {z} from "zod";
 import {generateFormResponse} from "@/lib/actions/actionsHelperFunctions";
 import {CreatePostRequest, CreatePostResponse} from "@/lib/apiTypes";
-import {useSession} from "next-auth/react";
+import {getSession, useSession} from "next-auth/react";
 import {auth} from "@/auth";
 import {redirect} from "next/navigation";
 
@@ -47,23 +47,24 @@ export async function createPost(_prevState: CreatePostState, formData: FormData
     const validatedField = createPostSchema.safeParse({
         title: formData.get('title'),
         mainText: formData.get('mainText'),
-        communityId: formData.get('communityId'),
+        communityId: Number(formData.get('communityId')),
         image: formData.get('image'),
     });
 
     if (!validatedField.success) {
-        return generateFormResponse(formData, validatedField);
+        return generateFormResponse(formData, validatedField, "Missing or invalid fields");
     }
 
-    // const session = await auth()
+    const session = await getSession()
+    console.log(session)
 
     if (!session?.user) {
         return generateFormResponse(formData, validatedField, "Not logged in, failed to create post")
     }
 
     const requestData: CreatePostRequest = {
-        title: validatedField.data.title,
-        main_text: validatedField.data.mainText,
+        Title: validatedField.data.title,
+        MainText: validatedField.data.mainText,
         auth_id: Number(session?.user.id),
         com_id: validatedField.data.communityId,
         comment_flag: false,

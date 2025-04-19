@@ -8,7 +8,7 @@ const tokenExpiration = 55 * 60 * 1000;
 export const refreshTokenError = "RefreshTokenError"
 
 interface CustomUser {
-    id: string;
+    userId: string;
     username: string;
     accessToken: string;
     isAdmin: number;
@@ -122,7 +122,7 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
                 console.log(token)
                 // this part runs on initial sign in
                 const customUser = user as CustomUser;
-                token.id = customUser.id;
+                token.id = customUser.userId;
                 token.username = customUser.username;
                 token.accessToken = customUser.accessToken;
                 token.role = customUser.isAdmin === 1 ? "Admin" : "User";

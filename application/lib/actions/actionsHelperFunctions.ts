@@ -10,7 +10,7 @@ export type FormSchema = z.infer<typeof formSchema>;
 export function generateFormResponse(
     formData: FormData,
     validatedFields: z.SafeParseError<FormSchema> | z.SafeParseSuccess<FormSchema>,
-    message: string = "Missing or invalid fields, failed to create account",
+    message: string = "Missing or invalid fields",
 ) {
     const fields: Record<string, string> = {};
 

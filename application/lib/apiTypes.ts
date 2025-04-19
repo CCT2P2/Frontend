@@ -74,8 +74,8 @@ export interface UpdateCommunityBackendRequest {
 }
 
 export interface CreatePostRequest {
-    title: string;
-    main_text: string;
+    Title: string;
+    MainText: string;
     auth_id: number;
     com_id: number;
     post_id_ref?: number;

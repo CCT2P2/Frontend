@@ -63,10 +63,21 @@ export default function CreatePostForm() {
 
     return (
         <form action={dispatch} className={"flex flex-col gap-6"}>
+            {formState.message && (
+                <div className="text-red-500">{formState.message}</div>
+            )}
             <div className={"flex flex-col gap-4 mt-4"}>
                 <div className={"flex flex-col gap-2"}>
                     <Label className={"ml-2"}>Community</Label>
                     <CommunitySelect/>
+                    <div id={`$community-error`}>
+                        {formState.errors?.communityId &&
+                            formState.errors?.communityId.map((error: string) => (
+                                <p key={error} className={"ml-2 text-sm text-red-500"}>
+                                    {error}
+                                </p>
+                            ))}
+                    </div>
                 </div>
                 <FormInput
                     formState={formState}
