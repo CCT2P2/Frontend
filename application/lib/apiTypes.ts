@@ -42,10 +42,10 @@ export interface UpdateUserProfileBackendRequest {
 }
 
 export interface CreateCommunityRequest {
-  name: string;
-  description: string;
-  img_path: string;
-  tags: number[];
+  Name: string;
+  Description: string;
+  Img_path?: string | null;
+  Tags: string;
 }
 
 export interface CreateCommunityResponse {

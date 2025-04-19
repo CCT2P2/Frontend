@@ -1,4 +1,7 @@
 import { z } from "zod";
+import {getSession} from "next-auth/react";
+import {generateFormResponse} from "@/lib/actions/actionsHelperFunctions";
+import {CreateCommunityRequest} from "@/lib/apiTypes";
 
 // for comments on how this works go to createAccount, basically same logic
 const createCommunitySchema = z.object({
@@ -30,19 +33,26 @@ export async function createCommunity(
     };
   }
 
-  const requestData = {
-    name: validatedField.data.name,
-    description: validatedField.data.description,
-    tags: [], // <-- important
-    img: null, // <-- optional
+  const requestData: CreateCommunityRequest = {
+    Name: validatedField.data.name,
+    Description: validatedField.data.description,
+    Tags: "", // <-- important
+    Img_path: null, // <-- optional
   };
 
+  const session = await getSession()
+
+  if (!session?.user) {
+    return generateFormResponse(formData, validatedField, "Not logged in, failed to create community")
+  }
+
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/community/create`, //undefinded for whatever reason (yes tried without NEXT_PUBLIC_ too)
+    `/api/community/create`,
     {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        'Authorization': `Bearer ${session.accessToken}`,
       },
       body: JSON.stringify(requestData),
     },
