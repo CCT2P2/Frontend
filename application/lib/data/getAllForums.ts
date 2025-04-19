@@ -6,6 +6,7 @@ import { useAuthFetch } from "../hooks/useAuthFetch";
 interface Community {
   names: string;
   communityID: number;
+  description: string;
 }
 
 export function useAllForums() {

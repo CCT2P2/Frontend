@@ -21,9 +21,9 @@ export default function CommunitySettingsForm() {
   const [communityDescription, setCommunityDescription] = useState("");
 
   const [showCreateDialog, setShowCreateDialog] = useState(false);
+  const [showEditDialog, setShowEditDialog] = useState(false);
 
   const forumsResponse = useAllForums();
-  let key = 0;
 
   return (
     <div>
@@ -37,8 +37,15 @@ export default function CommunitySettingsForm() {
               key={forum.communityID}
               className={`p-${paddingButton} transition-colors duration-200 hover:bg-secondary/15`}
               onClick={() => {
-                key = forum.communityID;
-                setSelectedCommunity(forum.names + " #" + key);
+                setCommunityName(forum.names);
+                setCommunityDescription(forum.description);
+                setSelectedCommunity(
+                  forum.names +
+                    " #" +
+                    forum.communityID +
+                    ": " +
+                    forum.description,
+                );
               }}
             >
               <div>{forum.names}</div>
@@ -52,7 +59,7 @@ export default function CommunitySettingsForm() {
       <Card className="gap-3 p-4 mt-4">
         <CardTitle>Forum Administration</CardTitle>
         <p>Selected Community: {selectedCommunity}</p>
-        <div className="flex gap-2">
+        <div className="flex-row gap-8">
           <Button
             variant="outline"
             onClick={() => {
@@ -70,6 +77,15 @@ export default function CommunitySettingsForm() {
             className="bg-red-600 border-red-600 hover:bg-red-700"
           >
             Delete Forum
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => {
+              setShowEditDialog(true);
+            }}
+            className="bg-yellow-600 border-yellow-600 hover:bg-yellow-700"
+          >
+            Edit Forum
           </Button>
         </div>
 
@@ -114,6 +130,55 @@ export default function CommunitySettingsForm() {
                   onClick={() => {
                     // handle create
                     setShowCreateDialog(false);
+                  }}
+                >
+                  Create
+                </Button>
+              </div>
+            </Card>
+          </div>
+        )}
+        {showEditDialog && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+            <Card className="w-96 p-4">
+              <div className="flex justify-between items-center mb-4">
+                <CardTitle>Edit Community</CardTitle>
+                <Button
+                  variant="ghost"
+                  onClick={() => setShowEditDialog(false)}
+                >
+                  <XIcon className="h-4 w-4" />
+                </Button>
+              </div>
+
+              <input
+                type="text"
+                value={communityName}
+                onChange={(e) => setCommunityName(e.target.value)}
+                placeholder="Enter community name"
+                className="w-full p-2 border rounded"
+              />
+
+              <input
+                type="text"
+                value={communityDescription}
+                onChange={(e) => setCommunityDescription(e.target.value)}
+                placeholder="Enter community Description"
+                className="w-full p-2 border rounded"
+              />
+
+              <div className="flex justify-end gap-2 mt-4">
+                <Button
+                  variant="outline"
+                  onClick={() => setShowEditDialog(false)}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    // handle create
+                    setShowEditDialog(false);
                   }}
                 >
                   Create
