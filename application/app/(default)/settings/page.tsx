@@ -54,5 +54,15 @@ export default function SettingsPage() {
                 </Card>
             )}
         </div>
-    );
+      </Card>
+      <p>Session: {session?.user.role}</p>
+      {/*{session?.user.role === "Admin" && (*/}
+      {true == true && (
+        <Card className={`mx-5 w-96 `}>
+          <div className="text-3xl font-bold text-white">Community section</div>
+          <CommunitySettingsForm />
+        </Card>
+      )}
+    </div>
+  );
 }
