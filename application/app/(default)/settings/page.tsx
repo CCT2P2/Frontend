@@ -1,7 +1,8 @@
 "use client";
 import { useUISettings } from "@/app/store/useUISettings";
 import { Card } from "@/components/ui/card";
-import UserSettingsForm from "@/components/forms/userSettingsForm"
+import UserSettingsForm from "@/components/forms/userSettingsForm";
+import CommunitySettingsForm from "@/components/forms/communitySettingsForm";
 
 export default function SettingsPage() {
   const { bg, blur, setBg, setBlur } = useUISettings();
@@ -18,7 +19,6 @@ export default function SettingsPage() {
         className={`w-full max-w-xl p-8 ${blur ? "bg-stone-800/20" : "bg-black"} ${blur ? "backdrop-blur-md" : ""} space-y-6`}
       >
         <div className="text-3xl font-bold text-white">GnuF Settings</div>
-
 
         <div className="space-y-4 text-white">
           <div className="flex items-center justify-between">
@@ -52,7 +52,7 @@ export default function SettingsPage() {
         className={`mx-5 w-96 ${blur ? "bg-stone-800/20" : "bg-black"} ${blur ? "backdrop-blur-md" : ""} `}
       >
         <div className="text-3xl font-bold text-white">Community section</div>
-
+        <CommunitySettingsForm />
       </Card>
     </div>
   );

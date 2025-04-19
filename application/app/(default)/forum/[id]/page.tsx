@@ -18,7 +18,7 @@ export default function Home({ params }: Props) {
   const forumId = params.id;
 
   const { padding } = useUISettings();
-  const forumData = useForumData(forumId); // <-- call it like a normal hook
+  const forumData = useForumData(forumId);
 
   if (!forumData || !forumData.data) {
     return <p className="text-white p-10">Loading...</p>;
