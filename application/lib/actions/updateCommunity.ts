@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 // for comments on how this works go to createAccount, basically same logic
-const createCommunitySchema = z.object({
+const updateCommunitySchema = z.object({
   name: z
     .string()
     .min(3, { message: "Community name must be at least 3 characters" })
@@ -14,11 +14,12 @@ const createCommunitySchema = z.object({
   }),
 });
 
-export async function createCommunity(
+export async function updateCommunity(
   _prevState: string | undefined,
   formData: FormData,
 ) {
-  const validatedField = createCommunitySchema.safeParse({
+  const validatedField = updateCommunitySchema.safeParse({
+    id: formData.get("id"),
     name: formData.get("name"),
     description: formData.get("description"),
   });
@@ -26,7 +27,7 @@ export async function createCommunity(
   if (!validatedField.success) {
     return {
       errors: validatedField.error.flatten().fieldErrors,
-      message: "Missing or invalid fields, failed to create community",
+      message: "Missing or invalid fields, failed to update community",
     };
   }
 
@@ -38,9 +39,9 @@ export async function createCommunity(
   };
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/community/create`, //undefinded for whatever reason (yes tried without NEXT_PUBLIC_ too)
+    `${process.env.NEXT_PUBLIC_API_URL}/api/community/update/${validatedField.data.id}`,
     {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
@@ -51,7 +52,7 @@ export async function createCommunity(
   if (!response.ok) {
     return {
       errors: {},
-      message: `Error creating community: ${response.statusText}`,
+      message: `Error updating community: ${response.statusText}`,
     };
   }
 
@@ -59,7 +60,7 @@ export async function createCommunity(
   const communityId = responseData.communityId;
 
   return {
-    message: "Community created successfully",
+    message: "Community updated successfully",
     communityId: communityId,
   };
 }
