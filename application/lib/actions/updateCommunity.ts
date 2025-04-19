@@ -1,14 +1,16 @@
+"use server";
 import { z } from "zod";
 
 // for comments on how this works go to createAccount, basically same logic
+
 const updateCommunitySchema = z.object({
+  id: z.string().min(1, { message: "ID is required" }), // <-- add this
   name: z
     .string()
     .min(3, { message: "Community name must be at least 3 characters" })
     .max(100, {
       message: "Community name must not be more than 100 characters",
     }),
-
   description: z.string().max(500, {
     message: "Community description must not be more than 500 characters",
   }),
@@ -32,14 +34,15 @@ export async function updateCommunity(
   }
 
   const requestData = {
-    name: validatedField.data.name,
-    description: validatedField.data.description,
-    tags: [], // <-- important
-    img: null, // <-- optional
+    Description: validatedField.data.description,
+    Img_path: null,
+    Name: validatedField.data.name,
   };
 
+  console.log(requestData);
+
   const response = await fetch(
-    `${process.env.API_URL}/api/community/update/${validatedField.data.id}`,
+    `${process.env.API_URL}/api/community/update/details/${validatedField.data.id}`,
     {
       method: "PUT",
       headers: {
