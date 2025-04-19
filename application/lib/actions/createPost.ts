@@ -55,7 +55,7 @@ export async function createPost(_prevState: CreatePostState, formData: FormData
         return generateFormResponse(formData, validatedField);
     }
 
-    const session = await auth()
+    // const session = await auth()
 
     if (!session?.user) {
         return generateFormResponse(formData, validatedField, "Not logged in, failed to create post")
