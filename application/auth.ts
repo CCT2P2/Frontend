@@ -11,7 +11,7 @@ interface CustomUser {
     id: string;
     username: string;
     accessToken: string;
-    isAdmin: boolean;
+    isAdmin: number;
     email: string;
     imagePath: string | undefined;
 }
@@ -118,12 +118,14 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
         async jwt(params) {
             const {token, user} = params;
             if (user) {
+                console.log(user)
+                console.log(token)
                 // this part runs on initial sign in
                 const customUser = user as CustomUser;
                 token.id = customUser.id;
                 token.username = customUser.username;
                 token.accessToken = customUser.accessToken;
-                token.role = customUser.isAdmin ? "Admin" : "User";
+                token.role = customUser.isAdmin === 1 ? "Admin" : "User";
                 token.email = customUser.email;
                 token.picture = customUser.imagePath || undefined;
                 token.expiresAt = Date.now() + tokenExpiration;
