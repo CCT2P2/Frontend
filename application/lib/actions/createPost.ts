@@ -1,6 +1,11 @@
+"use client"
+
 import {z} from "zod";
 import {generateFormResponse} from "@/lib/actions/actionsHelperFunctions";
 import {CreatePostRequest, CreatePostResponse} from "@/lib/apiTypes";
+import {useSession} from "next-auth/react";
+import {auth} from "@/auth";
+import {redirect} from "next/navigation";
 
 // for comments on how this works go to createAccount, basically same logic
 const createPostSchema = z.object({
@@ -12,55 +17,71 @@ const createPostSchema = z.object({
     mainText: z
         .string()
         .max(10000, {message: 'Post content must not be more than 10,000 characters'}),
+
+    communityId: z
+        .number(),
+
+    image: z
+        .string()
+        .optional(),
 });
 
 export interface CreatePostState {
     errors?: {
         title?: string[];
         mainText?: string[];
+        communityId?: string[];
+        image?: string[];
     };
-    fieldState?: {
+    fieldsState?: {
         title?: string;
         mainText?: string;
+        communityId?: string;
+        image?: string;
     };
     message?: string | null;
     postId?: number;
 }
 
-export async function createPost(_prevState: string | undefined, formData: FormData): Promise<CreatePostState> {
+export async function createPost(_prevState: CreatePostState, formData: FormData): Promise<CreatePostState> {
     const validatedField = createPostSchema.safeParse({
         title: formData.get('title'),
         mainText: formData.get('mainText'),
+        communityId: formData.get('communityId'),
+        image: formData.get('image'),
     });
 
     if (!validatedField.success) {
         return generateFormResponse(formData, validatedField);
     }
 
+    // const session = await auth()
+
+    if (!session?.user) {
+        return generateFormResponse(formData, validatedField, "Not logged in, failed to create post")
+    }
+
     const requestData: CreatePostRequest = {
         title: validatedField.data.title,
         main_text: validatedField.data.mainText,
-        // TODO: rest comes from user data which is not included in the form, add that once we actually have the data
-        auth_id: 0,
-        com_id: 0,
+        auth_id: Number(session?.user.id),
+        com_id: validatedField.data.communityId,
         comment_flag: false,
-        post_id_ref: 0,
     }
 
     const response = await fetch('/api/post/create', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${session.accessToken}`,
         },
         body: JSON.stringify(requestData),
     });
 
     if (!response.ok) {
-        return {
-            message: `Error while creating post: ${response.status}`,
-        };
+        return generateFormResponse(formData, validatedField, `Error while creating post: ${response.status}`)
     }
 
     const responseData: CreatePostResponse = await response.json()
-    return {postId: responseData.post_id}
+    redirect(`/post/${responseData.post_id}`)
 }

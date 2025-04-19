@@ -4,7 +4,7 @@ import {UserLoginRequest} from "@/lib/apiTypes";
 import {JWT} from "@auth/core/jwt";
 import {cookies} from "next/headers";
 
-const tokenExpiration = 1 * 60 * 1000;
+const tokenExpiration = 55 * 60 * 1000;
 export const refreshTokenError = "RefreshTokenError"
 
 interface CustomUser {
