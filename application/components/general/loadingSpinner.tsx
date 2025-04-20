@@ -4,9 +4,10 @@ import {useEffect, useState} from "react";
 interface Props {
     absolute?: boolean;
     delay?: number;
+    className?: string;
 }
 
-export default function LoadingSpinner({absolute = true, delay = 0}: Props) {
+export default function LoadingSpinner({absolute = true, delay = 0, className}: Props) {
     const [showSpinner, setShowSpinner] = useState(false);
 
     useEffect(() => {
@@ -21,7 +22,9 @@ export default function LoadingSpinner({absolute = true, delay = 0}: Props) {
     return (
         <span className={cn(
             "inset-[50%] loading loading-spinner loading-lg",
-            absolute ? "absolute" : "m-4 align-middle",)
+            absolute ? "absolute" : "m-4 align-middle",
+            className
+        )
         }></span>
     )
 }

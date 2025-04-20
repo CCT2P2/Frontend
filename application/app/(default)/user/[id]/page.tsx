@@ -39,8 +39,6 @@ export default function UserPage({params}: Props) {
 }
 
 function UserPageLayout({userData}: { userData: GetUserProfileResponse }) {
-    const {blur} = useUISettings();
-
     return (
         <div className={`grid grid-cols-4 gap-12 container mx-auto px-6 my-10`}>
             <div className={"col-span-1 flex flex-col gap-12"}>
@@ -49,12 +47,11 @@ function UserPageLayout({userData}: { userData: GetUserProfileResponse }) {
                     email={userData.email}
                     img_path={userData.img_path}
                     description={userData.description}
-                    backgroundColor={blur ? "bg-stone-800/20" : "bg-black"}
                     displayName={userData.display_name}
                 />
                 <ForumList/>
             </div>
-            <UserPostList backgroundColor={blur ? "bg-stone-800/20" : "bg-black"}/>
+            <UserPostList/>
         </div>
     );
 }

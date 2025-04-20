@@ -5,14 +5,10 @@ import PostThumbnail from "@/components/general/postThumbnail";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
 import SortingMenu from "@/components/general/sortingMenu";
 
-export default function UserPostList({
-                                         backgroundColor,
-                                     }: {
-    backgroundColor: string;
-}) {
+export default function UserPostList() {
     return (
         <Card
-            className={`grow relative light-glow-primary col-span-3 ${backgroundColor} backdrop-blur-md`}
+            className={`grow relative light-glow-primary col-span-3`}
         >
             <Tabs defaultValue="posts" className={`px-10 py-6 gap-4`}>
                 <TabsList className={`w-full bg-black/50`}>
