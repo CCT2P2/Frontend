@@ -35,7 +35,7 @@ export default function CommunitySettingsForm() {
     status,
     error,
   } = useAuthFetch<GetAllCommunitiesResponse>(`/api/community/all`);
-
+  const filteredForums = forums?.slice(2);
   if (isLoading) return <LoadingSpinner />;
 
   if (error || !forums) {
@@ -55,8 +55,8 @@ export default function CommunitySettingsForm() {
         className={`p-${padding} border-secondary gap-3 overflow-y-auto max-h-[80%]`}
       >
         <CardTitle>Forums</CardTitle>
-        {forums ? (
-          forums.map((forum) => (
+        {filteredForums ? (
+          filteredForums.map((forum) => (
             <Card
               key={forum.communityID}
               className={`p-${paddingButton} transition-colors duration-200 hover:bg-secondary/15`}
