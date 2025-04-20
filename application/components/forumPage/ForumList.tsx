@@ -4,15 +4,28 @@ import { useUISettings } from "@/app/store/useUISettings";
 import { Link } from "lucide-react";
 import { useAuthFetch } from "@/lib/hooks/useAuthFetch";
 import { GetAllCommunitiesResponse } from "@/lib/apiTypes";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import LoadingSpinner from "@/components/general/loadingSpinner";
 export default function ForumList() {
   const {
     data: forums,
     isLoading,
     status,
     error,
-  } = useAuthFetch<GetAllCommunitiesResponse>(`/api/community/all`); //todo: replace with user's communities instead of all
+  } = useAuthFetch<GetAllCommunitiesResponse>(`/api/community/all`);
+  {
+    /*TODO: Replace with User community ID lookup, and subsequent fetching of set IDs from community table */
+  }
+
+  const [showLoading, setShowLoading] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowLoading(true);
+    }, 1000); // 1 second delay
+
+    return () => clearTimeout(timer); // clean up if unmounted quickly
+  }, []);
   const [communityName, setCommunityName] = useState("");
   const [communityDescription, setCommunityDescription] = useState("");
   const { paddingButton, padding } = useUISettings();
@@ -35,9 +48,9 @@ export default function ForumList() {
               <div>{forum.names}</div>
             </Card>
           ))
-        ) : (
-          <p>Loading forums...</p>
-        )}
+        ) : showLoading ? (
+          <LoadingSpinner />
+        ) : null}
       </Card>
     </div>
   );
