@@ -11,6 +11,7 @@ import { SearchIcon, Settings } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useCurrentSession } from "@/lib/hooks/useCurrentSession";
 import { Button } from "../ui/button";
+import { signOut } from "next-auth/react";
 
 export default function Header() {
   const { blur } = useUISettings();
@@ -59,8 +60,8 @@ export default function Header() {
           </Link>
           <Button
             variant={"ghost"}
-            className="flex gap-2 items-center hover:text-secondary transition-all duration-200"
-            onClick={() => console.log("signed out")} //i don't know what actually to do
+            className="flex items-center justify-center hover:text-secondary transition-all duration-200"
+            onClick={() => signOut()}
           >
             <span></span>
             <svg
