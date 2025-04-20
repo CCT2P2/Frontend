@@ -68,7 +68,11 @@ export default function Home({ params }: Props) {
 
         {/* Main Content */}
         <div className="shrink-1 max-w-350 w-[60%] mt-5">
-          <PostList />
+          {forumId === "0" ? (
+              <PostList postCsv="latest" />
+          ) : (
+              <PostList postCsv={forum?.post_ids.toString() || ""} />
+          )}
         </div>
 
         {/* Extra panel or content */}
