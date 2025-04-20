@@ -8,15 +8,15 @@ import {auth} from "@/auth";
 import {redirect} from "next/navigation";
 
 // for comments on how this works go to createAccount, basically same logic
-const createPostSchema = z.object({
+const CreatePostSchema = z.object({
     title: z
         .string()
         .min(3, {message: 'Post title must be at least 3 characters'})
-        .max(100, {message: 'Post title must not be more than 100 characters'}),
+        .max(300, {message: 'Post title must not be more than 300 characters'}),
 
     mainText: z
         .string()
-        .max(10000, {message: 'Post content must not be more than 10,000 characters'}),
+        .max(100000, {message: 'Post content must not be more than 100,000 characters'}),
 
     communityId: z
         .number(),
@@ -40,11 +40,10 @@ export interface CreatePostState {
         image?: string;
     };
     message?: string | null;
-    postId?: number;
 }
 
 export async function createPost(_prevState: CreatePostState, formData: FormData): Promise<CreatePostState> {
-    const validatedField = createPostSchema.safeParse({
+    const validatedField = CreatePostSchema.safeParse({
         title: formData.get('title'),
         mainText: formData.get('mainText'),
         communityId: Number(formData.get('communityId')),
@@ -58,7 +57,7 @@ export async function createPost(_prevState: CreatePostState, formData: FormData
     const session = await getSession()
 
     if (!session?.user) {
-        return generateFormResponse(formData, validatedField, "Not logged in, failed to create post")
+        return generateFormResponse(formData, validatedField, "Invalid user session, failed to create post")
     }
 
     const requestData: CreatePostRequest = {

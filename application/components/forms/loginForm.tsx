@@ -11,7 +11,6 @@ import Link from "next/link";
 
 export default function LoginForm() {
     const [formState, dispatch] = useActionState(login, {});
-    const {blur} = useUISettings();
 
     return (
         <Card className={`w-96 relative py-8 light-glow-primary`}>
@@ -60,7 +59,6 @@ export default function LoginForm() {
                         <Button
                             variant={"outline"}
                             size={"lg"}
-                            className={`${blur ? "bg-stone-800/20" : "bg-black"}`}
                         >
                             Log in
                         </Button>
