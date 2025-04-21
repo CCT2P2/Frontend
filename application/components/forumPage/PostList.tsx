@@ -6,6 +6,7 @@ import PostThumbnail from "@/components/general/postThumbnail";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SortingMenu from "@/components/general/sortingMenu";
 import CreatePost from "@/components/general/createPost";
+import { getSession } from "next-auth/react";
 
 interface PostData {
   post_id: number;
@@ -31,10 +32,25 @@ export default function PostList({ postCsv }: PostListProps) {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
+        // Getting the session token
+        const session = await getSession();
+
+        if (!session?.accessToken) {
+          console.error("No access token found!");
+          return;
+        }
+
         let response;
 
+        // Fetching posts based on `postCsv`
         if (postCsv.toLowerCase() === "latest") {
-          response = await fetch(`api/post/posts?SortBy=timestamp&SortOrder=desc`);
+          response = await fetch("api/post/posts?SortBy=timestamp&SortOrder=desc", {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${session.accessToken}`, // Add the token in the Authorization header
+              'Content-Type': 'application/json',
+            },
+          });
         } else {
           const postIds = postCsv
               .split(",")
@@ -43,7 +59,13 @@ export default function PostList({ postCsv }: PostListProps) {
 
           if (postIds.length === 0) return;
 
-          response = await fetch(`api/post/posts/by-ids?ids=${postIds.join(",")}`);
+          response = await fetch(`api/post/posts/by-ids?ids=${postIds.join(",")}`, {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${session.accessToken}`,
+              'Content-Type': 'application/json',
+            },
+          });
         }
 
         if (!response.ok) throw new Error("Failed to fetch posts");

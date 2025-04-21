@@ -6,6 +6,7 @@ import {CreatePostRequest, CreatePostResponse} from "@/lib/apiTypes";
 import {getSession, useSession} from "next-auth/react";
 import {auth} from "@/auth";
 import {redirect} from "next/navigation";
+import {updateCommunityBackend} from "@/lib/actions/updateCommunityBackend";
 
 // for comments on how this works go to createAccount, basically same logic
 const CreatePostSchema = z.object({
@@ -82,5 +83,11 @@ export async function createPost(_prevState: CreatePostState, formData: FormData
     }
 
     const responseData: CreatePostResponse = await response.json()
+
+    await updateCommunityBackend({
+        id: validatedField.data.communityId,
+        postID: responseData.post_id
+    });
+
     redirect(`/post/${responseData.post_id}`)
 }
