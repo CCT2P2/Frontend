@@ -13,7 +13,6 @@ interface Props {
 
 export default function PostContent({postData}: Props) {
     const [voteState, setVoteState] = useState<"like" | "dislike" | "none">(postData.voteState);
-    console.log(voteState);
 
     async function interactLike() {
         if (voteState === "like") {

@@ -66,5 +66,5 @@ export async function createComment(_prevState: CreateCommentState, formData: Fo
         return generateFormResponse(formData, validatedField, `Error while creating comment: ${response.status}`)
     }
 
-    return generateFormResponse(formData, validatedField, "We cant post comments yet :pensive:")
+    return {}
 }

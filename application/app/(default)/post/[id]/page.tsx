@@ -1,6 +1,6 @@
 "use client"
 
-import {use} from "react";
+import {use, useState} from "react";
 import {useAuthFetch} from "@/lib/hooks/useAuthFetch";
 import {GetCommunityResponse, GetPostResponse} from "@/lib/apiTypes";
 import LoadingSpinner from "@/components/general/loadingSpinner";
@@ -44,13 +44,19 @@ export default function PostPage({params}: Props) {
 };
 
 function PostPageLayout({postData}: { postData: GetPostResponse }) {
+    const [commentReloadKey, setCommentReloadKey] = useState(0)
     return (
         <div className={`grid grid-cols-4 gap-12 container mx-auto px-6 my-10`}>
             <ForumList/>
             <Card className={`grow relative light-glow-primary col-span-3 p-10`}>
                 <PostContent postData={postData}/>
-                <CreateCommentForm postId={postData.id} communityId={postData.community.com_id}/>
-                <Comments postId={postData.id}/>
+                <CreateCommentForm
+                    postId={postData.id}
+                    communityId={postData.community.com_id}
+                    setCommentReloadKey={setCommentReloadKey}
+                    commentReloadKey={commentReloadKey}
+                />
+                <Comments postId={postData.id} key={commentReloadKey}/>
             </Card>
         </div>
     )
