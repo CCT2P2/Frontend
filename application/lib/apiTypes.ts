@@ -75,7 +75,7 @@ export interface UpdateCommunityBackendRequest {
 }
 
 export interface CreatePostRequest {
-    Title: string;
+    Title?: string;
     MainText: string;
     auth_id: number;
     com_id: number;
@@ -109,6 +109,29 @@ export interface GetPostResponse {
         com_id: number;
         name?: string;
     }
+}
+
+export interface GetMultiplePostsResponse {
+    posts: {
+        post_id: number;
+        title: string;
+        main_text: string;
+        auth_id: number;
+        com_id: number;
+        timestamp: string;
+        likes: number;
+        dislikes: number;
+        post_id_ref: number;
+        comment_flag: boolean;
+        comment_count: number;
+        author: {
+            username: string;
+            imagePath: string;
+            isAdmin?: number;
+        }
+    }[];
+    total_count: number;
+    next_offset: number;
 }
 
 export interface UpdatePostUserRequest {

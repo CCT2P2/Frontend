@@ -14,6 +14,8 @@ import {Skeleton} from "@/components/ui/skeleton";
 import Image from "next/image";
 import {Button} from "@/components/ui/button";
 import {ChevronDown, ChevronUp, Ellipsis, MessageSquareText, Share} from "lucide-react";
+import CreateCommentForm from "@/components/forms/CreateCommentForm";
+import Comments from "@/components/postPage/comments";
 
 interface Props {
     params: Promise<{ id: string }>
@@ -47,6 +49,8 @@ function PostPageLayout({postData}: { postData: GetPostResponse }) {
             <ForumList/>
             <Card className={`grow relative light-glow-primary col-span-3 p-10`}>
                 <PostContent postData={postData}/>
+                <CreateCommentForm postId={postData.id} communityId={postData.community.com_id}/>
+                <Comments postId={postData.id}/>
             </Card>
         </div>
     )
