@@ -88,6 +88,6 @@ export async function createPost(_prevState: CreatePostState, formData: FormData
         id: validatedField.data.communityId,
         postID: responseData.post_id
     });
-    
+
     redirect(`/post/${responseData.post_id}`)
 }
