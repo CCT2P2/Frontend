@@ -99,11 +99,12 @@ export interface GetPostResponse {
     comment_count: number;
     comments: number[];
     Img?: string;
+    voteState: "like" | "dislike" | "none";
     author: {
         auth_id: number;
-        username?: string;
-        imagePath?: string;
-        isAdmin?: number;
+        username: string;
+        imagePath: string;
+        isAdmin: number;
     };
     community: {
         com_id: number;
@@ -177,3 +178,8 @@ export type GetAllCommunitiesResponse = {
     description: string;
     communityID: number;
 }[];
+
+export type VotePostRequest = {
+    userId: number;
+    voteType: "like" | "dislike" | "none";
+}

@@ -3,12 +3,38 @@ import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} f
 import Image from "next/image";
 import {Button} from "@/components/ui/button";
 import {ChevronDown, ChevronUp, Ellipsis, MessageSquareText, Share} from "lucide-react";
+import {useState} from "react";
+import VoteAction from "@/lib/actions/voteAction";
+import {cn} from "@/lib/utils";
 
 interface Props {
     postData: GetPostResponse;
 }
 
 export default function PostContent({postData}: Props) {
+    const [voteState, setVoteState] = useState<"like" | "dislike" | "none">(postData.voteState);
+    console.log(voteState);
+
+    async function interactLike() {
+        if (voteState === "like") {
+            setVoteState("none");
+            await VoteAction(postData.id, "none");
+            return;
+        }
+        setVoteState("like");
+        await VoteAction(postData.id, "like");
+    }
+
+    async function interactDislike() {
+        if (voteState === "dislike") {
+            setVoteState("none");
+            await VoteAction(postData.id, "none");
+            return;
+        }
+        setVoteState("dislike");
+        await VoteAction(postData.id, "dislike");
+    }
+
     return (
         <Card className={`border-secondary/50 flex flex-col`}>
             <div className={"flex flex-row gap-6 justify-between"}>
@@ -40,11 +66,27 @@ export default function PostContent({postData}: Props) {
                     </CardContent>
                 </div>
                 <div className={"flex flex-col gap-2 mr-6 content-center"}>
-                    <Button variant={"ghost"}>
+                    <Button
+                        variant={"ghost"}
+                        onClick={interactLike}
+                        className={cn(voteState === "like" && "dark:bg-secondary/70 hover:dark:bg-secondary/90" +
+                            " dark:text-black")}
+                    >
                         <ChevronUp className={"size-6"}/>
                     </Button>
-                    <span className={"text-center"}>{postData.likes - postData.dislikes}</span>
-                    <Button variant={"ghost"}>
+                    {(() => {
+                        let votes = postData.likes - postData.dislikes;
+                        if (voteState === "dislike") votes--
+                        else if (voteState === "like") votes++
+
+                        return <span className={"text-center"}>{votes}</span>
+                    })()}
+                    <Button
+                        variant={"ghost"}
+                        onClick={interactDislike}
+                        className={cn(voteState === "dislike" && "dark:bg-secondary/70 hover:dark:bg-secondary/90" +
+                            " dark:text-black")}
+                    >
                         <ChevronDown className={"size-6"}/>
                     </Button>
                 </div>
