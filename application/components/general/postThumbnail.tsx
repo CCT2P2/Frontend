@@ -57,7 +57,7 @@ export default function PostThumbnail({
                                 />
                             </div>
                         )}
-                        <p>{postContent}</p>
+                        <p className={"line-clamp-5"}>{postContent}</p>
                     </CardContent>
                 </div>
                 <div className={"flex flex-col gap-2 mr-6 content-center"}>

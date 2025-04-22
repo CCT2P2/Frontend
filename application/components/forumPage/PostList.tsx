@@ -25,10 +25,13 @@ interface PostData {
 
 interface PostListProps {
     postCsv: string; // Either CSV string (e.g. "1,2,3") or "latest"
+    limit?: number;  // Optional limit
 }
 
-export default function PostList({postCsv}: PostListProps) {
+export default function PostList({postCsv, limit}: PostListProps) {
     const [posts, setPosts] = useState<PostData[]>([]);
+
+    if (limit === undefined) {limit = 20;}
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -45,7 +48,7 @@ export default function PostList({postCsv}: PostListProps) {
 
                 // Fetching posts based on `postCsv`
                 if (postCsv.toLowerCase() === "latest") {
-                    response = await fetch("/api/post/posts?SortBy=timestamp&SortOrder=desc", {
+                    response = await fetch(`/api/post/posts?SortBy=timestamp&SortOrder=desc&Limit=${limit}`, {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${session.accessToken}`, // Add the token in the Authorization header
@@ -60,7 +63,7 @@ export default function PostList({postCsv}: PostListProps) {
 
                     if (postIds.length === 0) return;
 
-                    response = await fetch(`/api/post/posts/by-ids?ids=${postIds.join(",")}`, {
+                    response = await fetch(`/api/post/posts/by-ids?ids=${postIds.join(",")}&limit=${limit}`, {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${session.accessToken}`,

@@ -15,9 +15,6 @@ export async function updateCommunityBackend(data: UpdateCommunityBackendRequest
         return { success: false, message: "Invalid user session" };
     }
 
-    if (!session?.user) {
-        return { success: false, message: "Invalid user session" };
-    }
 
     const response = await fetch('/api/community/update/backend', {
         method: 'PUT',
