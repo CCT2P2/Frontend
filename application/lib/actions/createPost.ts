@@ -3,8 +3,7 @@
 import {z} from "zod";
 import {generateFormResponse} from "@/lib/actions/actionsHelperFunctions";
 import {CreatePostRequest, CreatePostResponse} from "@/lib/apiTypes";
-import {getSession, useSession} from "next-auth/react";
-import {auth} from "@/auth";
+import {getSession} from "next-auth/react";
 import {redirect} from "next/navigation";
 import {updateCommunityBackend} from "@/lib/actions/updateCommunityBackend";
 
@@ -85,8 +84,8 @@ export async function createPost(_prevState: CreatePostState, formData: FormData
     const responseData: CreatePostResponse = await response.json()
 
     await updateCommunityBackend({
-        id: validatedField.data.communityId,
-        postID: responseData.post_id
+        Id: validatedField.data.communityId,
+        PostID: responseData.post_id.toString()
     });
 
     redirect(`/post/${responseData.post_id}`)

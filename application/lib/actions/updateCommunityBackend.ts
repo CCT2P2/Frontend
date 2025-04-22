@@ -2,10 +2,10 @@ import { getSession } from "next-auth/react";
 
 
 interface UpdateCommunityBackendRequest {
-    id: number;
-    memberCount?: number;
-    tags?: string;
-    postID?: number;
+    Id: number;
+    MemberCount?: number;
+    Tags?: string;
+    PostID?: string;
 }
 
 export async function updateCommunityBackend(data: UpdateCommunityBackendRequest){
@@ -14,7 +14,7 @@ export async function updateCommunityBackend(data: UpdateCommunityBackendRequest
     if (!session?.user) {
         return { success: false, message: "Invalid user session" };
     }
-
+    console.log(data.Id);
 
     const response = await fetch('/api/community/update/backend', {
         method: 'PUT',
