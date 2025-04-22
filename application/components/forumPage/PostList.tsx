@@ -59,8 +59,6 @@ export default function PostList({postCsv}: PostListProps) {
                         .filter((id) => !isNaN(id));
 
                     if (postIds.length === 0) return;
-                     const ids =
-                    ids.replace("%2C", ",")
 
                     response = await fetch(`/api/post/posts/by-ids?ids=${}`, {
                         method: 'GET',
