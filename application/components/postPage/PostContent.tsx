@@ -13,6 +13,7 @@ interface Props {
 
 export default function PostContent({postData}: Props) {
     const [voteState, setVoteState] = useState<"like" | "dislike" | "none">(postData.voteState);
+    const initialState = postData.voteState;
 
     async function interactLike() {
         if (voteState === "like") {
@@ -75,6 +76,8 @@ export default function PostContent({postData}: Props) {
                     </Button>
                     {(() => {
                         let votes = postData.likes - postData.dislikes;
+                        if (initialState === "dislike") votes++
+                        if (initialState === "like") votes--
                         if (voteState === "dislike") votes--
                         else if (voteState === "like") votes++
 
