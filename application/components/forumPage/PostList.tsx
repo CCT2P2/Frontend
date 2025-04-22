@@ -45,7 +45,7 @@ export default function PostList({postCsv}: PostListProps) {
 
                 // Fetching posts based on `postCsv`
                 if (postCsv.toLowerCase() === "latest") {
-                    response = await fetch("api/post/posts?SortBy=timestamp&SortOrder=desc", {
+                    response = await fetch("/api/post/posts?SortBy=timestamp&SortOrder=desc", {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${session.accessToken}`, // Add the token in the Authorization header
@@ -60,7 +60,7 @@ export default function PostList({postCsv}: PostListProps) {
 
                     if (postIds.length === 0) return;
 
-                    response = await fetch(`api/post/posts/by-ids?ids=${postIds.join(",")}`, {
+                    response = await fetch(`/api/post/posts/by-ids?ids=${postIds.join(",")}`, {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${session.accessToken}`,

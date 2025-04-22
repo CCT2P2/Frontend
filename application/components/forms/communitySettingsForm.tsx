@@ -56,7 +56,7 @@ export default function CommunitySettingsForm() {
       >
         <CardTitle>Forums</CardTitle>
         {filteredForums ? (
-          filteredForums.map((forum) => (
+            filteredForums.map((forum) => (
             <Card
               key={forum.communityID}
               className={`p-${paddingButton} transition-colors duration-200 hover:bg-secondary/15`}
