@@ -60,11 +60,11 @@ export default function PostList({postCsv}: PostListProps) {
 
                     if (postIds.length === 0) return;
 
-                    response = await fetch(`/api/post/posts/by-ids?ids=${}`, {
+                    response = await fetch(`/api/post/posts/by-ids?ids=${postIds.join(",")}`, {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${session.accessToken}`,
-                            'Content-Type': 'postIds.join(",")application/json',
+                            'Content-Type': 'application/json',
                         },
                     });
                 }
