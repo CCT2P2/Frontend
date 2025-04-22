@@ -37,27 +37,31 @@ export default function AboutPage() {
 					<Card className="w-[50%] max-w-500 border-transparent bg-transparent h-[50%] -mt-50">
 						<CardTitle>About</CardTitle>
 						<h1>Welcome to Gnu Forum</h1>
-						Gnu Forum is a lightweight, scalable discussion platform developed
-						as part of our second-term Bachelor’s project in Cyber- and Computer
-						Engineering at Aalborg University. Our goal was to design and build
-						a modern forum system from the ground up — focusing on efficiency,
-						simplicity, and flexibility. While we utilize established frameworks
-						such as React, Next.js, TailwindCSS, and .NET, all core application
-						logic, database design, and system architecture have been developed
-						by us. Gnu Forum features a custom-built backend written in C#,
-						combining direct SQL access with Entity Framework Core to interact
-						with a lightweight SQLite database. The frontend is implemented with
-						TypeScript and React, providing a responsive and user-friendly
-						interface. Currently, the system runs directly on bare metal servers
-						for maximum performance and simplicity. However, it has been
-						designed with scalability in mind and can be containerized for
-						future deployment on Kubernetes clusters. This project reflects our
-						team's dedication to practical engineering principles — balancing
-						academic rigor with real-world considerations like performance,
-						maintainability, and scalability. We are proud to share Gnu Forum as
-						a result of our collaboration, problem-solving, and commitment to
-						building complete systems from first principles.
-						<p>— Proudly built by students at Aalborg University. </p>
+						This platform is the result of a semester project created by six
+						dedicated students studying Cyber and Computer Engineering at
+						Aalborg University, currently in our second semester. What started
+						as a school assignment quickly turned into a passion project, driven
+						by our shared interest in technology and innovation. We are not just
+						students we’re tech enthusiasts who enjoy coding in our free time,
+						exploring new tools, and building things from scratch. That passion
+						inspired us to develop a platform where people like us can connect,
+						share ideas, and discuss everything from code to creativity. Our
+						goal was to create a functional and user-friendly platform, where we
+						had full control over the entire build. We chose to build the site
+						from scratch without using pre-made templates or heavy frameworks.
+						Everything you see from backend logic to frontend design has been
+						carefully crafted by us, giving us a deeper understanding of how all
+						the different parts work together to create a cohesive experience.
+						During the project, we worked through challenges as a team
+						debugging, testing, and improving every part together. It taught us
+						a lot about collaboration and how small details matter in user
+						experience. This website represents our teamwork, creativity, and
+						learning throughout the semester. We hope it inspires others just as
+						much as we enjoyed making it.
+						<p>
+							— Build with dedication, blood, sweat and tears by students at
+							Aalborg University
+						</p>
 					</Card>
 				</div>
 			</main>
