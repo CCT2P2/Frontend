@@ -60,7 +60,6 @@ export default function Comments({postId}: { postId: number }) {
 }
 
 export function Comment({commentData}: { commentData: CommentData }) {
-    console.log(commentData)
     const date = new Date(Date.parse(commentData.timestamp));
 
     return (

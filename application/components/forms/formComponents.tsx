@@ -22,6 +22,7 @@ interface RegisterFormInputProps {
     inputType: HTMLInputTypeAttribute;
     className?: string;
     required?: boolean;
+    isPending?: boolean;
 }
 
 interface RegisterFormTextareaProps {
@@ -62,6 +63,7 @@ export function FormInput({
                               inputType,
                               className,
                               required = false,
+                              isPending = false,
                           }: RegisterFormInputProps) {
     return (
         <div className={"grid gap-2"}>
@@ -84,7 +86,7 @@ export function FormInput({
                 />
             </div>
             <div id={`${fieldName}-error`}>
-                {formState.errors?.[fieldName] &&
+                {(formState.errors?.[fieldName] && !isPending) &&
                     formState.errors[fieldName].map((error: string) => (
                         <p key={error} className={"ml-2 text-sm text-red-500"}>
                             {error}
