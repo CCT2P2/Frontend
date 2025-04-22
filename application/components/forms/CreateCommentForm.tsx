@@ -1,7 +1,8 @@
 import {FormInput, FormTextArea} from "@/components/forms/formComponents";
-import {Dispatch, SetStateAction, useActionState} from "react";
+import {Dispatch, SetStateAction, useActionState, useEffect} from "react";
 import {createComment} from "@/lib/actions/createComment";
 import {Button} from "@/components/ui/button";
+import {useFormStatus} from "react-dom";
 
 export default function CreateCommentForm({postId, communityId, setCommentReloadKey, commentReloadKey}: {
     postId: number,
@@ -10,6 +11,7 @@ export default function CreateCommentForm({postId, communityId, setCommentReload
     setCommentReloadKey: Dispatch<SetStateAction<number>>
 }) {
     const [formState, dispatch] = useActionState(createComment, {})
+
     return (
         <form action={dispatch}>
             <FormTextArea
@@ -22,10 +24,20 @@ export default function CreateCommentForm({postId, communityId, setCommentReload
             <input hidden value={postId} name={"parentPostId"} readOnly/>
             <input hidden value={communityId} name={"communityId"} readOnly/>
             <div className={"flex justify-end mt-2"}>
-                <Button variant={"outline"} onClick={() => {
-                    setCommentReloadKey(commentReloadKey += 1)
-                }}>Comment</Button>
+                <CommentButton setCommentReloadKey={setCommentReloadKey} commentReloadKey={commentReloadKey}/>
             </div>
         </form>
     )
+}
+
+function CommentButton({setCommentReloadKey, commentReloadKey}: {
+    setCommentReloadKey: Dispatch<SetStateAction<number>>,
+    commentReloadKey: number
+}) {
+    const status = useFormStatus();
+    useEffect(() => {
+        setCommentReloadKey(commentReloadKey += 1)
+    }, [status.pending])
+    return <Button variant={"outline"} onClick={() => {
+    }}>Comment</Button>;
 }

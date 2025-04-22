@@ -1,6 +1,6 @@
 "use client";
 
-import {useActionState} from "react";
+import {Dispatch, SetStateAction, useActionState, useState} from "react";
 import {login} from "@/lib/actions/login";
 import {FormInput} from "@/components/forms/formComponents";
 import Image from "next/image";
@@ -8,9 +8,11 @@ import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {Button} from "@/components/ui/button";
 import {useUISettings} from "@/app/store/useUISettings";
 import Link from "next/link";
+import {useFormStatus} from "react-dom";
 
 export default function LoginForm() {
     const [formState, dispatch] = useActionState(login, {});
+    const [pending, setPending] = useState(false)
 
     return (
         <Card className={`w-96 relative py-8 light-glow-primary`}>
@@ -25,7 +27,7 @@ export default function LoginForm() {
                     />
                 </div>
                 <CardTitle>Log in</CardTitle>
-                {formState.message && (
+                {(formState.message && !pending) && (
                     <div className="text-red-500">{formState.message}</div>
                 )}
             </CardHeader>
@@ -38,6 +40,7 @@ export default function LoginForm() {
                             label={"Username"}
                             placeholder={"Username"}
                             inputType={"text"}
+                            isPending={pending}
                             required
                         />
                         <FormInput
@@ -46,6 +49,7 @@ export default function LoginForm() {
                             label={"Password"}
                             placeholder={"Password"}
                             inputType={"password"}
+                            isPending={pending}
                             required
                         />
                     </div>
@@ -56,12 +60,7 @@ export default function LoginForm() {
                         Forgot your password?
                     </Link>
                     <div className={"flex flex-col justify-center gap-8 mt-10"}>
-                        <Button
-                            variant={"outline"}
-                            size={"lg"}
-                        >
-                            Log in
-                        </Button>
+                        <LoginButton setPending={setPending}/>
                         <div className="text-center text-sm">
                             {"Don't have an account? "}
                             <Link
@@ -76,4 +75,18 @@ export default function LoginForm() {
             </CardContent>
         </Card>
     );
+}
+
+function LoginButton({setPending}: { setPending: Dispatch<SetStateAction<boolean>> }) {
+    const status = useFormStatus()
+    setPending(status.pending)
+    return (
+        <Button
+            variant={"outline"}
+            size={"lg"}
+            disabled={status.pending}
+        >
+            {status.pending ? "Loading..." : "Login"}
+        </Button>
+    )
 }
