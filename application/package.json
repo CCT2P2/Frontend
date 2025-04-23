@@ -7,8 +7,7 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"check": "tsc --noEmit && eslint . --ext ts,tsx",
-		"prepare": "husky install"
+		"check": "tsc --noEmit && eslint . --ext ts,tsx"
 	},
 	"dependencies": {
 		"@heroicons/react": "^2.2.0",
