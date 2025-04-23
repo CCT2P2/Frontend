@@ -71,6 +71,9 @@ importers:
       react-images-uploading:
         specifier: ^3.1.7
         version: 3.1.7(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      react-push-notifications:
+        specifier: ^1.0.4
+        version: 1.0.4
       tailwind-merge:
         specifier: ^3.1.0
         version: 3.2.0
@@ -2045,6 +2048,9 @@ packages:
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
+
+  react-push-notifications@1.0.4:
+    resolution: {integrity: sha512-za4a3s8op2R8wz77F6pfhMZomzT3piMuK/j5sPPzHJYOI46sdK39MfyOO9sSAwymbIvxZaMnBiqFuqZ0B9+m5A==}
 
   react-remove-scroll-bar@2.3.8:
     resolution: {integrity: sha512-9r+yi9+mgU33AKcj6IbT9oRCO78WriSj6t/cF8DWBZJ9aOGPOTEDvdUDz1FwKim7QXWwmHqtdHnRJfhAxEG46Q==}
@@ -4383,6 +4389,8 @@ snapshots:
       react-dom: 19.1.0(react@19.1.0)
 
   react-is@16.13.1: {}
+
+  react-push-notifications@1.0.4: {}
 
   react-remove-scroll-bar@2.3.8(@types/react@19.1.2)(react@19.1.0):
     dependencies:
