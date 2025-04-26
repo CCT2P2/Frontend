@@ -64,20 +64,20 @@ export default function Home({ params }: Props) {
 		<div className={`ml-auto px-${padding} py-${padding} w-full`}>
 			<div className="flex justify-center gap-6">
 				{/* Sidebar */}
-				<div className="shrink-0 sticky top-20 h-full max-w-80 w-[15%]">
+				<div className="shrink-0 sticky top-20 h-full max-w-80 w-[24%]">
 					<ForumName
 						name={forum.name}
 						description={forum.description}
 						forumId={Number(forumId)}
 						userId={session?.user?.id || "0"}
 					/>
-					<div className="py-8">
+					<div className="py-6">
 						<ForumList />
 					</div>
 				</div>
 
 				{/* Main Content */}
-				<div className="shrink-1 max-w-350 w-[60%] mt-5">
+				<div className="shrink-1 max-w-350 w-[70%] mt-5">
 					{forumId === "0" ? (
 						<PostList postCsv="latest" />
 					) : (
