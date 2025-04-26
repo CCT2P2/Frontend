@@ -65,7 +65,15 @@ export default function Home({ params }: Props) {
 			<div className="flex justify-center gap-6">
 				{/* Sidebar */}
 				<div className="shrink-0 sticky top-20 h-full max-w-80 w-[15%]">
-					<ForumList />
+					<ForumName
+						name={forum.name}
+						description={forum.description}
+						forumId={Number(forumId)}
+						userId={session?.user?.id || "0"}
+					/>
+					<div className="py-8">
+						<ForumList />
+					</div>
 				</div>
 
 				{/* Main Content */}
@@ -75,17 +83,6 @@ export default function Home({ params }: Props) {
 					) : (
 						<PostList postCsv={forum?.post_ids.toString() || ""} />
 					)}
-				</div>
-
-				{/* Extra panel or content */}
-				<div className="shrink-0 max-w-80 sticky top-20 h-full w-[15%]">
-					<ForumName
-						name={forum.name}
-						description={forum.description}
-						forumId={Number(forumId)}
-						userId={session?.user?.id || "0"}
-					/>
-					<ForumTagsPanel />
 				</div>
 			</div>
 		</div>
