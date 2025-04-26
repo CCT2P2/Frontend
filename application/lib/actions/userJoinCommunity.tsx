@@ -2,7 +2,7 @@ import { getSession } from "next-auth/react";
 
 interface userJoinCommunity {
 	forumId: number;
-	userId: number;
+	userId: string;
 }
 
 export async function userJoinCommunity({
@@ -14,7 +14,12 @@ export async function userJoinCommunity({
 	if (!session?.user) {
 		return { success: false, message: "Invalid user session" };
 	}
-	console.log(forumId);
+
+	const requestBody = {
+		CommunityIds: forumId.toString(),
+		PostIds: "",
+		Tags: "",
+	};
 
 	const response = await fetch(`/api/user/update/backend/${userId}`, {
 		method: "PUT",
@@ -22,7 +27,7 @@ export async function userJoinCommunity({
 			"Content-Type": "application/json",
 			Authorization: `Bearer ${session?.accessToken}`,
 		},
-		body: JSON.stringify(forumId.toString()),
+		body: JSON.stringify(requestBody),
 	});
 
 	if (!response.ok) {

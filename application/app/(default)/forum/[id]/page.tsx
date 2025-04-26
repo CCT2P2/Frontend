@@ -11,6 +11,7 @@ import PostList from "@/components/forumPage/PostList";
 import { useAuthFetch } from "@/lib/hooks/useAuthFetch";
 import { GetCommunityResponse, GetUserProfileResponse } from "@/lib/apiTypes";
 import LoadingSpinner from "@/components/general/loadingSpinner";
+import { useCurrentSession } from "@/lib/hooks/useCurrentSession";
 
 interface Props {
 	params: Promise<{ id: string }>;
@@ -33,6 +34,7 @@ export default function Home({ params }: Props) {
 	} = useAuthFetch<GetCommunityResponse>(`/api/community/details/${forumId}`);
 
 	const [showSpinner, setShowSpinner] = useState(false);
+	const { status, session } = useCurrentSession();
 
 	useEffect(() => {
 		let timeout: NodeJS.Timeout;
@@ -81,7 +83,7 @@ export default function Home({ params }: Props) {
 						name={forum.name}
 						description={forum.description}
 						forumId={Number(forumId)}
-						//userId={}
+						userId={session?.user?.id || "0"}
 					/>
 					<ForumTagsPanel />
 				</div>

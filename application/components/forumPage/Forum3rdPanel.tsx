@@ -17,7 +17,7 @@ interface ForumNameProps {
 	name: string;
 	description: string;
 	forumId: number;
-	userId: number;
+	userId: string;
 }
 
 export function ForumName({

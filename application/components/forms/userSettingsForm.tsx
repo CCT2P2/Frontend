@@ -108,6 +108,16 @@ export default function RegisterForm() {
 					</Button>
 				</div>
 			</div>
+			{/* Overlay */}
+
+			<div className="absolute inset-0 bg-black/50 backdrop-blur-md flex flex-col items-center justify-center rounded-xs">
+				<span className="text-red-500 font-bold text-2xl text-center">
+					COMING SOON
+				</span>
+				<span className="text-red-400 font-semibold text-xs mt-2 text-center">
+					(Lol, no it won't)
+				</span>
+			</div>
 		</form>
 	);
 }
