@@ -129,11 +129,6 @@ export default function PostContent({ postData }: Props) {
 						{postData.comment_count}
 					</span>
 				</Button>
-				<div className={"flex gap-6"}>
-					<Button variant={"ghost"}>
-						<Ellipsis className={"size-6"} />
-					</Button>
-				</div>
 			</CardFooter>
 		</Card>
 	);

@@ -81,11 +81,6 @@ export default function PostThumbnail({
 					<MessageSquareText className={"size-6"} />
 					<span className={"text-center text-white"}>{comments}</span>
 				</Button>
-				<div className={"flex gap-6"}>
-					<Button variant={"ghost"}>
-						<Ellipsis className={"size-6"} />
-					</Button>
-				</div>
 			</CardFooter>
 		</Card>
 	);
