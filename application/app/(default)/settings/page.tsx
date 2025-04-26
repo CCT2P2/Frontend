@@ -16,7 +16,7 @@ export default function SettingsPage() {
 				<UserSettingsForm />
 			</Card>
 			<Card className={`w-full max-w-xl p-8 space-y-6`}>
-				<div className="text-3xl font-bold text-white">GnuF Settings</div>
+				<div className="text-3xl font-bold text-white">GNUF Settings</div>
 
 				<div className="space-y-4 text-white">
 					<div className="flex items-center justify-between">
