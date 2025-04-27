@@ -1,6 +1,6 @@
 "use client";
 
-import {Dispatch, SetStateAction, useActionState, useState} from "react";
+import {Dispatch, SetStateAction, useActionState, useEffect, useState} from "react";
 import {login} from "@/lib/actions/login";
 import {FormInput} from "@/components/forms/formComponents";
 import Image from "next/image";
@@ -79,7 +79,11 @@ export default function LoginForm() {
 
 function LoginButton({setPending}: { setPending: Dispatch<SetStateAction<boolean>> }) {
     const status = useFormStatus()
-    setPending(status.pending)
+
+    useEffect(() => {
+        setPending(status.pending)
+    }, [setPending, status.pending]);
+
     return (
         <Button
             variant={"outline"}
