@@ -4,7 +4,6 @@ import {use, useState, useEffect} from "react";
 import ForumList from "@/components/forumPage/ForumList";
 import {
     ForumName,
-    ForumTagsPanel,
 } from "@/components/forumPage/Forum3rdPanel";
 import {useUISettings} from "@/app/store/useUISettings";
 import PostList from "@/components/forumPage/PostList";
