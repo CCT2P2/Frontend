@@ -24,6 +24,7 @@ import {useState} from "react";
 import VoteAction from "@/lib/actions/voteAction";
 import {cn} from "@/lib/utils";
 import Link from "next/link";
+import {interactDislike, interactLike} from "@/lib/actions/vote";
 
 interface Props {
     postData: GetPostResponse;
@@ -33,27 +34,7 @@ export default function PostContent({postData}: Props) {
     const [voteState, setVoteState] = useState<"like" | "dislike" | "none">(
         postData.voteState,
     );
-    const initialState = postData.voteState;
-
-    async function interactLike() {
-        if (voteState === "like") {
-            setVoteState("none");
-            await VoteAction(postData.id, "none");
-            return;
-        }
-        setVoteState("like");
-        await VoteAction(postData.id, "like");
-    }
-
-    async function interactDislike() {
-        if (voteState === "dislike") {
-            setVoteState("none");
-            await VoteAction(postData.id, "none");
-            return;
-        }
-        setVoteState("dislike");
-        await VoteAction(postData.id, "dislike");
-    }
+    const initialVoteState = postData.voteState;
 
     return (
         <Card className={`border-secondary/50 flex flex-col`}>
@@ -94,7 +75,7 @@ export default function PostContent({postData}: Props) {
                 <div className={"flex flex-col gap-2 mr-6 content-center"}>
                     <Button
                         variant={"ghost"}
-                        onClick={interactLike}
+                        onClick={() => interactLike(voteState, setVoteState, postData.id)}
                         className={cn(
                             voteState === "like" &&
                             "dark:bg-secondary/70 hover:dark:bg-secondary/90" +
@@ -105,8 +86,8 @@ export default function PostContent({postData}: Props) {
                     </Button>
                     {(() => {
                         let votes = postData.likes - postData.dislikes;
-                        if (initialState === "dislike") votes++;
-                        if (initialState === "like") votes--;
+                        if (initialVoteState === "dislike") votes++;
+                        if (initialVoteState === "like") votes--;
                         if (voteState === "dislike") votes--;
                         else if (voteState === "like") votes++;
 
@@ -114,7 +95,7 @@ export default function PostContent({postData}: Props) {
                     })()}
                     <Button
                         variant={"ghost"}
-                        onClick={interactDislike}
+                        onClick={() => interactDislike(voteState, setVoteState, postData.id)}
                         className={cn(
                             voteState === "dislike" &&
                             "dark:bg-secondary/70 hover:dark:bg-secondary/90" +

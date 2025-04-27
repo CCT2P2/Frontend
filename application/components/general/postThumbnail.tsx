@@ -17,6 +17,9 @@ import {
     MessageSquareText,
 } from "lucide-react";
 import Link from "next/link";
+import {useState} from "react";
+import {interactDislike, interactLike} from "@/lib/actions/vote";
+import {cn} from "@/lib/utils";
 
 interface PostData {
     post_id: number;
@@ -31,6 +34,7 @@ interface PostData {
     comment_flag: boolean;
     img: string;
     comment_count: number;
+    voteState: "like" | "dislike" | "none";
     author: {
         username: string;
         imagePath: string;
@@ -46,6 +50,10 @@ export default function PostThumbnail({
                                           postData
                                       }: { postData: PostData }) {
     const {padding} = useUISettings();
+    const [voteState, setVoteState] = useState<"like" | "dislike" | "none">(
+        postData.voteState,
+    );
+    const initialVoteState = postData.voteState;
 
     return (
         <Card className={`border-secondary/50 flex flex-col ${padding}`}>
@@ -79,20 +87,48 @@ export default function PostThumbnail({
                     </CardContent>
                 </div>
                 <div className={"flex flex-col gap-2 mr-6 content-center"}>
-                    <Button variant={"ghost"} className={"z-10"}>
+                    <Button
+                        variant={"ghost"}
+                        onClick={() => interactLike(voteState, setVoteState, postData.post_id)}
+                        className={cn(
+                            "z-10",
+                            voteState === "like" &&
+                            "dark:bg-secondary/70 hover:dark:bg-secondary/90" +
+                            " dark:text-black",
+                        )}
+                    >
                         <ChevronUp className={"size-6"}/>
                     </Button>
-                    <span className={"text-center"}>{postData.likes - postData.dislikes}</span>
-                    <Button variant={"ghost"} className={"z-10"}>
+                    {(() => {
+                        let votes = postData.likes - postData.dislikes;
+                        if (initialVoteState === "dislike") votes++;
+                        if (initialVoteState === "like") votes--;
+                        if (voteState === "dislike") votes--;
+                        else if (voteState === "like") votes++;
+
+                        return <span className={"text-center"}>{votes}</span>;
+                    })()}
+                    <Button
+                        variant={"ghost"}
+                        onClick={() => interactDislike(voteState, setVoteState, postData.post_id)}
+                        className={cn(
+                            "z-10",
+                            voteState === "dislike" &&
+                            "dark:bg-secondary/70 hover:dark:bg-secondary/90" +
+                            " dark:text-black",
+                        )}
+                    >
                         <ChevronDown className={"size-6"}/>
                     </Button>
                 </div>
             </div>
             <CardFooter className={"justify-between"}>
-                <Button variant={"ghost"} className={"z-10"}>
-                    <MessageSquareText className={"size-6"}/>
-                    <span className={"text-center text-white"}>{postData.comment_count}</span>
-                </Button>
+                <Link href={`/post/${postData.post_id}`} className={"z-10"}>
+                    <Button variant={"ghost"} className={""}>
+                        <MessageSquareText className={"size-6"}/>
+                        <span className={"text-center text-white"}>{postData.comment_count}</span>
+                    </Button>
+                </Link>
             </CardFooter>
         </Card>
     );

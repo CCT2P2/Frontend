@@ -18,6 +18,7 @@ interface CommentData {
     comment_flag: boolean;
     comment_count: number;
     img: string;
+    voteState: "like" | "dislike" | "none";
     author: {
         username: string;
         imagePath: string;
