@@ -44,6 +44,12 @@ export default function RegisterForm() {
 								under 16, you may not use this site.
 							</li>
 							<li>
+								Gnuf is intended for access and use only within Denmark. Access
+								from other jurisdictions is restricted due to legal
+								restrictions. If you are accessing this site from a restricted
+								region, you must immediately discontinue use.
+							</li>
+							<li>
 								Gnuf and its creators disclaim all responsibility for damages,
 								losses, or issues arising from the use or inability to use the
 								service. The service will be online for a limited duration
