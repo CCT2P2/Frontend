@@ -65,16 +65,10 @@ export default function PostList({postCsv, limit, forumId}: PostListProps) {
                 <TabsContent value="home">
                     <div className="flex flex-col gap-8">
                         {postsData.posts.map((post) => (
-                            <Link href={`/post/${post.post_id}`} key={post.post_id}>
-                                <PostThumbnail
-                                    postTitle={post.title}
-                                    postContent={post.main_text}
-                                    community={post.community.name}
-                                    author={post.author.username}
-                                    votes={post.likes - post.dislikes}
-                                    comments={post.comment_count}
-                                />
-                            </Link>
+                            <PostThumbnail
+                                postData={post}
+                                key={post.post_id}
+                            />
                         ))}
                     </div>
                 </TabsContent>

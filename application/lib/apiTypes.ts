@@ -125,6 +125,7 @@ export interface GetMultiplePostsResponse {
         post_id_ref: number;
         comment_flag: boolean;
         comment_count: number;
+        img: string;
         author: {
             username: string;
             imagePath: string;
