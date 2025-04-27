@@ -35,6 +35,12 @@ export default function RegisterForm() {
 								solely responsible for any content you post.
 							</li>
 							<li>
+								While some security measures are in place, like password
+								hashing, and ip blocking, there is no guarantee that your
+								content will not be compromised. Additionally, Gnuf does not
+								guarantee the privacy of your personal information.
+							</li>
+							<li>
 								Gnuf does not pre-screen content and is not liable for any
 								content submitted by users. You agree not to post unlawful,
 								harmful, or otherwise inappropriate material.
@@ -42,6 +48,12 @@ export default function RegisterForm() {
 							<li>
 								This site is intended for users aged 16 and older. If you are
 								under 16, you may not use this site.
+							</li>
+							<li>
+								Gnuf is intended for access and use only within Denmark. Access
+								from other jurisdictions is restricted due to legal
+								restrictions. If you are accessing this site from a restricted
+								region, you must immediately discontinue use.
 							</li>
 							<li>
 								Gnuf and its creators disclaim all responsibility for damages,
