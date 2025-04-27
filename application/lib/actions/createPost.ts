@@ -19,7 +19,8 @@ const CreatePostSchema = z.object({
         .max(100000, {message: 'Post content must not be more than 100,000 characters'}),
 
     communityId: z
-        .number(),
+        .number()
+        .min(1, {message: 'No community chosen'}),
 
     image: z
         .string()

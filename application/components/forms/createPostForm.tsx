@@ -1,7 +1,7 @@
 "use client";
 
 import {FormInput, FormTextArea} from "@/components/forms/formComponents";
-import {useActionState, useEffect, useState} from "react";
+import {Dispatch, SetStateAction, useActionState, useEffect, useState} from "react";
 import {Button} from "@/components/ui/button";
 import {
     Popover,
@@ -27,8 +27,10 @@ import {createPost} from "@/lib/actions/createPost";
 import {useAuthFetch} from "@/lib/hooks/useAuthFetch";
 import {GetAllCommunitiesResponse} from "@/lib/apiTypes";
 import LoadingSpinner from "@/components/general/loadingSpinner";
+import {useFormStatus} from "react-dom";
 
 export default function CreatePostForm({forumId}: { forumId: string }) {
+    const [pending, setPending] = useState(false)
     const [formState, dispatch] = useActionState(createPost, {});
 
     const [images, setImages] = useState<ImageListType>([]);
@@ -39,7 +41,7 @@ export default function CreatePostForm({forumId}: { forumId: string }) {
 
     return (
         <form action={dispatch} className={"flex flex-col gap-6"}>
-            {formState.message && (
+            {formState.message && !pending && (
                 <div className="text-red-500">{formState.message}</div>
             )}
             <div className={"flex flex-col gap-4 mt-4"}>
@@ -48,6 +50,7 @@ export default function CreatePostForm({forumId}: { forumId: string }) {
                     <CommunitySelect forumId={forumId}/>
                     <div id={`$community-error`}>
                         {formState.errors?.communityId &&
+                            !pending &&
                             formState.errors?.communityId.map((error: string) => (
                                 <p key={error} className={"ml-2 text-sm text-red-500"}>
                                     {error}
@@ -118,12 +121,28 @@ export default function CreatePostForm({forumId}: { forumId: string }) {
             </div>
             <div className={"flex justify-between gap-4"}>
                 <DiscardButton/>
-                <Button variant={"outline"} className={"w-24"}>
-                    Post
-                </Button>
+                <PostButton setPending={setPending}/>
             </div>
         </form>
     );
+}
+
+function PostButton({
+                        setPending,
+                    }: {
+    setPending: Dispatch<SetStateAction<boolean>>;
+}) {
+    const status = useFormStatus();
+
+    useEffect(() => {
+        setPending(status.pending);
+    }, [setPending, status.pending]);
+
+    return (
+        <Button variant={"outline"} className={"w-24"} disabled={status.pending}>
+            {status.pending ? "Loading..." : "Post"}
+        </Button>
+    )
 }
 
 function CommunitySelect({forumId}: { forumId: string }) {

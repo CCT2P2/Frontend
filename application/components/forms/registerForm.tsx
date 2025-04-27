@@ -196,7 +196,7 @@ function RegisterButton({
     const status = useFormStatus();
 
     useEffect(() => {
-        setPending(status.pending)
+        setPending(status.pending);
     }, [setPending, status.pending]);
 
     return (
