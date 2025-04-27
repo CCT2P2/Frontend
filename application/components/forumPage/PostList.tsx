@@ -69,8 +69,8 @@ export default function PostList({postCsv, limit, forumId}: PostListProps) {
                                 <PostThumbnail
                                     postTitle={post.title}
                                     postContent={post.main_text}
-                                    community={`Community #${post.com_id}`}
-                                    author={`User #${post.auth_id}`}
+                                    community={post.community.name}
+                                    author={post.author.username}
                                     votes={post.likes - post.dislikes}
                                     comments={post.comment_count}
                                 />
