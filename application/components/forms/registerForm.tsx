@@ -27,43 +27,51 @@ export default function RegisterForm() {
 					<div className="text-sm">
 						<p>By using our service, you agree to the following terms:</p>
 						<ul className="list-disc pl-4 mt-2 space-y-2">
+							<li className="font-bold">Temporary Project</li>
 							<li>
 								Gnu Forum ("Gnuf") is a temporary, university project created by
 								students at Aalborg University. The service is provided "as is"
 								with no guarantees regarding availability, security, or content
-								moderation. By using this site, you acknowledge that you are
-								solely responsible for any content you post.
+								moderation.
 							</li>
+
+							<li className="font-bold">User Responsibility</li>
 							<li>
-								While some security measures are in place, like password
-								hashing, and ip blocking, there is no guarantee that your
-								content will not be compromised. Additionally, Gnuf does not
-								guarantee the privacy of your personal information.
+								You are solely responsible for any content you post. Gnuf does
+								not pre-screen submissions and disclaims liability for
+								user-generated content. You agree not to post unlawful, harmful,
+								or otherwise inappropriate material.
 							</li>
+
+							<li className="font-bold">Security and Privacy</li>
 							<li>
-								Gnuf does not pre-screen content and is not liable for any
-								content submitted by users. You agree not to post unlawful,
-								harmful, or otherwise inappropriate material.
+								While basic security measures are implemented, including
+								password hashing and IP blocking, Gnuf makes no guarantees
+								regarding the security of user data or the privacy of personal
+								information. Use the service at your own risk.
 							</li>
+
+							<li className="font-bold">Age Restriction</li>
 							<li>
-								This site is intended for users aged 16 and older. If you are
-								under 16, you may not use this site.
+								This service is intended for individuals aged 16 and older. If
+								you are under 16 years of age, you may not use Gnuf.
 							</li>
+
+							<li className="font-bold">Geographical Restriction</li>
 							<li>
-								Gnuf is intended for access and use only within Denmark. Access
-								from other jurisdictions is restricted due to legal
-								restrictions. If you are accessing this site from a restricted
-								region, you must immediately discontinue use.
+								Gnuf is intended solely for access and use within Denmark.
+								Access from other jurisdictions is restricted due to legal
+								compliance reasons. Users accessing from restricted regions must
+								immediately discontinue use.
 							</li>
+
+							<li className="font-bold">Limitation of Liability</li>
 							<li>
 								Gnuf and its creators disclaim all responsibility for damages,
 								losses, or issues arising from the use or inability to use the
-								service. The service will be online for a limited duration
-								(approximately 3 weeks) and may be terminated without notice.
-							</li>
-							<li>
-								By using Gnuf, you agree to the terms of service and acknowledge
-								that you are solely responsible for any content you post.
+								service. The service will operate for a limited duration
+								(approximately 3 weeks) and may be terminated at any time
+								without notice.
 							</li>
 						</ul>
 					</div>
