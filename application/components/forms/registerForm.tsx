@@ -198,7 +198,7 @@ function RegisterButton({
     useEffect(() => {
         setPending(status.pending)
     }, [setPending, status.pending]);
-	
+
     return (
         <Button variant={"outline"} size={"lg"} disabled={status.pending}>
             {status.pending ? "Loading..." : "Register"}

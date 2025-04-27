@@ -28,31 +28,7 @@ import {useAuthFetch} from "@/lib/hooks/useAuthFetch";
 import {GetAllCommunitiesResponse} from "@/lib/apiTypes";
 import LoadingSpinner from "@/components/general/loadingSpinner";
 
-type FormState = Record<string, unknown>;
-// const communities = [
-//     {
-//         value: "whyy",
-//         label: "Whyy",
-//     },
-//     {
-//         value: "bigQuestions",
-//         label: "BigQuestions",
-//     },
-//     {
-//         value: "wowsers",
-//         label: "wowsers",
-//     },
-//     {
-//         value: "javaHate",
-//         label: "JavaHate",
-//     },
-//     {
-//         value: "goLang",
-//         label: "GoLang",
-//     },
-// ];
-
-export default function CreatePostForm() {
+export default function CreatePostForm({forumId}: { forumId: string }) {
     const [formState, dispatch] = useActionState(createPost, {});
 
     const [images, setImages] = useState<ImageListType>([]);
@@ -69,7 +45,7 @@ export default function CreatePostForm() {
             <div className={"flex flex-col gap-4 mt-4"}>
                 <div className={"flex flex-col gap-2"}>
                     <Label className={"ml-2"}>Community</Label>
-                    <CommunitySelect/>
+                    <CommunitySelect forumId={forumId}/>
                     <div id={`$community-error`}>
                         {formState.errors?.communityId &&
                             formState.errors?.communityId.map((error: string) => (
@@ -150,11 +126,30 @@ export default function CreatePostForm() {
     );
 }
 
-function CommunitySelect() {
+function CommunitySelect({forumId}: { forumId: string }) {
     const [open, setOpen] = useState(false);
     const [selectedCommunityName, setSelectedCommunityName] = useState("");
     const [selectedCommunityId, setSelectedCommunityId] = useState<number>(-1);
     const {data: communities, isLoading, status, error} = useAuthFetch<GetAllCommunitiesResponse>(`/api/community/all`);
+
+    // sets the default community to the current one
+    useEffect(() => {
+        if (isLoading || !communities) {
+            return
+        }
+
+        const forumIdNumber = Number(forumId)
+        const defaultCommunity = communities.find(
+            (community) => community.communityID === forumIdNumber
+        );
+
+        if (!defaultCommunity || defaultCommunity.communityID < 1) {
+            return;
+        }
+
+        setSelectedCommunityName(defaultCommunity?.names);
+        setSelectedCommunityId(forumIdNumber)
+    }, [communities, forumId, isLoading]);
 
     if (error) {
         return (
