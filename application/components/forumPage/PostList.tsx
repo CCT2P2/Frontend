@@ -8,20 +8,9 @@ import SortingMenu from "@/components/general/sortingMenu";
 import CreatePost from "@/components/general/createPost";
 import {getSession} from "next-auth/react";
 import Link from "next/link";
-
-interface PostData {
-    post_id: number;
-    title: string;
-    main_text: string;
-    auth_id: number;
-    com_id: number;
-    timestamp: number;
-    likes: number;
-    dislikes: number;
-    post_id_ref?: number;
-    comment_flag: boolean;
-    comment_count: number;
-}
+import {GetMultiplePostsResponse} from "@/lib/apiTypes";
+import {useAuthFetch} from "@/lib/hooks/useAuthFetch";
+import LoadingSpinner from "@/components/general/loadingSpinner";
 
 interface PostListProps {
     postCsv: string; // Either CSV string (e.g. "1,2,3") or "latest"
@@ -30,68 +19,34 @@ interface PostListProps {
 }
 
 export default function PostList({postCsv, limit, forumId}: PostListProps) {
-    const [posts, setPosts] = useState<PostData[]>([]);
-
     if (limit === undefined) {
         limit = 20;
     }
 
-    useEffect(() => {
-        const fetchPosts = async () => {
-            try {
-                // Getting the session token
-                const session = await getSession();
+    const params = new URLSearchParams();
+    params.append("Limit", limit.toString())
 
-                if (!session?.accessToken) {
-                    console.error("No access token found!");
-                    return;
-                }
+    if (Number(forumId) > 0) {
+        params.append("CommunityId", forumId);
+    }
 
-                let response;
+    const {
+        data: postsData,
+        isLoading,
+        status,
+        error
+    } = useAuthFetch<GetMultiplePostsResponse>(`/api/post/posts?${params.toString()}`);
 
-                // Fetching posts based on `postCsv`
-                if (postCsv.toLowerCase() === "latest") {
-                    response = await fetch(
-                        `/api/post/posts?SortBy=timestamp&SortOrder=desc&Limit=${limit}`,
-                        {
-                            method: "GET",
-                            headers: {
-                                Authorization: `Bearer ${session.accessToken}`, // Add the token in the Authorization header
-                                "Content-Type": "application/json",
-                            },
-                        },
-                    );
-                } else {
-                    const postIds = postCsv
-                        .split(",")
-                        .map((id) => parseInt(id.trim()))
-                        .filter((id) => !isNaN(id));
+    if (isLoading) return <LoadingSpinner absolute={false}/>
 
-                    if (postIds.length === 0) return;
-
-                    response = await fetch(
-                        `/api/post/posts/by-ids?ids=${postIds.join(",")}&limit=${limit}`,
-                        {
-                            method: "GET",
-                            headers: {
-                                Authorization: `Bearer ${session.accessToken}`,
-                                "Content-Type": "application/json",
-                            },
-                        },
-                    );
-                }
-
-                if (!response.ok) throw new Error("Failed to fetch posts");
-
-                const data = await response.json();
-                setPosts(Array.isArray(data) ? data : data.posts); // Handle both API shapes
-            } catch (err) {
-                console.error("Error fetching posts:", err);
-            }
-        };
-
-        fetchPosts();
-    }, [postCsv, limit]);
+    if (error || !postsData) {
+        return (
+            <div className="p-4 text-center">
+                <p className="text-red-500">Failed to load posts :c</p>
+                <p className="text-sm text-gray-500">{error}</p>
+            </div>
+        );
+    }
 
     return (
         <Card className={`grow relative light-glow-primary col-span-3`}>
@@ -109,7 +64,7 @@ export default function PostList({postCsv, limit, forumId}: PostListProps) {
 
                 <TabsContent value="home">
                     <div className="flex flex-col gap-8">
-                        {posts.map((post) => (
+                        {postsData.posts.map((post) => (
                             <Link href={`/post/${post.post_id}`} key={post.post_id}>
                                 <PostThumbnail
                                     postTitle={post.title}

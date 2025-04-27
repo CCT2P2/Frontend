@@ -129,6 +129,10 @@ export interface GetMultiplePostsResponse {
             username: string;
             imagePath: string;
             isAdmin?: number;
+        };
+        community: {
+            com_id: number;
+            name: string;
         }
     }[];
     total_count: number;
