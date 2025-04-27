@@ -13,13 +13,13 @@ export interface FeedbackState {
 	errors?: {
 		worked: string;
 		didnt: string;
-		other?: string | null;
+		other?: string;
 		rating?: string | null;
 	};
 	fieldsState?: {
 		worked: string;
 		didnt: string;
-		other?: string | null;
+		other?: string;
 		rating?: number | null;
 	};
 	status?: number;
@@ -57,7 +57,7 @@ export async function feedback(
 			fieldsState: {
 				worked: formData.get("worked")?.toString() || "",
 				didnt: formData.get("didnt")?.toString() || "",
-				other: formData.get("other")?.toString() || null,
+				other: formData.get("other")?.toString() || "",
 				rating: formData.get("rating") ? Number(formData.get("rating")) : null,
 			},
 			message: "Form validation failed",
