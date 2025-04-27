@@ -42,7 +42,7 @@ export default function AboutPage() {
 						Aalborg University, currently in our second semester. What started
 						as a school assignment quickly turned into a passion project, driven
 						by our shared interest in technology and innovation. We are not just
-						students we’re tech enthusiasts who enjoy coding in our free time,
+						students were tech enthusiasts who enjoy coding in our free time,
 						exploring new tools, and building things from scratch. That passion
 						inspired us to develop a platform where people like us can connect,
 						share ideas, and discuss everything from code to creativity. Our
