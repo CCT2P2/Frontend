@@ -17,15 +17,15 @@ export default function FeedbackForm() {
 
 	return (
 		<Card
-			className={`w-150 relative py-10 ${blur ? "bg-stone-800/20" : "bg-black"} backdrop-blur-md`}
+			className={`h-180 w-120 relative py-10 ${blur ? "bg-stone-800/20" : "bg-black"} backdrop-blur-md`}
 		>
 			<CardHeader>
-				<div className={"flex justify-center mb-4"}>
+				<div className={"flex justify-center mb-0"}>
 					<Image
 						src={"/GNUF.svg"}
 						alt="Home"
-						width={250}
-						height={250}
+						width={150}
+						height={150}
 						className={"p-2"}
 					/>
 				</div>

@@ -10,12 +10,12 @@ export default function SettingsPage() {
 	const { session } = useCurrentSession();
 
 	return (
-		<div className="flex justify-center px-4 py-10">
-			<Card className={`w-96 p-5 mx-5 `}>
+		<div className="flex justify-center px-4 py-26">
+			<Card className={`w-100 p-5 mx-5 `}>
 				<div className="text-3xl font-bold text-white">User section</div>
 				<UserSettingsForm />
 			</Card>
-			<Card className={`w-full max-w-xl p-8 space-y-6`}>
+			<Card className={`w-full max-w-150 p-8 space-y-6`}>
 				<div className="text-3xl font-bold text-white">GNUF Settings</div>
 
 				<div className="space-y-4 text-white">
