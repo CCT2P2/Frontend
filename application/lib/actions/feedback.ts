@@ -65,10 +65,10 @@ export async function feedback(
 	}
 
 	const requestData = {
-		worked: validatedFields.data.worked,
-		didnt: validatedFields.data.didnt,
-		other: validatedFields.data.other,
-		rating: validatedFields.data.rating,
+		Worked: validatedFields.data.worked,
+		Didnt: validatedFields.data.didnt,
+		Other: validatedFields.data.other,
+		Rating: validatedFields.data.rating,
 	};
 
 	const response = await fetch("api/feedback/submit", {
