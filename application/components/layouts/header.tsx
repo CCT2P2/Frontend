@@ -23,7 +23,7 @@ export default function Header() {
 		<header
 			className={`sticky top-0 z-50 ${blur ? "bg-stone-800/20" : "bg-black"} ${blur ? "backdrop-blur-xl" : ""}`}
 		>
-			<div className=" p-5 h-16 flex items-center gap-4 relative ml-auto mr-auto max-w-580">
+			<div className=" p-5 h-16 flex items-center gap-4 relative">
 				{/* Logo */}
 				<Link href="/forum/0" className="px-4 py-2">
 					<Image src="/GNUF.svg" alt="Home" width={80} height={80} />
