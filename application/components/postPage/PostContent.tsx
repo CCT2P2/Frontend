@@ -25,6 +25,7 @@ import VoteAction from "@/lib/actions/voteAction";
 import {cn} from "@/lib/utils";
 import Link from "next/link";
 import {interactDislike, interactLike} from "@/lib/actions/vote";
+import {formatDistanceToNow} from "date-fns";
 
 interface Props {
     postData: GetPostResponse;
@@ -35,6 +36,7 @@ export default function PostContent({postData}: Props) {
         postData.voteState,
     );
     const initialVoteState = postData.voteState;
+    const date = new Date(Date.parse(postData.timestamp));
 
     return (
         <Card className={`border-none backdrop-blur-none bg-transparent p-0 py-6 flex flex-col`}>
@@ -48,6 +50,7 @@ export default function PostContent({postData}: Props) {
                                   className={"text-secondary/75 hover:underline"}>
                                 {postData.community.name ?? "error getting community"}
                             </Link>
+                            {` · ${formatDistanceToNow(date)} ago`}
                         </CardDescription>
                         <CardDescription>
                             By{" "}

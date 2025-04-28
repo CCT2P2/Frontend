@@ -22,7 +22,7 @@ export default function PostList({postCsv, limit, forumId}: PostListProps) {
     const [sortingOption, setSortingOption] = useState<string>("new");
 
     return (
-        <Card className={`grow relative light-glow-primary col-span-3`}>
+        <Card className={`grow relative light-glow-primary col-span-3 min-h-[85vh]`}>
             <Tabs defaultValue="home" className={`px-10 py-6 gap-4`}>
                 <TabsList className={`w-full bg-black/50`}>
                     <TabsTrigger value="home">Home</TabsTrigger>
@@ -92,7 +92,7 @@ function HomeList({forumId, limit, sortOption}: {forumId: string, limit?: number
         error
     } = useAuthFetch<GetMultiplePostsResponse>(`/api/post/posts?${params.toString()}`);
 
-    if (isLoading) return <LoadingSpinner absolute={false}/>
+    if (isLoading) return <LoadingSpinner className={"top-80"}/>
 
     if (error || !postsData) {
         return (

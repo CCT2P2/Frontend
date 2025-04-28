@@ -20,6 +20,7 @@ import Link from "next/link";
 import {useState} from "react";
 import {interactDislike, interactLike} from "@/lib/actions/vote";
 import {cn} from "@/lib/utils";
+import {formatDistanceToNow} from "date-fns";
 
 interface PostData {
     post_id: number;
@@ -54,6 +55,7 @@ export default function PostThumbnail({
         postData.voteState,
     );
     const initialVoteState = postData.voteState;
+    const date = new Date(Date.parse(postData.timestamp));
 
     return (
         <Card className={`border-secondary/50 flex flex-col ${padding} has-[#postLink:hover]:border-secondary duration-200 has-[#postLink:hover]:faint-glow-secondary`}>
@@ -66,6 +68,7 @@ export default function PostThumbnail({
                         <CardDescription className={"z-10 w-fit"}>
                             Posted in <Link href={`/forum/${postData.community.com_id}`}
                                             className={"text-secondary/75 hover:underline"}>{postData.community.name}</Link>
+                            {` · ${formatDistanceToNow(date)} ago`}
                         </CardDescription>
                         <CardDescription className={"z-10 w-fit"}>
                             By <Link href={`/user/${postData.auth_id}`}

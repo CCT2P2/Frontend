@@ -1,57 +1,52 @@
 "use client";
-import { Card, CardTitle } from "@/components/ui/card";
-import { useUISettings } from "@/app/store/useUISettings";
-import { Link } from "lucide-react";
-import { useAuthFetch } from "@/lib/hooks/useAuthFetch";
-import { GetAllCommunitiesResponse } from "@/lib/apiTypes";
-import { useEffect, useState } from "react";
+import {Card, CardTitle} from "@/components/ui/card";
+import {useUISettings} from "@/app/store/useUISettings";
+import {useAuthFetch} from "@/lib/hooks/useAuthFetch";
+import {GetAllCommunitiesResponse} from "@/lib/apiTypes";
+import {useEffect, useState} from "react";
 import LoadingSpinner from "@/components/general/loadingSpinner";
+import Link from "next/link";
+import {Button} from "@/components/ui/button";
+import {Avatar, AvatarFallback} from "@/components/ui/avatar";
+
 export default function ForumList() {
-  const {
-    data: forums,
-    isLoading,
-    status,
-    error,
-  } = useAuthFetch<GetAllCommunitiesResponse>(`/api/community/all`);
-  {
-    /*TODO: Replace with User community ID lookup, and subsequent fetching of set IDs from community table */
-  }
-
-  const [showLoading, setShowLoading] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowLoading(true);
-    }, 1000); // 1 second delay
-
-    return () => clearTimeout(timer); // clean up if unmounted quickly
-  }, []);
-  const [communityName, setCommunityName] = useState("");
-  const [communityDescription, setCommunityDescription] = useState("");
-  const { paddingButton, padding } = useUISettings();
-  const filteredForums = forums?.slice(2);
-  return (
-    <div className="h-screen flex flex-col gap-3">
-      <Card
-        className={`p-${padding} border-secondary gap-3 overflow-y-auto max-h-[80%]`}
-      >
-        <CardTitle>Forums</CardTitle>
-        {filteredForums ? (
-          filteredForums.map((forum) => (
+    const {
+        data: forums,
+        isLoading,
+        status,
+        error,
+    } = useAuthFetch<GetAllCommunitiesResponse>(`/api/community/all`);
+    {
+        /*TODO: Replace with User community ID lookup, and subsequent fetching of set IDs from community table */
+    }
+    const [communityName, setCommunityName] = useState("");
+    const [communityDescription, setCommunityDescription] = useState("");
+    const {paddingButton, padding} = useUISettings();
+    const filteredForums = forums?.slice(2);
+    return (
+        <div className="flex flex-col gap-3">
             <Card
-              key={forum.communityID}
-              className={`p-${paddingButton} transition-colors duration-200 hover:bg-secondary/15`}
-              onClick={() =>
-                (window.location.href = `/forum/${forum.communityID}`)
-              }
+                className={`p-${padding} border-secondary gap-3 overflow-y-auto min-h-36`}
             >
-              <div>{forum.names}</div>
+                <CardTitle>Forums</CardTitle>
+                {filteredForums ? (
+                    filteredForums.map((forum) => (
+                        <Link
+                            href={`/forum/${forum.communityID}`}
+                            key={forum.communityID}
+                        >
+                            <Button variant={"ghost"} className={"text-white w-full justify-start pl-0"}>
+                                <Avatar>
+                                    <AvatarFallback>{forum.names.slice(0, 1)}</AvatarFallback>
+                                </Avatar>
+                                {forum.names}
+                            </Button>
+                        </Link>
+                    ))
+                ) : isLoading ? (
+                    <LoadingSpinner className={"top-20"}/>
+                ) : null}
             </Card>
-          ))
-        ) : showLoading ? (
-          <LoadingSpinner />
-        ) : null}
-      </Card>
-    </div>
-  );
+        </div>
+    );
 }

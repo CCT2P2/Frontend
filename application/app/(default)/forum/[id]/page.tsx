@@ -60,29 +60,27 @@ export default function Home({params}: Props) {
     console.log("FORUM", forum);
 
     return (
-        <div className={`ml-auto px-${padding} py-${padding} w-full`}>
-            <div className="flex justify-center gap-6">
-                {/* Sidebar */}
-                <div className="shrink-0 sticky top-20 h-full max-w-80 w-[24%]">
-                    <ForumName
-                        name={forum.name}
-                        description={forum.description}
-                        forumId={Number(forumId)}
-                        userId={session?.user?.id || "0"}
-                    />
-                    <div className="py-6">
-                        <ForumList/>
-                    </div>
+        <div className={`container mx-auto px-${padding} py-${padding} grid grid-cols-4 gap-12 my-10`}>
+            {/* Sidebar */}
+            <div className="col-span-1 shrink-0 sticky top-26 h-fit">
+                <ForumName
+                    name={forum.name}
+                    description={forum.description}
+                    forumId={Number(forumId)}
+                    userId={session?.user?.id || "0"}
+                />
+                <div className="py-6 h-fit">
+                    <ForumList/>
                 </div>
+            </div>
 
-                {/* Main Content */}
-                <div className="shrink-1 max-w-350 w-[70%] mt-5">
-                    {forumId === "0" ? (
-                        <PostList postCsv="latest" forumId={forumId}/>
-                    ) : (
-                        <PostList postCsv={forum?.post_ids.toString() || ""} forumId={forumId}/>
-                    )}
-                </div>
+            {/* Main Content */}
+            <div className="col-span-3">
+                {forumId === "0" ? (
+                    <PostList postCsv="latest" forumId={forumId}/>
+                ) : (
+                    <PostList postCsv={forum?.post_ids.toString() || ""} forumId={forumId}/>
+                )}
             </div>
         </div>
     );

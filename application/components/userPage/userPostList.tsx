@@ -18,7 +18,7 @@ export default function UserPostList({userId, limit}: Props) {
 	const [sortingOption, setSortingOption] = useState<string>("new");
 
 	return (
-		<Card className={`grow relative light-glow-primary col-span-3`}>
+		<Card className={`grow relative light-glow-primary col-span-3 min-h-[85vh]`}>
 			<Tabs defaultValue="posts" className={`px-10 py-6 gap-4`}>
 				<TabsList className={`w-full bg-black/50`}>
 					<TabsTrigger value="posts">Posts</TabsTrigger>

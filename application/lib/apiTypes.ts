@@ -91,7 +91,7 @@ export interface GetPostResponse {
     id: number;
     title: string;
     main_text: string;
-    timestamp: Date;
+    timestamp: string;
     likes: number;
     dislikes: number;
     post_id_ref: number;
