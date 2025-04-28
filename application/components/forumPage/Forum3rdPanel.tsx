@@ -55,8 +55,8 @@ export function ForumName({
 	};
 
 	return (
-		<div>
-			<Card className={`p-${padding}`}>
+		<div className="max-w-70 ml-auto">
+			<Card className={`p-${padding} `}>
 				<div className="flex flex-row">
 					<CardTitle className="">{name}</CardTitle>
 					<Button

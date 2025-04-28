@@ -21,7 +21,7 @@ export default function Header() {
 
 	return (
 		<header
-			className={`items-center relative top-0 z-50 ${blur ? "bg-stone-800/20" : "bg-black"} ${blur ? "backdrop-blur-xl" : ""}`}
+			className={`items-center fixed w-full top-0 z-50 ${blur ? "bg-stone-800/20" : "bg-black"} ${blur ? "backdrop-blur-xl" : ""}`}
 		>
 			<div className="max-w-420 mx-auto w-full p-5 h-16 flex items-center gap-4 relative">
 				{/* Login + Feedback */}
@@ -33,17 +33,6 @@ export default function Header() {
 
 				{/* Centered Search Bar */}
 				<div className="flex justify-center flex-1">
-					{/*<div className={" w-full max-w-xl z-10 px-2"}>
-                        <Input
-                            className={
-                                " pl-10 peer z-20 rounded-2xl outline-none focus:border-primary flex" +
-                                " focus:faint-glow-secondary"
-                            }
-                            placeholder={"search"}
-                        />
-                        <SearchIcon
-                            className="absolute ml-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-secondary transition-all duration-200"/>
-                    </div>*/}
 					{/* Logo */}
 					<Link href="/forum/0" className="px-0 py-0">
 						<Image src="/GNUF.svg" alt="Home" width={100} height={100} />
