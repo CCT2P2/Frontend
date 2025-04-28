@@ -56,17 +56,18 @@ export default function PostThumbnail({
     const initialVoteState = postData.voteState;
 
     return (
-        <Card className={`border-secondary/50 flex flex-col ${padding}`}>
-            <Link href={`/post/${postData.post_id}`} className={"absolute w-full h-full"}></Link>
+        <Card className={`border-secondary/50 flex flex-col ${padding} has-[#postLink:hover]:border-secondary duration-200 has-[#postLink:hover]:faint-glow-secondary`}>
+            <Link id={"postLink"} href={`/post/${postData.post_id}`} className={"absolute w-full h-full right-0" +
+                " top-0"}></Link>
             <div className={"flex flex-row gap-6 justify-between"}>
                 <div className={"flex flex-col gap-6 w-full"}>
                     <CardHeader>
                         <CardTitle>{postData.title}</CardTitle>
-                        <CardDescription className={"z-10"}>
+                        <CardDescription className={"z-10 w-fit"}>
                             Posted in <Link href={`/forum/${postData.community.com_id}`}
                                             className={"text-secondary/75 hover:underline"}>{postData.community.name}</Link>
                         </CardDescription>
-                        <CardDescription className={"z-10"}>
+                        <CardDescription className={"z-10 w-fit"}>
                             By <Link href={`/user/${postData.auth_id}`}
                                      className={"text-secondary/75 hover:underline"}>{postData.author.username}</Link>
                         </CardDescription>

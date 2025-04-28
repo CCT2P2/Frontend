@@ -94,7 +94,7 @@ function NormalPostList({userId, limit, sortOption}: {userId: number, limit?: nu
 		error
 	} = useAuthFetch<GetMultiplePostsResponse>(`/api/post/posts?${params.toString()}`);
 
-	if (isLoading) return <LoadingSpinner absolute={false}/>
+	if (isLoading) return <LoadingSpinner className={"top-[20%]"}/>
 
 	if (error || !postsData) {
 		return (
