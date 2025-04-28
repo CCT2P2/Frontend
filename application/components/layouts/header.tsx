@@ -21,11 +21,11 @@ export default function Header() {
 
 	return (
 		<header
-			className={`sticky top-0 z-50 ${blur ? "bg-stone-800/20" : "bg-black"} ${blur ? "backdrop-blur-xl" : ""}`}
+			className={`items-center relative top-0 z-50 ${blur ? "bg-stone-800/20" : "bg-black"} ${blur ? "backdrop-blur-xl" : ""}`}
 		>
-			<div className=" p-5 h-16 flex items-center gap-4 relative">
+			<div className="max-w-420 mx-auto w-full p-5 h-16 flex items-center gap-4 relative">
 				{/* Login + Feedback */}
-				<ul className="flex gap-2 items-center">
+				<ul className="flex gap-2 items-center relative">
 					<NavItem linkText={"Home"} linkHref={"/forum/0"} />
 					<NavItem linkText={"About"} linkHref={"/about"} />
 					<NavItem linkText={"Feedback"} linkHref={"/feedback"} />
