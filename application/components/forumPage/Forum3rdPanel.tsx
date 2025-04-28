@@ -41,16 +41,16 @@ export function ForumName({
 
 	const handleJoin = async () => {
 		try {
-			const response = await userJoinCommunity({ userId, forumId });
+			const action = joined ? "leave" : "join"; // <-- decide action
+			const response = await userJoinCommunity({ userId, forumId, action });
 
-			// If using fetch-based request
 			if (response.success) {
-				setJoined(true);
+				setJoined(!joined); // flip state
 			} else {
-				console.error("Failed to join community:", response.message);
+				console.error(`Failed to ${action} community:`, response.message);
 			}
 		} catch (error) {
-			console.error("Error joining community:", error);
+			console.error("Error joining/leaving community:", error);
 		}
 	};
 

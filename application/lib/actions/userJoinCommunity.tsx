@@ -3,11 +3,13 @@ import { getSession } from "next-auth/react";
 interface userJoinCommunity {
 	forumId: number;
 	userId: string;
+	action: "join" | "leave"; // <-- add action type
 }
 
 export async function userJoinCommunity({
 	userId,
 	forumId,
+	action,
 }: userJoinCommunity) {
 	const session = await getSession();
 
@@ -16,12 +18,12 @@ export async function userJoinCommunity({
 	}
 
 	const requestBody = {
+		Id: parseInt(userId),
 		CommunityIds: forumId.toString(),
-		PostIds: "",
-		Tags: "",
+		Action: action, // <-- include the action
 	};
 
-	const response = await fetch(`/api/user/update/backend/${userId}`, {
+	const response = await fetch(`/api/user/update/backend`, {
 		method: "PUT",
 		headers: {
 			"Content-Type": "application/json",
@@ -33,9 +35,9 @@ export async function userJoinCommunity({
 	if (!response.ok) {
 		return {
 			success: false,
-			message: `Failed to join user: ${response.status}`,
+			message: `Failed to ${action} user: ${response.status}`,
 		};
 	}
 
-	return { success: true, message: "User joined successfully." };
+	return { success: true, message: `User ${action}ed successfully.` };
 }
