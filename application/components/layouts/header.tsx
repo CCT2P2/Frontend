@@ -23,7 +23,7 @@ export default function Header() {
 		<header
 			className={`items-center fixed w-full top-0 z-50 ${blur ? "bg-stone-800/20" : "bg-black"} ${blur ? "backdrop-blur-xl" : ""}`}
 		>
-			<div className="max-w-420 mx-auto w-full p-5 h-16 flex items-center gap-4 relative">
+			<div className="max-w-380 mx-auto w-full p-5 h-16 flex items-center gap-4 relative">
 				{/* Login + Feedback */}
 				<ul className="flex gap-2 items-center relative">
 					<NavItem linkText={"Home"} linkHref={"/forum/0"} />
@@ -40,7 +40,7 @@ export default function Header() {
 				</div>
 
 				{/* Profile */}
-				<div className="flex gap-6 items-center ml-auto">
+				<div className="flex gap-2 items-center mr-auto ">
 					<Link href={"/settings"}>
 						<Settings
 							className={
