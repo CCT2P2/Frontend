@@ -7,6 +7,7 @@ import SortingMenu from "@/components/general/sortingMenu";
 import {useAuthFetch} from "@/lib/hooks/useAuthFetch";
 import {GetMultiplePostsResponse} from "@/lib/apiTypes";
 import LoadingSpinner from "@/components/general/loadingSpinner";
+import {useState} from "react";
 
 interface Props {
 	userId: number;
@@ -14,29 +15,7 @@ interface Props {
 }
 
 export default function UserPostList({userId, limit}: Props) {
-	const params = new URLSearchParams();
-	if (limit) {
-		params.append("Limit", limit.toString())
-	}
-	params.append("UserId", userId.toString())
-
-	const {
-		data: postsData,
-		isLoading,
-		status,
-		error
-	} = useAuthFetch<GetMultiplePostsResponse>(`/api/post/posts?${params.toString()}`);
-
-	if (isLoading) return <LoadingSpinner absolute={false}/>
-
-	if (error || !postsData) {
-		return (
-			<div className="p-4 text-center">
-				<p className="text-red-500">Failed to load posts :c</p>
-				<p className="text-sm text-gray-500">{error}</p>
-			</div>
-		);
-	}
+	const [sortingOption, setSortingOption] = useState<string>("new");
 
 	return (
 		<Card className={`grow relative light-glow-primary col-span-3`}>
@@ -48,17 +27,10 @@ export default function UserPostList({userId, limit}: Props) {
 					<TabsTrigger value="collections">Collections</TabsTrigger>
 				</TabsList>
 				<div className="flex items-center justify-between">
-					<SortingMenu />
+					<SortingMenu setCurrentOption={setSortingOption} currentOption={sortingOption}/>
 				</div>
 				<TabsContent value={"posts"}>
-					<div className={"flex flex-col gap-8"}>
-						{postsData.posts.map((post) => (
-							<PostThumbnail
-								postData={post}
-								key={post.post_id}
-							/>
-						))}
-					</div>
+					<NormalPostList userId={userId} limit={limit} sortOption={sortingOption}/>
 				</TabsContent>
 
 				<TabsContent value="comments" className="relative">
@@ -97,4 +69,50 @@ export default function UserPostList({userId, limit}: Props) {
 			</Tabs>
 		</Card>
 	);
+}
+
+function NormalPostList({userId, limit, sortOption}: {userId: number, limit?: number, sortOption: string}) {
+	const params = new URLSearchParams();
+	if (limit) {
+		params.append("Limit", limit.toString())
+	}
+	params.append("UserId", userId.toString())
+
+	switch (sortOption) {
+		case "top":
+			params.append("SortBy", "likes");
+			break;
+		case "worst":
+			params.append("SortBy", "likes");
+			params.append("SortOrder", "asc");
+	}
+
+	const {
+		data: postsData,
+		isLoading,
+		status,
+		error
+	} = useAuthFetch<GetMultiplePostsResponse>(`/api/post/posts?${params.toString()}`);
+
+	if (isLoading) return <LoadingSpinner absolute={false}/>
+
+	if (error || !postsData) {
+		return (
+			<div className="p-4 text-center">
+				<p className="text-red-500">Failed to load posts :c</p>
+				<p className="text-sm text-gray-500">{error}</p>
+			</div>
+		);
+	}
+
+	return (
+		<div className={"flex flex-col gap-8"}>
+			{postsData.posts.map((post) => (
+				<PostThumbnail
+					postData={post}
+					key={post.post_id}
+				/>
+			))}
+		</div>
+	)
 }

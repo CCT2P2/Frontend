@@ -59,7 +59,7 @@ export default function PostThumbnail({
         <Card className={`border-secondary/50 flex flex-col ${padding}`}>
             <Link href={`/post/${postData.post_id}`} className={"absolute w-full h-full"}></Link>
             <div className={"flex flex-row gap-6 justify-between"}>
-                <div className={"flex flex-col gap-6 shrink"}>
+                <div className={"flex flex-col gap-6 w-full"}>
                     <CardHeader>
                         <CardTitle>{postData.title}</CardTitle>
                         <CardDescription className={"z-10"}>

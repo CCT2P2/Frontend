@@ -19,34 +19,7 @@ interface PostListProps {
 }
 
 export default function PostList({postCsv, limit, forumId}: PostListProps) {
-    if (limit === undefined) {
-        limit = 20;
-    }
-
-    const params = new URLSearchParams();
-    params.append("Limit", limit.toString())
-
-    if (Number(forumId) > 0) {
-        params.append("CommunityId", forumId);
-    }
-
-    const {
-        data: postsData,
-        isLoading,
-        status,
-        error
-    } = useAuthFetch<GetMultiplePostsResponse>(`/api/post/posts?${params.toString()}`);
-
-    if (isLoading) return <LoadingSpinner absolute={false}/>
-
-    if (error || !postsData) {
-        return (
-            <div className="p-4 text-center">
-                <p className="text-red-500">Failed to load posts :c</p>
-                <p className="text-sm text-gray-500">{error}</p>
-            </div>
-        );
-    }
+    const [sortingOption, setSortingOption] = useState<string>("new");
 
     return (
         <Card className={`grow relative light-glow-primary col-span-3`}>
@@ -58,19 +31,12 @@ export default function PostList({postCsv, limit, forumId}: PostListProps) {
                 </TabsList>
 
                 <div className="flex items-center justify-between">
-                    <SortingMenu/>
+                    <SortingMenu currentOption={sortingOption} setCurrentOption={setSortingOption}/>
                     <CreatePost forumId={forumId}/>
                 </div>
 
                 <TabsContent value="home">
-                    <div className="flex flex-col gap-8">
-                        {postsData.posts.map((post) => (
-                            <PostThumbnail
-                                postData={post}
-                                key={post.post_id}
-                            />
-                        ))}
-                    </div>
+                    <HomeList forumId={forumId} sortOption={sortingOption}/>
                 </TabsContent>
                 <TabsContent value="discover" className="relative">
                     {/* Coming soon overlay */}
@@ -99,4 +65,51 @@ export default function PostList({postCsv, limit, forumId}: PostListProps) {
             </Tabs>
         </Card>
     );
+}
+
+function HomeList({forumId, limit, sortOption}: {forumId: string, limit?: number, sortOption: string}) {
+    const params = new URLSearchParams();
+    if (limit) {
+        params.append("Limit", limit.toString())
+    }
+    if (Number(forumId) > 0) {
+        params.append("CommunityId", forumId);
+    }
+
+    switch (sortOption) {
+        case "top":
+            params.append("SortBy", "likes");
+            break;
+        case "worst":
+            params.append("SortBy", "likes");
+            params.append("SortOrder", "asc");
+    }
+
+    const {
+        data: postsData,
+        isLoading,
+        status,
+        error
+    } = useAuthFetch<GetMultiplePostsResponse>(`/api/post/posts?${params.toString()}`);
+
+    if (isLoading) return <LoadingSpinner absolute={false}/>
+
+    if (error || !postsData) {
+        return (
+            <div className="p-4 text-center">
+                <p className="text-red-500">Failed to load posts :c</p>
+                <p className="text-sm text-gray-500">{error}</p>
+            </div>
+        );
+    }
+    return (
+        <div className="flex flex-col gap-8">
+            {postsData.posts.map((post) => (
+                <PostThumbnail
+                    postData={post}
+                    key={post.post_id}
+                />
+            ))}
+        </div>
+    )
 }

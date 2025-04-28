@@ -1,5 +1,3 @@
-'use client'
-
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -8,11 +6,15 @@ import {
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import {Button} from "../ui/button";
-import {useState} from "react";
+import {Dispatch, SetStateAction, useState} from "react";
 
-export default function SortingMenu() {
-    const [position, setPosition] = useState("new")
-
+export default function SortingMenu({
+                                        currentOption,
+                                        setCurrentOption
+} : {
+    currentOption: string
+    setCurrentOption: Dispatch<SetStateAction<string>>
+}) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -28,10 +30,10 @@ export default function SortingMenu() {
             <DropdownMenuContent className="w-16">
                 <DropdownMenuLabel>Sort by</DropdownMenuLabel>
                 <DropdownMenuSeparator/>
-                <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
+                <DropdownMenuRadioGroup value={currentOption} onValueChange={setCurrentOption}>
                     <DropdownMenuRadioItem value="new">New</DropdownMenuRadioItem>
                     <DropdownMenuRadioItem value="top">Top</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value="right">Idk</DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value="worst">Worst</DropdownMenuRadioItem>
                 </DropdownMenuRadioGroup>
             </DropdownMenuContent>
         </DropdownMenu>
