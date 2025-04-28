@@ -69,7 +69,7 @@ export default function PostContent({postData}: Props) {
                                 />
                             </div>
                         )}
-                        <p>{postData.main_text}</p>
+                        <p className={"wrap-anywhere"}>{postData.main_text}</p>
                     </CardContent>
                 </div>
                 <div className={"flex flex-col gap-2 mr-6 content-center"}>
