@@ -4,6 +4,11 @@ import {notFound} from "next/navigation";
 import LoadingSpinner from "@/components/general/loadingSpinner";
 import Link from "next/link";
 import {formatDistanceToNow} from 'date-fns';
+import {useState} from "react";
+import {Button} from "@/components/ui/button";
+import {interactDislike, interactLike} from "@/lib/actions/vote";
+import {cn} from "@/lib/utils";
+import {ChevronDown, ChevronUp} from "lucide-react";
 
 interface CommentData {
     post_id: number;
@@ -53,7 +58,7 @@ export default function Comments({postId}: { postId: number }) {
     }
 
     return (
-        <div className={"flex flex-col gap-4"}>
+        <div className={"flex flex-col gap-6"}>
             {commentsData.posts.map((commendData) => (
                 <Comment commentData={commendData} key={commendData.post_id}/>
             ))}
@@ -62,18 +67,59 @@ export default function Comments({postId}: { postId: number }) {
 }
 
 export function Comment({commentData}: { commentData: CommentData }) {
+    const [voteState, setVoteState] = useState<"like" | "dislike" | "none">(
+        commentData.voteState,
+    );
+    const initialVoteState = commentData.voteState;
     const date = new Date(Date.parse(commentData.timestamp));
 
     return (
-        <div>
-            <p className={"text-white/70"}>
-                By
-                <Link href={`/user/${commentData.auth_id}`} className={"text-secondary/70 hover:underline"}>
-                    {" " + commentData.author.username + " "}
-                </Link>
-                · {formatDistanceToNow(date)} ago
-            </p>
-            <p>{commentData.main_text}</p>
+        <div className={"flex items-center"}>
+            <div className={"flex flex-col gap-1 mr-6 content-center self-center h-full"}>
+                <Button
+                    variant={"ghost"}
+                    size={"sm"}
+                    onClick={() => interactLike(voteState, setVoteState, commentData.post_id)}
+                    className={cn(
+                        voteState === "like" &&
+                        "dark:bg-secondary/70 hover:dark:bg-secondary/90" +
+                        " dark:text-black",
+                    )}
+                >
+                    <ChevronUp className={"size-4"}/>
+                </Button>
+                {(() => {
+                    let votes = commentData.likes - commentData.dislikes;
+                    if (initialVoteState === "dislike") votes++;
+                    if (initialVoteState === "like") votes--;
+                    if (voteState === "dislike") votes--;
+                    else if (voteState === "like") votes++;
+
+                    return <span className={"text-center text-sm"}>{votes}</span>;
+                })()}
+                <Button
+                    variant={"ghost"}
+                    size={"sm"}
+                    onClick={() => interactDislike(voteState, setVoteState, commentData.post_id)}
+                    className={cn(
+                        voteState === "dislike" &&
+                        "dark:bg-secondary/70 hover:dark:bg-secondary/90" +
+                        " dark:text-black",
+                    )}
+                >
+                    <ChevronDown className={"size-4"}/>
+                </Button>
+            </div>
+            <div className={"flex flex-col gap-2"}>
+                <p className={"text-white/70"}>
+                    By
+                    <Link href={`/user/${commentData.auth_id}`} className={"text-secondary/70 hover:underline"}>
+                        {" " + commentData.author.username + " "}
+                    </Link>
+                    · {formatDistanceToNow(date)} ago
+                </p>
+                <p>{commentData.main_text}</p>
+            </div>
         </div>
     )
 }

@@ -123,7 +123,7 @@ export default function PostThumbnail({
                     </Button>
                 </div>
             </div>
-            <CardFooter className={"justify-between"}>
+            <CardFooter className={"justify-between px-3"}>
                 <Link href={`/post/${postData.post_id}`} className={"z-10"}>
                     <Button variant={"ghost"} className={""}>
                         <MessageSquareText className={"size-6"}/>

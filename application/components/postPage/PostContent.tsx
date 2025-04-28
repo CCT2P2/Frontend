@@ -37,7 +37,7 @@ export default function PostContent({postData}: Props) {
     const initialVoteState = postData.voteState;
 
     return (
-        <Card className={`border-secondary/50 flex flex-col`}>
+        <Card className={`border-none backdrop-blur-none bg-transparent p-0 py-6 flex flex-col`}>
             <div className={"flex flex-row gap-6 justify-between"}>
                 <div className={"flex flex-col gap-6 w-full"}>
                     <CardHeader>
@@ -106,7 +106,7 @@ export default function PostContent({postData}: Props) {
                     </Button>
                 </div>
             </div>
-            <CardFooter className={"justify-between"}>
+            <CardFooter className={"justify-between px-3"}>
                 <Button variant={"ghost"}>
                     <MessageSquareText className={"size-6"}/>
                     <span className={"text-center text-white"}>
