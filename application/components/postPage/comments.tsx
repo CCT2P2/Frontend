@@ -17,6 +17,8 @@ interface CommentData {
     post_id_ref: number;
     comment_flag: boolean;
     comment_count: number;
+    img: string;
+    voteState: "like" | "dislike" | "none";
     author: {
         username: string;
         imagePath: string;
@@ -66,7 +68,7 @@ export function Comment({commentData}: { commentData: CommentData }) {
         <div>
             <p className={"text-white/70"}>
                 By
-                <Link href={`/user/${commentData.auth_id}`} className={"text-secondary/70"}>
+                <Link href={`/user/${commentData.auth_id}`} className={"text-secondary/70 hover:underline"}>
                     {" " + commentData.author.username + " "}
                 </Link>
                 · {formatDistanceToNow(date)} ago

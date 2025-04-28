@@ -1,7 +1,7 @@
 "use client";
 
 import {FormInput, FormTextArea} from "@/components/forms/formComponents";
-import {useActionState, useEffect, useState} from "react";
+import {Dispatch, SetStateAction, useActionState, useEffect, useState} from "react";
 import {Button} from "@/components/ui/button";
 import {
     Popover,
@@ -27,32 +27,10 @@ import {createPost} from "@/lib/actions/createPost";
 import {useAuthFetch} from "@/lib/hooks/useAuthFetch";
 import {GetAllCommunitiesResponse} from "@/lib/apiTypes";
 import LoadingSpinner from "@/components/general/loadingSpinner";
+import {useFormStatus} from "react-dom";
 
-type FormState = Record<string, unknown>;
-// const communities = [
-//     {
-//         value: "whyy",
-//         label: "Whyy",
-//     },
-//     {
-//         value: "bigQuestions",
-//         label: "BigQuestions",
-//     },
-//     {
-//         value: "wowsers",
-//         label: "wowsers",
-//     },
-//     {
-//         value: "javaHate",
-//         label: "JavaHate",
-//     },
-//     {
-//         value: "goLang",
-//         label: "GoLang",
-//     },
-// ];
-
-export default function CreatePostForm() {
+export default function CreatePostForm({forumId}: { forumId: string }) {
+    const [pending, setPending] = useState(false)
     const [formState, dispatch] = useActionState(createPost, {});
 
     const [images, setImages] = useState<ImageListType>([]);
@@ -63,15 +41,16 @@ export default function CreatePostForm() {
 
     return (
         <form action={dispatch} className={"flex flex-col gap-6"}>
-            {formState.message && (
+            {formState.message && !pending && (
                 <div className="text-red-500">{formState.message}</div>
             )}
             <div className={"flex flex-col gap-4 mt-4"}>
                 <div className={"flex flex-col gap-2"}>
                     <Label className={"ml-2"}>Community</Label>
-                    <CommunitySelect/>
+                    <CommunitySelect forumId={forumId}/>
                     <div id={`$community-error`}>
                         {formState.errors?.communityId &&
+                            !pending &&
                             formState.errors?.communityId.map((error: string) => (
                                 <p key={error} className={"ml-2 text-sm text-red-500"}>
                                     {error}
@@ -142,19 +121,54 @@ export default function CreatePostForm() {
             </div>
             <div className={"flex justify-between gap-4"}>
                 <DiscardButton/>
-                <Button variant={"outline"} className={"w-24"}>
-                    Post
-                </Button>
+                <PostButton setPending={setPending}/>
             </div>
         </form>
     );
 }
 
-function CommunitySelect() {
+function PostButton({
+                        setPending,
+                    }: {
+    setPending: Dispatch<SetStateAction<boolean>>;
+}) {
+    const status = useFormStatus();
+
+    useEffect(() => {
+        setPending(status.pending);
+    }, [setPending, status.pending]);
+
+    return (
+        <Button variant={"outline"} className={"w-24"} disabled={status.pending}>
+            {status.pending ? "Loading..." : "Post"}
+        </Button>
+    )
+}
+
+function CommunitySelect({forumId}: { forumId: string }) {
     const [open, setOpen] = useState(false);
     const [selectedCommunityName, setSelectedCommunityName] = useState("");
     const [selectedCommunityId, setSelectedCommunityId] = useState<number>(-1);
     const {data: communities, isLoading, status, error} = useAuthFetch<GetAllCommunitiesResponse>(`/api/community/all`);
+
+    // sets the default community to the current one
+    useEffect(() => {
+        if (isLoading || !communities) {
+            return
+        }
+
+        const forumIdNumber = Number(forumId)
+        const defaultCommunity = communities.find(
+            (community) => community.communityID === forumIdNumber
+        );
+
+        if (!defaultCommunity || defaultCommunity.communityID < 1) {
+            return;
+        }
+
+        setSelectedCommunityName(defaultCommunity?.names);
+        setSelectedCommunityId(forumIdNumber)
+    }, [communities, forumId, isLoading]);
 
     if (error) {
         return (

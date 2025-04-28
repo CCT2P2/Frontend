@@ -125,10 +125,16 @@ export interface GetMultiplePostsResponse {
         post_id_ref: number;
         comment_flag: boolean;
         comment_count: number;
+        img: string;
+        voteState: "like" | "dislike" | "none";
         author: {
             username: string;
             imagePath: string;
             isAdmin?: number;
+        };
+        community: {
+            com_id: number;
+            name: string;
         }
     }[];
     total_count: number;
