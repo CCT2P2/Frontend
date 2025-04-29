@@ -109,7 +109,7 @@ export function FormTextArea({
                                  isPending = false,
                              }: RegisterFormTextareaProps) {
     return (
-        <div className={cn("grid gap-2", className)}>
+        <div className={cn("grid gap-2")}>
             <Label htmlFor={fieldName} className={"ml-2"}>
                 {label}
             </Label>

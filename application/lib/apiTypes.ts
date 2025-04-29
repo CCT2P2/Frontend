@@ -81,6 +81,7 @@ export interface CreatePostRequest {
     com_id: number;
     post_id_ref?: number;
     comment_flag: boolean;
+    Img?: string; // url
 }
 
 export interface CreatePostResponse {
@@ -98,7 +99,7 @@ export interface GetPostResponse {
     comment_flag: boolean;
     comment_count: number;
     comments: number[];
-    Img?: string;
+    img?: string;
     voteState: "like" | "dislike" | "none";
     author: {
         auth_id: number;
@@ -185,7 +186,15 @@ export type GetAllCommunitiesResponse = {
     communityID: number;
 }[];
 
-export type VotePostRequest = {
+export interface VotePostRequest {
     userId: number;
     voteType: "like" | "dislike" | "none";
+}
+
+export interface UploadImageRequest {
+    file: File;
+}
+
+export interface UploadImageResponse {
+    imageUrl: string;
 }

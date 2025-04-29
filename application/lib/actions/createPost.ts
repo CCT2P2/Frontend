@@ -6,6 +6,7 @@ import {CreatePostRequest, CreatePostResponse} from "@/lib/apiTypes";
 import {getSession} from "next-auth/react";
 import {redirect} from "next/navigation";
 import {updateCommunityBackend} from "@/lib/actions/updateCommunityBackend";
+import {uploadImage} from "@/lib/actions/uploadImage";
 
 // for comments on how this works go to createAccount, basically same logic
 const CreatePostSchema = z.object({
@@ -21,10 +22,6 @@ const CreatePostSchema = z.object({
     communityId: z
         .number()
         .min(1, {message: 'No community chosen'}),
-
-    image: z
-        .string()
-        .optional(),
 });
 
 export interface CreatePostState {
@@ -38,7 +35,6 @@ export interface CreatePostState {
         title?: string;
         mainText?: string;
         communityId?: string;
-        image?: string;
     };
     message?: string | null;
 }
@@ -48,7 +44,6 @@ export async function createPost(_prevState: CreatePostState, formData: FormData
         title: formData.get('title'),
         mainText: formData.get('mainText'),
         communityId: Number(formData.get('communityId')),
-        image: formData.get('image'),
     });
 
     if (!validatedField.success) {
@@ -61,12 +56,25 @@ export async function createPost(_prevState: CreatePostState, formData: FormData
         return generateFormResponse(formData, validatedField, "Invalid user session, failed to create post")
     }
 
+    // upload the image first
+    const imageFile = formData.get('image') as File;
+    let imageUrl;
+
+    if (imageFile) {
+        const response = await uploadImage(imageFile, session.accessToken);
+        if (response.error) {
+            return generateFormResponse(formData, validatedField, "Invalid file");
+        }
+        imageUrl = response.imageUrl;
+    }
+
     const requestData: CreatePostRequest = {
         Title: validatedField.data.title,
         MainText: validatedField.data.mainText,
         auth_id: Number(session?.user.id),
         com_id: validatedField.data.communityId,
         comment_flag: false,
+        Img: imageUrl,
     }
 
     const response = await fetch('/api/post/create', {

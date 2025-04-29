@@ -58,9 +58,10 @@ export default function PostThumbnail({
     const date = new Date(Date.parse(postData.timestamp));
 
     return (
-        <Card className={`border-secondary/50 flex flex-col ${padding} has-[#postLink:hover]:border-secondary duration-200 has-[#postLink:hover]:faint-glow-secondary`}>
-            <Link id={"postLink"} href={`/post/${postData.post_id}`} className={"absolute w-full h-full right-0" +
-                " top-0"}></Link>
+        <Card
+            className={`border-secondary/50 flex flex-col ${padding} has-[.postLink:hover]:border-secondary duration-200 has-[#postLink:hover]:faint-glow-secondary`}>
+            <Link href={`/post/${postData.post_id}`} className={"absolute w-full h-full right-0" +
+                " top-0 postLink"}></Link>
             <div className={"flex flex-row gap-6 justify-between"}>
                 <div className={"flex flex-col gap-6 w-full"}>
                     <CardHeader>
@@ -75,19 +76,36 @@ export default function PostThumbnail({
                                      className={"text-secondary/75 hover:underline"}>{postData.author.username}</Link>
                         </CardDescription>
                     </CardHeader>
-                    <CardContent className={"flex flex-col gap-6"}>
-                        {postData.img && (
-                            <div className={""}>
-                                <Image
-                                    src={postData.img}
-                                    alt={"post Image"}
-                                    width={1000}
-                                    height={1000}
-                                    className={"rounded-xl"}
-                                />
-                            </div>
-                        )}
-                        <p className={"line-clamp-5 full wrap-anywhere"}>{postData.main_text}</p>
+                    <CardContent>
+                        <Link href={`/post${postData.post_id}`} className={"flex flex-col gap-6"}>
+                            {postData.img && (
+                                <div className={"flex justify-center relative overflow-hidden rounded-xl postLink" +
+                                    " cursor-pointer"}>
+
+                                    <div
+                                        className={"absolute w-full h-full blur-3xl bg-cover bg-no-repeat" +
+                                            " rounded-xl brightness-30"}
+                                        style={{backgroundImage: `url('${postData.img}')`}}
+                                    >
+                                    </div>
+                                    <div className="w-fit max-w-full z-10">
+                                        <Image
+                                            src={postData.img}
+                                            alt={"post Image"}
+                                            width={1000}
+                                            height={300}
+                                            style={{
+                                                maxHeight: "52rem",
+                                                height: "auto",
+                                                width: "auto"
+                                            }}
+                                            className={"object-contain"}
+                                        />
+                                    </div>
+                                </div>
+                            )}
+                            <p className={"line-clamp-5 full wrap-anywhere"}>{postData.main_text}</p>
+                        </Link>
                     </CardContent>
                 </div>
                 <div className={"flex flex-col gap-2 mr-6 content-center"}>

@@ -37,6 +37,7 @@ export default function PostContent({postData}: Props) {
     );
     const initialVoteState = postData.voteState;
     const date = new Date(Date.parse(postData.timestamp));
+    console.log(postData);
 
     return (
         <Card className={`border-none backdrop-blur-none bg-transparent p-0 py-6 flex flex-col`}>
@@ -61,15 +62,27 @@ export default function PostContent({postData}: Props) {
                         </CardDescription>
                     </CardHeader>
                     <CardContent className={"flex flex-col gap-6"}>
-                        {postData.Img && (
-                            <div className={""}>
-                                <Image
-                                    src={postData.Img}
-                                    alt={"post Image"}
-                                    width={1000}
-                                    height={1000}
-                                    className={"rounded-xl"}
-                                />
+                        {postData.img && (
+                            <div className={"flex justify-center relative overflow-hidden rounded-xl"}>
+                                <div
+                                    className={"absolute w-full h-full blur-3xl bg-cover bg-no-repeat" +
+                                        " rounded-xl brightness-30"}
+                                    style={{backgroundImage: `url('${postData.img}')`}}
+                                >
+                                </div>
+                                <div className="w-fit max-w-full z-10">
+                                    <Image
+                                        src={postData.img}
+                                        alt={"post Image"}
+                                        width={1000}
+                                        height={300}
+                                        style={{
+                                            height: "auto",
+                                            width: "auto"
+                                        }}
+                                        className={"object-contain"}
+                                    />
+                                </div>
                             </div>
                         )}
                         <p className={"wrap-anywhere"}>{postData.main_text}</p>

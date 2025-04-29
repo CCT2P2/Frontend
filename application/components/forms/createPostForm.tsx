@@ -1,7 +1,7 @@
 "use client";
 
 import {FormInput, FormTextArea} from "@/components/forms/formComponents";
-import {Dispatch, SetStateAction, useActionState, useEffect, useState} from "react";
+import {Dispatch, FormEvent, SetStateAction, useActionState, useEffect, useState} from "react";
 import {Button} from "@/components/ui/button";
 import {
     Popover,
@@ -39,8 +39,17 @@ export default function CreatePostForm({forumId}: { forumId: string }) {
         setImages(imageList);
     };
 
+    const handleSubmit = async (formData: FormData) => {
+        const imageFile = images[0]?.file;
+        if (imageFile) {
+            formData.append("image", imageFile);
+        }
+
+        dispatch(formData)
+    }
+
     return (
-        <form action={dispatch} className={"flex flex-col gap-6"}>
+        <form action={handleSubmit} className={"flex flex-col gap-6"}>
             {formState.message && !pending && (
                 <div className="text-red-500">{formState.message}</div>
             )}
@@ -66,24 +75,28 @@ export default function CreatePostForm({forumId}: { forumId: string }) {
                     inputType={"text"}
                     required
                 />
-                <input hidden={true} value={images[0]?.dataURL || ""} name={"image"} readOnly/>
                 <ReactImageUploading value={images} onChange={onImageChange}>
                     {({onImageRemoveAll}) => (
                         <div className={"upload__image-wrapper"}>
                             {images[0]?.dataURL && (
-                                <div className={"relative w-[150px] group"}>
+                                <div className={"relative group"}>
                                     <Image
                                         src={images[0]?.dataURL}
                                         alt={"Attached Image"}
-                                        width={150}
-                                        height={150}
+                                        width={0}
+                                        height={0}
+                                        style={{
+                                            maxHeight: "24rem",
+                                            width: "auto",
+                                            height: "auto"
+                                        }}
                                         className={"rounded-xl relative"}
                                     />
                                     <Button
                                         variant={"ghost"}
                                         size={"sm"}
                                         className={
-                                            "absolute top-1 right-1 group-hover:bg-accent/50 rounded-full" +
+                                            "absolute top-1 left-1 group-hover:bg-accent/50 rounded-full" +
                                             " text-transparent group-hover:text-white px-0"
                                         }
                                         onClick={onImageRemoveAll}
