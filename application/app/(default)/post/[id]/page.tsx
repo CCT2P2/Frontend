@@ -64,8 +64,10 @@ export default function PostPage({params}: Props) {
 function PostPageLayout({postData}: { postData: GetPostResponse }) {
     const [commentReloadKey, setCommentReloadKey] = useState(0);
     return (
-        <div className={`grid grid-cols-4 gap-12 container mx-auto px-6 my-10`}>
-            <ForumList/>
+        <div className={`grid grid-cols-4 gap-12 container mx-auto px-20 my-26`}>
+            <div className={"sticky top-26 h-fit justify-self-end"}>
+                <ForumList/>
+            </div>
             <Card className={`grow relative light-glow-primary col-span-3 p-10`}>
                 <PostContent postData={postData}/>
                 <CreateCommentForm
@@ -82,16 +84,16 @@ function PostPageLayout({postData}: { postData: GetPostResponse }) {
 
 function PostPageSkeleton() {
     return (
-        <div className={`grid grid-cols-4 gap-12 container mx-auto px-6 my-10`}>
-            <div className="h-screen flex flex-col gap-3">
+        <div className={`grid grid-cols-4 gap-12 container mx-auto px-20 my-26`}>
+            <div className="h-screen flex flex-col gap-3 justify-self-end w-70">
                 <Card
-                    className={`border-secondary gap-3 overflow-y-auto max-h-[80%] p-5`}
+                    className={`border-secondary gap-3 overflow-y-auto max-h-[80%] p-5 light-glow-secondary`}
                 >
                     <CardTitle>Forums</CardTitle>
                 </Card>
             </div>
             <Card className={`grow relative light-glow-primary col-span-3 p-10`}>
-                <Card className={`border-secondary/50 flex flex-col`}>
+                <Card className={`border-none backdrop-blur-none bg-transparent p-0 py-6 flex flex-col`}>
                     <div className={"flex flex-row gap-6 justify-between"}>
                         <div className={"flex flex-col gap-6 w-full"}>
                             <CardHeader className={"gap-4"}>

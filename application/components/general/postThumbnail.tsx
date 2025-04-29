@@ -77,7 +77,7 @@ export default function PostThumbnail({
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <Link href={`/post${postData.post_id}`} className={"flex flex-col gap-6"}>
+                        <Link href={`/post/${postData.post_id}`} className={"flex flex-col gap-6"}>
                             {postData.img && (
                                 <div className={"flex justify-center relative overflow-hidden rounded-xl postLink" +
                                     " cursor-pointer"}>
