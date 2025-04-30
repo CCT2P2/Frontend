@@ -70,7 +70,7 @@ export default function Header() {
 								<line x1="21" y1="12" x2="9" y2="12" />
 							</svg>
 						</Button>
-						<Link href={`/user/2`}>
+						<Link href={`/user/${session?.user.id}`}>
 							<Avatar className={"w-10 h-10"}>
 								{/*<AvatarImage src={pfp_path} alt={"User"} />*/}
 								<AvatarFallback>
