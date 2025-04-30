@@ -12,7 +12,6 @@ import { useUISettings } from "@/app/store/useUISettings";
 import { ImagePlus, SquareX, XIcon } from "lucide-react";
 import ReactImageUploading, { ImageListType } from "react-images-uploading";
 
-
 export default function RegisterForm() {
     // uses the useActionState hook to initialize form state and a dispatch function
     // formState is the current state of the form, stuff like validation errors and whats in the different input fields
@@ -24,7 +23,7 @@ export default function RegisterForm() {
 
     const { blur } = useUISettings();
 
-    const [images, setImages] = useState<ImageListType>([AvatarFallback]);
+    const [images, setImages] = useState<ImageListType>([]);
 
     const onImageChange = (imageList: ImageListType) => {
         setImages(imageList);
@@ -33,61 +32,40 @@ export default function RegisterForm() {
 
     return (
         <form /*action={dispatch}*/>
-            <div className={"flex flex-col gap-4 mt-4"}>
+            <div>
+                <div className="text-lg font-bold text-white">Change image</div>
 
-                <ReactImageUploading
-                    multiple
-                    value={images}
-                    onChange={onImageChange}
-                    dataURLKey="data_url"
-                >
-                    {({
-                        imageList,
-                        onImageUpload,
-                        onImageRemoveAll,
-                        onImageUpdate,
-                        onImageRemove,
-                        isDragging,
-                        dragProps,
-                    }) => (
-                        // write your building UI
+                <Avatar className={"w-20 h-20 mt-4 mb-4 mx-3"}>
+                    <AvatarImage src={"/example_pfp.jpg"} alt={"User"} />
+                    <AvatarFallback>User</AvatarFallback>
+                </Avatar>
 
-                        <div className="upload__image-wrapper">
-                            {imageList.map((image, index) => (
-                                <div key={index} className="image-item">
-                                    <Avatar className={"w-20 h-20 mt-4 mb-4 mx-3"}>
-                                        <AvatarImage src={image['data_url']} alt={"User"} />
-                                        <AvatarFallback><img src="example_pfp.jpg" alt="" /></AvatarFallback>
-                                    </Avatar>
-                                    <div className="image-item__btn-wrapper">
-                                        <Button
-                                            variant={"ghost"}
-                                            onClick={() => onImageUpdate(index)}
-                                            type={"button"}
-                                            {...dragProps}
-                                        >
-                                            <ImagePlus /> Change profile picture
-                                        </Button>
-                                        <Button
-                                            variant={"delete"}
-                                            type={"button"}
-                                            onClick={onImageRemoveAll}
-                                        >
-                                            <SquareX /> Delete profile picture
-                                        </Button>
-                                    </div>
-                                </div>
-                            ))}
+                <ReactImageUploading value={images} onChange={onImageChange}>
+                    {({ onImageUpload, dragProps }) => (
+                        <div className={"upload__image-wrapper"}>
+                            <Button
+                                variant={"ghost"}
+                                onClick={onImageUpload}
+                                type={"button"}
+                                {...dragProps}
+                            >
+                                <ImagePlus /> Change profile picture
+                            </Button>
                         </div>
                     )}
                 </ReactImageUploading>
+                <Button variant={"outline"} type={"button"}>
+                    <SquareX /> Delete profile picture
+                </Button>
+            </div>
+
+            <div className={"flex flex-col gap-4 mt-4"}>
                 <FormInput
                     formState={formState}
                     fieldName={"nickname"}
                     label={"Nickname"}
-                    placeholder={"Nickname"}
+                    placeholder={"Nickname"} //make this the actuall nickname
                     inputType={"text"}
-                    required
                 />
                 <div className="text-lg font-bold text-white">Change password</div>
                 <FormInput
@@ -96,7 +74,6 @@ export default function RegisterForm() {
                     label={"Old password"}
                     placeholder={"old password"}
                     inputType={"password"}
-                    required
                 />
                 <FormInput
                     formState={formState}
@@ -104,7 +81,6 @@ export default function RegisterForm() {
                     label={"New password"}
                     placeholder={"password"}
                     inputType={"password"}
-                    required
                 />
                 <FormInput
                     formState={formState}
@@ -112,24 +88,35 @@ export default function RegisterForm() {
                     label={"Confirm Password"}
                     placeholder={"password"}
                     inputType={"password"}
-                    required
                 />
 
-                <div className={"flex flex-col justify-center gap-8 mt-2"}>
-                    {/*<button*/}
-                    {/*    className="px-4 py-2 bg-black border-2 text-purple-300 rounded-2xl border-primary hover:text-black hover:bg-purple-300 transition-all duration-300">*/}
-                    {/*    Register*/}
-                    {/*</button>*/}
+                <div className={"justify-center gap-8 mt-2"}>
                     <Button
                         variant={"outline"}
                         size={"lg"}
-                        className={`${blur ? "bg-stone-800/20" : "bg-black"} backdrop-blur-md`}
+                        className={`w-full ${blur ? "bg-stone-800/20" : "bg-black"} backdrop-blur-md`}
                     >
                         Save
                     </Button>
+                    <Button
+                        variant={"outline"}
+                        size={"lg"}
+                        className={`w-1/2 my-6 ${blur ? "bg-red-600/20" : "bg-red-600"} text-red-600 border-red-600/20 hover:bg-red-600 hover:text-white backdrop-blur-md`}
+                    >
+                        Delete Account
+                    </Button>
                 </div>
             </div>
-        </form >
+            {/* Overlay */}
 
+            <div className="absolute inset-0 bg-black/50 backdrop-blur-md flex flex-col items-center justify-center rounded-xs">
+                <span className="text-red-500 font-bold text-2xl text-center">
+                    COMING SOON
+                </span>
+                <span className="text-red-400 font-semibold text-xs mt-2 text-center">
+                    (Lol, no it won&lsquo;t)
+                </span>
+            </div>
+        </form>
     );
 }

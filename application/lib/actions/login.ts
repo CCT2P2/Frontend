@@ -1,73 +1,75 @@
+"use server";
+
 import { z } from "zod";
-import { generateFormErrorResponse } from "@/lib/actions/actionsHelperFunctions";
-import { UserLoginRequest, UserLoginResponse } from "@/lib/apiTypes";
+import { generateFormResponse } from "@/lib/actions/actionsHelperFunctions";
+import { signIn } from "@/auth";
+import { redirect } from "next/navigation";
+import { AuthError } from "next-auth";
 
 // for comments on how this works go to createAccount.ts, basically same logic
 const LoginSchema = z.object({
-  username: z.string(),
+	username: z.string(),
 
-  password: z.string(),
+	password: z.string(),
 });
 
 export interface LoginState {
-  errors?: {
-    username?: string[];
-    password?: string[];
-  };
-  fieldsState?: {
-    username?: string;
-    password?: string;
-  };
-  message?: string | null;
-  userId?: number;
+	errors?: {
+		username?: string[];
+		password?: string[];
+	};
+	fieldsState?: {
+		username?: string;
+		password?: string;
+	};
+	message?: string | null;
+	userId?: number;
 }
 
 export async function login(
-  _prevState: LoginState,
-  formData: FormData,
+	_prevState: LoginState,
+	formData: FormData,
 ): Promise<LoginState> {
-  const validatedFields = LoginSchema.safeParse({
-    username: formData.get("username"),
-    password: formData.get("password"),
-  });
+	const validatedFields = LoginSchema.safeParse({
+		username: formData.get("username"),
+		password: formData.get("password"),
+	});
 
-  if (!validatedFields.success) {
-    return {
-      errors: {
-        username: validatedFields.error.flatten().fieldErrors.username,
-        password: validatedFields.error.flatten().fieldErrors.password,
-      },
-      fieldsState: {
-        username: formData.get("username")?.toString(),
-        password: formData.get("password")?.toString(),
-      },
-      message: "Please fix form errors",
-    };
-  }
+	if (!validatedFields.success) {
+		return generateFormResponse(formData, validatedFields);
+	}
 
-  const requestData: UserLoginRequest = {
-    username: validatedFields.data.username,
-    password: validatedFields.data.password,
-  };
+	try {
+		await signIn("credentials", {
+			username: validatedFields.data.username,
+			password: validatedFields.data.password,
+			redirect: false,
+		});
+	} catch (error) {
+		if (error instanceof AuthError) {
+			const authError = error as unknown as { type?: string };
 
-  const response = await fetch("api/auth/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(requestData),
-  });
-  console.log(response);
-  if (!response.ok) {
-    return {
-      ..._prevState,
-      message: `Login failed: Invalid Username or Password`,
-    };
-  }
+			switch (authError.type) {
+				case "CredentialsSignin":
+					return generateFormResponse(
+						formData,
+						validatedFields,
+						"Invalid password or username",
+					);
+				default:
+					return generateFormResponse(
+						formData,
+						validatedFields,
+						"Failed to sign in",
+					);
+			}
+		}
+		return generateFormResponse(
+			formData,
+			validatedFields,
+			"An unexpected error occurred",
+		);
+	}
 
-  // Redirect to home page on successful login
-  window.location.href = "/home";
-
-  const responseData: UserLoginResponse = await response.json();
-  return { userId: responseData.user_id };
+	redirect("/forum/0");
 }

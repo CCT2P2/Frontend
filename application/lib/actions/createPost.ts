@@ -1,66 +1,101 @@
+"use client"
+
 import {z} from "zod";
-import {generateFormErrorResponse} from "@/lib/actions/actionsHelperFunctions";
+import {generateFormResponse} from "@/lib/actions/actionsHelperFunctions";
 import {CreatePostRequest, CreatePostResponse} from "@/lib/apiTypes";
+import {getSession} from "next-auth/react";
+import {redirect} from "next/navigation";
+import {updateCommunityBackend} from "@/lib/actions/updateCommunityBackend";
+import {uploadImage} from "@/lib/actions/uploadImage";
 
 // for comments on how this works go to createAccount, basically same logic
-const createPostSchema = z.object({
+const CreatePostSchema = z.object({
     title: z
         .string()
         .min(3, {message: 'Post title must be at least 3 characters'})
-        .max(100, {message: 'Post title must not be more than 100 characters'}),
+        .max(300, {message: 'Post title must not be more than 300 characters'}),
 
     mainText: z
         .string()
-        .max(10000, {message: 'Post content must not be more than 10,000 characters'}),
+        .max(100000, {message: 'Post content must not be more than 100,000 characters'}),
+
+    communityId: z
+        .number()
+        .min(1, {message: 'No community chosen'}),
 });
 
 export interface CreatePostState {
     errors?: {
         title?: string[];
         mainText?: string[];
+        communityId?: string[];
+        image?: string[];
     };
-    fieldState?: {
+    fieldsState?: {
         title?: string;
         mainText?: string;
+        communityId?: string;
     };
     message?: string | null;
-    postId?: number;
 }
 
-export async function createPost(_prevState: string | undefined, formData: FormData): Promise<CreatePostState> {
-    const validatedField = createPostSchema.safeParse({
+export async function createPost(_prevState: CreatePostState, formData: FormData): Promise<CreatePostState> {
+    const validatedField = CreatePostSchema.safeParse({
         title: formData.get('title'),
         mainText: formData.get('mainText'),
+        communityId: Number(formData.get('communityId')),
     });
 
     if (!validatedField.success) {
-        return generateFormErrorResponse(formData, validatedField);
+        return generateFormResponse(formData, validatedField, "Missing or invalid fields");
+    }
+
+    const session = await getSession()
+
+    if (!session?.user) {
+        return generateFormResponse(formData, validatedField, "Invalid user session, failed to create post")
+    }
+
+    // upload the image first
+    const imageFile = formData.get('image') as File;
+    let imageUrl;
+
+    if (imageFile) {
+        const response = await uploadImage(imageFile, session.accessToken);
+        if (response.error) {
+            return generateFormResponse(formData, validatedField, "Invalid file");
+        }
+        imageUrl = response.imageUrl;
     }
 
     const requestData: CreatePostRequest = {
-        title: validatedField.data.title,
-        main_text: validatedField.data.mainText,
-        // TODO: rest comes from user data which is not included in the form, add that once we actually have the data
-        auth_id: 0,
-        com_id: 0,
+        Title: validatedField.data.title,
+        MainText: validatedField.data.mainText,
+        auth_id: Number(session?.user.id),
+        com_id: validatedField.data.communityId,
         comment_flag: false,
-        post_id_ref: 0,
+        Img: imageUrl,
     }
 
     const response = await fetch('/api/post/create', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${session.accessToken}`,
         },
         body: JSON.stringify(requestData),
     });
 
     if (!response.ok) {
-        return {
-            message: `Error while creating post: ${response.status}`,
-        };
+        return generateFormResponse(formData, validatedField, `Error while creating post: ${response.status}`)
     }
 
     const responseData: CreatePostResponse = await response.json()
-    return {postId: responseData.post_id}
+
+    await updateCommunityBackend({
+        Id: validatedField.data.communityId,
+        PostID: responseData.post_id.toString()
+    });
+
+    redirect(`/post/${responseData.post_id}`)
 }

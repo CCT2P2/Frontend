@@ -1,44 +1,31 @@
 "use client";
 
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
-interface UserData {
-  email: string;
-  username: string;
-  img_path?: string;
-  description?: string;
-  backgroundColor?: string;
-  displayName?: string;
-}
+import {Card, CardContent, CardHeader} from "@/components/ui/card";
+import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
+import {GetUserProfileResponse} from "@/lib/apiTypes";
 
 export default function UserInfo({
-  //email,
-  username,
-  img_path,
-  description,
-  backgroundColor,
-  displayName,
-}: UserData) {
-  return (
-    <Card
-      className={`py-8 light-glow-primary backdrop-blur-md ${backgroundColor}`}
-    >
-      <CardHeader className={"flex flex-col gap-2"}>
-        <Avatar className={"w-18 h-18"}>
-          <AvatarImage src={img_path} alt={"pfp"} />
-          <AvatarFallback>What</AvatarFallback>
-        </Avatar>
-        <div className={"w-full"}>
-          <p className={"font-bold text-xl"}>
-            {displayName ? displayName : username}
-          </p>
-          <p className={"text-sm text-muted-foreground"}>{username}</p>
-        </div>
-      </CardHeader>
-      <CardContent>
-        {description && <p className={"text-sm"}>{description}</p>}
-      </CardContent>
-    </Card>
-  );
+                                     userData,
+                                 }: {
+    userData: GetUserProfileResponse;
+}) {
+    return (
+        <Card className={`py-8 light-glow-primary`}>
+            <CardHeader className={"flex flex-col gap-2"}>
+                <Avatar className={"w-18 h-18"}>
+                    <AvatarImage src={userData.img_path} alt={"pfp"}/>
+                    <AvatarFallback>{userData.username.slice(0, 1)}</AvatarFallback>
+                </Avatar>
+                <div className={"w-full"}>
+                    <p className={"font-bold text-xl"}>
+                        {userData.display_name ? userData.display_name : userData.username}
+                    </p>
+                    <p className={"text-sm text-muted-foreground"}>{userData.username}</p>
+                </div>
+            </CardHeader>
+            <CardContent>
+                <p className={"text-sm"}>{userData?.description || "User has no description"}</p>
+            </CardContent>
+        </Card>
+    );
 }

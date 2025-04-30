@@ -42,10 +42,10 @@ export interface UpdateUserProfileBackendRequest {
 }
 
 export interface CreateCommunityRequest {
-    name: string;
-    description: string;
-    img_path: string;
-    tags: number[]
+    Name: string;
+    Description: string;
+    Img_path?: string | null;
+    Tags: string;
 }
 
 export interface CreateCommunityResponse {
@@ -55,7 +55,7 @@ export interface CreateCommunityResponse {
 export interface GetCommunityResponse {
     id: number;
     name: string;
-    description: string
+    description: string;
     img_path: string;
     member_count: number;
     tags: number[];
@@ -63,8 +63,9 @@ export interface GetCommunityResponse {
 }
 
 export interface UpdateCommunityUserRequest {
-    description: string;
-    img_path: string;
+    name?: string;
+    description?: string;
+    img_path?: string;
 }
 
 export interface UpdateCommunityBackendRequest {
@@ -74,12 +75,13 @@ export interface UpdateCommunityBackendRequest {
 }
 
 export interface CreatePostRequest {
-    title: string;
-    main_text: string;
+    Title?: string;
+    MainText: string;
     auth_id: number;
     com_id: number;
     post_id_ref?: number;
     comment_flag: boolean;
+    Img?: string; // url
 }
 
 export interface CreatePostResponse {
@@ -90,15 +92,54 @@ export interface GetPostResponse {
     id: number;
     title: string;
     main_text: string;
-    auth_id: number;
-    com_id: number;
-    timestamp: Date;
+    timestamp: string;
     likes: number;
     dislikes: number;
     post_id_ref: number;
     comment_flag: boolean;
     comment_count: number;
     comments: number[];
+    img?: string;
+    voteState: "like" | "dislike" | "none";
+    author: {
+        auth_id: number;
+        username: string;
+        imagePath: string;
+        isAdmin: number;
+    };
+    community: {
+        com_id: number;
+        name?: string;
+    }
+}
+
+export interface GetMultiplePostsResponse {
+    posts: {
+        post_id: number;
+        title: string;
+        main_text: string;
+        auth_id: number;
+        com_id: number;
+        timestamp: string;
+        likes: number;
+        dislikes: number;
+        post_id_ref: number;
+        comment_flag: boolean;
+        comment_count: number;
+        img: string;
+        voteState: "like" | "dislike" | "none";
+        author: {
+            username: string;
+            imagePath: string;
+            isAdmin?: number;
+        };
+        community: {
+            com_id: number;
+            name: string;
+        }
+    }[];
+    total_count: number;
+    next_offset: number;
 }
 
 export interface UpdatePostUserRequest {
@@ -137,4 +178,23 @@ export interface SearchUserResponse {
         username: string;
         IMG_PATH: string;
     }[];
+}
+
+export type GetAllCommunitiesResponse = {
+    names: string;
+    description: string;
+    communityID: number;
+}[];
+
+export interface VotePostRequest {
+    userId: number;
+    voteType: "like" | "dislike" | "none";
+}
+
+export interface UploadImageRequest {
+    file: File;
+}
+
+export interface UploadImageResponse {
+    imageUrl: string;
 }
