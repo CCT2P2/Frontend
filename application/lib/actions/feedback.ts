@@ -49,7 +49,7 @@ export async function feedback(
 						?.message || "",
 				other:
 					validatedFields.error.errors.find((e) => e.path[0] === "other")
-						?.message || null,
+						?.message || "",
 				rating:
 					validatedFields.error.errors.find((e) => e.path[0] === "rating")
 						?.message || null,

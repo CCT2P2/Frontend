@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { Card, CardTitle } from "@/components/ui/card";
 import { useUISettings } from "@/app/store/useUISettings";
 import { Button } from "@/components/ui/button";
-import { userJoinCommunity } from "@/lib/actions/userJoinCommunity";
 import { GetUserProfileResponse } from "@/lib/apiTypes";
 import { useAuthFetch } from "@/lib/hooks/useAuthFetch";
 

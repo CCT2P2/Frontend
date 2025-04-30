@@ -115,7 +115,7 @@ export default function RegisterForm() {
 					COMING SOON
 				</span>
 				<span className="text-red-400 font-semibold text-xs mt-2 text-center">
-					(Lol, no it won't)
+					(Lol, no it won&lsquo;t)
 				</span>
 			</div>
 		</form>

@@ -4,21 +4,23 @@ import { Card } from "@/components/ui/card";
 import PostThumbnail from "@/components/general/postThumbnail";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SortingMenu from "@/components/general/sortingMenu";
-import {useAuthFetch} from "@/lib/hooks/useAuthFetch";
-import {GetMultiplePostsResponse} from "@/lib/apiTypes";
+import { useAuthFetch } from "@/lib/hooks/useAuthFetch";
+import { GetMultiplePostsResponse } from "@/lib/apiTypes";
 import LoadingSpinner from "@/components/general/loadingSpinner";
-import {useState} from "react";
+import { useState } from "react";
 
 interface Props {
 	userId: number;
 	limit?: number;
 }
 
-export default function UserPostList({userId, limit}: Props) {
+export default function UserPostList({ userId, limit }: Props) {
 	const [sortingOption, setSortingOption] = useState<string>("new");
 
 	return (
-		<Card className={`grow relative light-glow-primary col-span-3 min-h-[85vh]`}>
+		<Card
+			className={`grow relative light-glow-primary col-span-3 min-h-[85vh]`}
+		>
 			<Tabs defaultValue="posts" className={`px-10 py-6 gap-4`}>
 				<TabsList className={`w-full bg-black/50`}>
 					<TabsTrigger value="posts">Posts</TabsTrigger>
@@ -27,10 +29,17 @@ export default function UserPostList({userId, limit}: Props) {
 					<TabsTrigger value="collections">Collections</TabsTrigger>
 				</TabsList>
 				<div className="flex items-center justify-between">
-					<SortingMenu setCurrentOption={setSortingOption} currentOption={sortingOption}/>
+					<SortingMenu
+						setCurrentOption={setSortingOption}
+						currentOption={sortingOption}
+					/>
 				</div>
 				<TabsContent value={"posts"}>
-					<NormalPostList userId={userId} limit={limit} sortOption={sortingOption}/>
+					<NormalPostList
+						userId={userId}
+						limit={limit}
+						sortOption={sortingOption}
+					/>
 				</TabsContent>
 
 				<TabsContent value="comments" className="relative">
@@ -40,7 +49,7 @@ export default function UserPostList({userId, limit}: Props) {
 							COMING SOON
 						</span>
 						<span className="text-red-400 font-semibold text-xs mt-2 text-center">
-							(Lol, no it won't)
+							(Lol, no it won&lsquo;t)
 						</span>
 					</div>
 				</TabsContent>
@@ -51,7 +60,7 @@ export default function UserPostList({userId, limit}: Props) {
 							COMING SOON
 						</span>
 						<span className="text-red-400 font-semibold text-xs mt-2 text-center">
-							(Lol, no it won't)
+							(Lol, no it won&lsquo;t)
 						</span>
 					</div>
 				</TabsContent>
@@ -62,7 +71,7 @@ export default function UserPostList({userId, limit}: Props) {
 							COMING SOON
 						</span>
 						<span className="text-red-400 font-semibold text-xs mt-2 text-center">
-							(Lol, no it won't)
+							(Lol, no it won&lsquo;t)
 						</span>
 					</div>
 				</TabsContent>
@@ -71,12 +80,20 @@ export default function UserPostList({userId, limit}: Props) {
 	);
 }
 
-function NormalPostList({userId, limit, sortOption}: {userId: number, limit?: number, sortOption: string}) {
+function NormalPostList({
+	userId,
+	limit,
+	sortOption,
+}: {
+	userId: number;
+	limit?: number;
+	sortOption: string;
+}) {
 	const params = new URLSearchParams();
 	if (limit) {
-		params.append("Limit", limit.toString())
+		params.append("Limit", limit.toString());
 	}
-	params.append("UserId", userId.toString())
+	params.append("UserId", userId.toString());
 
 	switch (sortOption) {
 		case "top":
@@ -91,10 +108,12 @@ function NormalPostList({userId, limit, sortOption}: {userId: number, limit?: nu
 		data: postsData,
 		isLoading,
 		status,
-		error
-	} = useAuthFetch<GetMultiplePostsResponse>(`/api/post/posts?${params.toString()}`);
+		error,
+	} = useAuthFetch<GetMultiplePostsResponse>(
+		`/api/post/posts?${params.toString()}`,
+	);
 
-	if (isLoading) return <LoadingSpinner className={"top-[20%]"}/>
+	if (isLoading) return <LoadingSpinner className={"top-[20%]"} />;
 
 	if (error || !postsData) {
 		return (
@@ -108,11 +127,8 @@ function NormalPostList({userId, limit, sortOption}: {userId: number, limit?: nu
 	return (
 		<div className={"flex flex-col gap-8"}>
 			{postsData.posts.map((post) => (
-				<PostThumbnail
-					postData={post}
-					key={post.post_id}
-				/>
+				<PostThumbnail postData={post} key={post.post_id} />
 			))}
 		</div>
-	)
+	);
 }
