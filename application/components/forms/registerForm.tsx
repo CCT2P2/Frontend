@@ -83,6 +83,7 @@ export default function RegisterForm() {
 					</div>
 					<div className="flex justify-end">
 						<Button
+							variant="outline"
 							onClick={() => {
 								const dialog = document.getElementById(
 									"terms-overlay",
