@@ -78,7 +78,7 @@ export default function LandingPage() {
 							<Card className="w-[48%] mb-4 border-transparent bg-transparent">
 								Gnuf contains [insert amount here] of exiting communities,
 								filled to the brim with passionate individuals eager to connect
-								and share their knowledge.
+								and share their knowledge.!
 							</Card>
 							<Card className="w-[48%] mb-4 border-transparent bg-transparent">
 								&#34;They say great software is built on the shoulders of
