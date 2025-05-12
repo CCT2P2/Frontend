@@ -10,7 +10,7 @@ import { useUISettings } from "@/app/store/useUISettings";
 import { feedback } from "@/lib/actions/feedback";
 
 export default function FeedbackForm() {
-	const [rating, setRating] = useState([0]);
+	const [rating, setRating] = useState([1]);
 	const { blur } = useUISettings();
 
 	const [formState, dispatch] = useActionState(feedback, {});
@@ -64,7 +64,9 @@ export default function FeedbackForm() {
 					<Slider
 						value={rating}
 						onValueChange={setRating}
+						defaultValue={[1]}
 						max={5}
+						min={1}
 						step={1}
 						className={`${blur ? "bg-stone-800/20" : "bg-black"} backdrop-blur-md `}
 					/>
