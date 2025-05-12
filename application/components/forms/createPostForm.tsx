@@ -86,7 +86,7 @@ export default function CreatePostForm({forumId}: { forumId: string }) {
                                         width={0}
                                         height={0}
                                         style={{
-                                            maxHeight: "24rem",
+                                            maxHeight: "12rem",
                                             width: "auto",
                                             height: "auto"
                                         }}

@@ -104,7 +104,14 @@ export default function PostThumbnail({
                                     </div>
                                 </div>
                             )}
-                            <p className={"line-clamp-5 full wrap-anywhere"}>{postData.main_text}</p>
+                            <div className={"line-clamp-5 full wrap-anywhere"}>{
+                                postData.main_text
+                                    .split("\n")
+                                    .map((line, i) => {
+                                        if (line.length === 0) return <br key={i}/>;
+                                        return <p key={i}>{line}</p>
+                                    })
+                            }</div>
                         </Link>
                     </CardContent>
                 </div>

@@ -85,7 +85,14 @@ export default function PostContent({postData}: Props) {
                                 </div>
                             </div>
                         )}
-                        <p className={"wrap-anywhere"}>{postData.main_text}</p>
+                        <div className={"wrap-anywhere"}>{
+                            postData.main_text
+                                .split("\n")
+                                .map((line, i) => {
+                                    if (line.length === 0) return <br key={i}/>;
+                                    return <p key={i}>{line}</p>
+                                })
+                        }</div>
                     </CardContent>
                 </div>
                 <div className={"flex flex-col gap-2 mr-6 content-center"}>

@@ -45,7 +45,7 @@ function UserPageLayout({userData}: { userData: GetUserProfileResponse }) {
                 <UserInfo userData={userData}/>
                 <ForumList/>
             </div>
-            <UserPostList userId={userData.id}/>
+            <UserPostList userId={userData.id} limit={50}/>
         </div>
     );
 }
