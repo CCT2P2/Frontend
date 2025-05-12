@@ -11,7 +11,7 @@ export default function SettingsPage() {
 
 	return (
 		<div className="flex justify-center px-4 py-26">
-			<Card className={`w-100 p-5 mx-5 `}>
+			<Card className={`relative w-100 p-5 mx-5 `}>
 				<div className="text-3xl font-bold text-white">User section</div>
 				<UserSettingsForm />
 			</Card>
