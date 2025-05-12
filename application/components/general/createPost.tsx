@@ -14,7 +14,6 @@ export default function CreatePost({forumId}: { forumId: string }) {
             <DialogTrigger asChild><Button variant={"outline"}>New Post</Button></DialogTrigger>
             <DialogContent
                 includeClose={false}
-                onEscapeKeyDown={(event) => event.preventDefault()}
                 onInteractOutside={(event) => event.preventDefault()}
                 className={"faint-glow-secondary border-secondary/50"}
             >
