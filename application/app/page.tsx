@@ -53,21 +53,30 @@ export default function LandingPage() {
 					>
 						<Image src="/GNUF.svg" alt="Home" width={200} height={200} />
 					</Link>
-					<motion.h2
+					<motion.h1
 						initial={{ opacity: 0, y: 50 }}
 						animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 50 }}
 						transition={{ duration: 0.5, delay: 0.4 }}
 						className="text-4xl font-extrabold text-gray-200 mb-8"
 					>
 						Welcome to GNUF
+					</motion.h1>
+					<motion.h2
+						initial={{ opacity: 0, y: 50 }}
+						animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 50 }}
+						transition={{ duration: 0.5, delay: 0.6 }}
+						className="text-2xl font-bold text-gray-300 mb-8"
+					>
+						The social media developed by tech enthusiasts for tech enthusiasts,
 					</motion.h2>
 					<motion.p
 						initial={{ opacity: 0, y: 50 }}
 						animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 50 }}
 						transition={{ duration: 0.5, delay: 0.6 }}
-						className="text-gray-300 mb-8"
+						className="text-xs font-thin text-gray-300 mb-8"
 					>
-						The social media developed by tech enthusiasts for tech enthusiasts,
+						Disclaimer: If you are a chromium user, you are discouraged from
+						using the about us page. This is due to you being disgusting.
 					</motion.p>
 					<motion.div
 						initial={{ opacity: 0, y: 50 }}
