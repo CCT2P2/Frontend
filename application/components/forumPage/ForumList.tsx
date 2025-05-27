@@ -16,11 +16,7 @@ export default function ForumList() {
         status,
         error,
     } = useAuthFetch<GetAllCommunitiesResponse>(`/api/community/all`);
-    {
-        /*TODO: Replace with User community ID lookup, and subsequent fetching of set IDs from community table */
-    }
-    const [communityName, setCommunityName] = useState("");
-    const [communityDescription, setCommunityDescription] = useState("");
+
     const {paddingButton, padding} = useUISettings();
     const filteredForums = forums?.slice(2);
     return (

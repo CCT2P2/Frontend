@@ -6,7 +6,6 @@ import {FormInput} from "@/components/forms/formComponents";
 import Image from "next/image";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {Button} from "@/components/ui/button";
-import {useUISettings} from "@/app/store/useUISettings";
 import Link from "next/link";
 import {useFormStatus} from "react-dom";
 
